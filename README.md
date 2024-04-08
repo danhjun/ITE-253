@@ -18,11 +18,11 @@ The Network Deployment project, completed in the ITE 253 Network Management II c
 
 ## Initial Setup
 
-This section provides detailed guidelines for a fresh installation on a Dell PowerEdge R6515 Rack Server, highlighting hardware specifications, the benefits and drawbacks of using Windows Server, and a step-by-step guide to creating a bootable USB. We also include a link for downloading the necessary drivers.
+This section provides detailed guidelines for a fresh installation on a Dell PowerEdge R6515 Rack Server, highlighting hardware specifications, the benefits and drawbacks of using Windows Server, and a step-by-step guide to creating a bootable USB. We also include links for downloading the necessary files.
 
 ### 1. Fresh Install
 
-#### <u> Hardware Utilized </u>
+#### <ins> Hardware Utilized </ins>
 
 **Model:** PowerEdge R6515 Rack Server
 
@@ -34,7 +34,7 @@ This section provides detailed guidelines for a fresh installation on a Dell Pow
 
 This server is designed for data centers needing an efficient and secure platform to handle demanding workloads. It offers a balance of performance, capacity, and manageability.
 
-#### <u> Benefits and Drawbacks of Using Windows Server </u>
+#### <ins> Benefits and Drawbacks of Using Windows Server </ins>
 
 **Benefits:**
 - **Integrated Management Tools:** Windows Server provides powerful management tools such as Windows Admin Center and PowerShell, simplifying server administration.
@@ -46,7 +46,7 @@ This server is designed for data centers needing an efficient and secure platfor
 - **Resource Intensity:** It may require more resources (CPU, RAM) compared to some lightweight Linux distributions, potentially impacting server efficiency.
 - **Compatibility:** Certain applications, especially open-source ones, may have compatibility issues or may not be optimized for Windows Server environments.
 
-#### <u> Steps to Create a Bootable USB </u>
+#### <ins> Steps to Create a Bootable USB </ins>
 
 1. **Download the ISO File:** Obtain the Windows Server 2022 ISO file from Microsoft. [Microsoft's Windows Server 2022 page](https://info.microsoft.com/ww-landing-windows-server-2022.html)
 2. **Prepare USB Drive:** Ensure the USB drive has at least 8GB of storage and is formatted to FAT32 (detailed below).
@@ -59,7 +59,7 @@ This server is designed for data centers needing an efficient and secure platfor
    - **Volume label:** Name your drive as desired.
    - **Click START and wait for the process to complete.**
 
-#### <u> Driver Downloads </u>
+#### <ins> Driver Downloads </ins>
 
 For optimal performance and compatibility, ensure you have the latest drivers for your PowerEdge R6515 Rack Server. You can find and download the necessary drivers from Dell's official support page: [PowerEdge R6515 Drivers Download](https://www.dell.com/support/home/en-us/product-support/product/poweredge-r6515/drivers).
 
