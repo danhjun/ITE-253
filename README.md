@@ -56,7 +56,7 @@ This server is designed for data centers needing an efficient and secure platfor
    - **Volume label:** Name your drive as desired.
    - **Click START and wait for the process to complete.**
 
-<img src="assets/rufus.png" width="500">
+<img src="assets/rufus.png" width="450">
 
 _Figure 1: Using Rufus to prepare USB Drive_
 
@@ -81,21 +81,14 @@ Installing the Standard Evaluation with Desktop Experience for Windows Server in
 
 8. **Set Up User Accounts and Settings**: After installation, follow the prompts to configure your server, including setting up a password for the Administrator account, network settings, and any additional preferences.
    
-<img src="assets/start.png" width="500">
+<p float="left">
+  <img src="assets/start.png" width="450" />
+  <img src="assets/desktop.png" width="450" /> 
+  <img src="assets/custom.png" width="450" />
+  <img src="assets/final.png" width="450" />
+</p>
 
-_Figure 2: Starting the Installation Process_
-
-<img src="assets/desktop.png" width="500">
-
-_Figure 3: Selecting the Operating System_
-
-<img src="assets/custom.png" width="500">
-
-_Figure 4: Choosing the Installation Type_
-
-<img src="assets/final.png" width="500">
-
-_Figure 5: Final Setup Steps_
+_Figure 2: Completing the Installation Process_
 
 [Back to Top](#computer-network-deployment)
 #### <ins> Driver Downloads </ins>
