@@ -93,7 +93,6 @@ For optimal performance and compatibility, ensure you have the latest drivers fo
 
 Remember, a successful installation not only relies on following these steps carefully but also on understanding the specifics of your hardware and software environment. Always refer to the official documentation for the most accurate and up-to-date information.
 
-[Back to Top](#computer-network-deployment)
 #### <ins> Benefits and Drawbacks of Using Windows Server </ins>
 
 **Benefits:**
