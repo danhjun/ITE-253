@@ -1,4 +1,5 @@
 # :computer: Network Deployment 
+The Network Deployment project, completed in the ITE 253 Network Management II course, is a comprehensive network infrastructure implemented using a Dell PowerEdge R6515 Rack Server. The project spans from initial setup to configurations, including efficient IP management, DNS setup, enhancing network reliability with a secondary domain controller, and integrating Active Directory. This approach embodies a holistic strategy for creating a secure, scalable, efficient network environment.
 - [:computer: Network Deployment](#computer-network-deployment)
   - [Initial Setup](#initial-setup)
     - [1. Fresh Install](#1-fresh-install)
@@ -17,7 +18,7 @@
 
 ## Initial Setup
 
-This section provides detailed guidelines for a fresh installation on a PowerEdge R6515 Rack Server, highlighting hardware specifications, the benefits and drawbacks of using Windows Server, and a step-by-step guide to creating a bootable USB. We also include a link for downloading the necessary drivers.
+This section provides detailed guidelines for a fresh installation on a Dell PowerEdge R6515 Rack Server, highlighting hardware specifications, the benefits and drawbacks of using Windows Server, and a step-by-step guide to creating a bootable USB. We also include a link for downloading the necessary drivers.
 
 ### 1. Fresh Install
 
@@ -27,7 +28,7 @@ This section provides detailed guidelines for a fresh installation on a PowerEdg
 
 **Specifications:**
 - **Processor:** AMD EPYC 7002 and 7003 series processors up to 64 cores
-- **Memory:** Supports up to 2TB using 16 DIMM slots
+- **Memory:** Supports up to 2TB using 16 LRDIMM slots
 - **Storage:** Flexible storage options with up to 10 x 2.5" SAS/SATA/SSD, NVMe SSD options available
 - **Management:** Integrated Dell Remote Access Controller (iDRAC) with Lifecycle Controller for advanced management
 
@@ -45,13 +46,11 @@ This server is designed for data centers needing an efficient and secure platfor
 - **Resource Intensity:** It may require more resources (CPU, RAM) compared to some lightweight Linux distributions, potentially impacting server efficiency.
 - **Compatibility:** Certain applications, especially open-source ones, may have compatibility issues or may not be optimized for Windows Server environments.
 
-For more information and to download Windows Server, visit [Microsoft's Windows Server 2022 page](https://info.microsoft.com/ww-landing-windows-server-2022.html).
-
 #### <u> Steps to Create a Bootable USB </u>
 
-1. **Download the ISO File:** Obtain the Windows Server 2022 ISO file from Microsoft.
-2. **Prepare USB Drive:** Ensure the USB drive has at least 8GB of storage and is formatted to FAT32.
-3. **Use Rufus or a Similar Tool:** Download and run Rufus or another bootable USB creation tool.
+1. **Download the ISO File:** Obtain the Windows Server 2022 ISO file from Microsoft. [Microsoft's Windows Server 2022 page](https://info.microsoft.com/ww-landing-windows-server-2022.html)
+2. **Prepare USB Drive:** Ensure the USB drive has at least 8GB of storage and is formatted to FAT32 (detailed below).
+3. **Use Rufus or a Similar Tool:** Download and run Rufus or another bootable USB creation tool. [Rufus .exe download](https://rufus.ie/en/)
 4. **Configure Rufus:**
    - **Device:** Select your USB drive.
    - **Boot selection:** Click SELECT and browse to your downloaded ISO file.
