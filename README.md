@@ -42,6 +42,7 @@ This section provides detailed guidelines for a fresh installation on a Dell Pow
 
 This server is designed for data centers needing an efficient and secure platform to handle demanding workloads. It offers a balance of performance, capacity, and manageability.
 
+[Back to Top](#computer-network-deployment)
 #### <ins> Steps to Create a Bootable USB </ins>
 
 1. **Download the ISO File:** Obtain the Windows Server 2022 ISO file from Microsoft. [Microsoft's Windows Server 2022 page](https://info.microsoft.com/ww-landing-windows-server-2022.html)
@@ -58,6 +59,8 @@ This server is designed for data centers needing an efficient and secure platfor
 <img src="assets/rufus.png" width="500">
 
 _Figure 1: Using Rufus to prepare USB Drive_
+
+[Back to Top](#computer-network-deployment)
 #### <ins>Steps to Install Standard Evaluation (Desktop Experience)</ins>
 
 Installing the Standard Evaluation with Desktop Experience for Windows Server involves a step-by-step process to ensure a smooth setup and configuration of a graphical user interface (GUI) environment. This version is ideal for those who prefer a graphical management interface over command-line tools.
@@ -94,12 +97,14 @@ _Figure 4: Choosing the Installation Type_
 
 _Figure 5: Final Setup Steps_
 
+[Back to Top](#computer-network-deployment)
 #### <ins> Driver Downloads </ins>
 
 For optimal performance and compatibility, ensure you have the latest drivers for your PowerEdge R6515 Rack Server. You can find and download the necessary drivers from Dell's official support page: [PowerEdge R6515 Drivers Download](https://www.dell.com/support/home/en-us/product-support/product/poweredge-r6515/drivers).
 
 Remember, a successful installation not only relies on following these steps carefully but also on understanding the specifics of your hardware and software environment. Always refer to the official documentation for the most accurate and up-to-date information.
 
+[Back to Top](#computer-network-deployment)
 #### <ins> Benefits and Drawbacks of Using Windows Server </ins>
 
 **Benefits:**
@@ -110,12 +115,14 @@ Remember, a successful installation not only relies on following these steps car
 **Drawbacks:**
 - **Cost:** Windows Server licensing can be expensive, especially for organizations with multiple servers.
 - **Resource Intensity:** It may require more resources (CPU, RAM) compared to some lightweight Linux distributions, potentially impacting server efficiency.
-- **Compatibility:** Certain applications, especially open-source ones, may have compatibility issues or may not be optimized for Windows Server environments. <div style="text-align: right">[Back to Top](#computer-network-deployment) </div>
+- **Compatibility:** Certain applications, especially open-source ones, may have compatibility issues or may not be optimized for Windows Server environments.
+
 
 ### 2. Static Network Configuration
 
 The purpose of setting static network configurations in a network environment is to ensure that important devices such as servers, printers, and network infrastructure devices have consistent IP addresses. This consistency is crucial for network reliability, security, and ease of management, preventing issues like IP conflicts and making devices easily identifiable by their fixed IP addresses.
 
+[Back to Top](#computer-network-deployment)
 #### <ins>Setting Static IP Configuration</ins>
 
 1. **IP Address**: This is the unique address assigned to each device on the network, allowing it to communicate with other devices. 
@@ -123,6 +130,7 @@ The purpose of setting static network configurations in a network environment is
 3. **Default Gateway**: The IP address of the router or device that connects the local network to other networks, allowing devices to communicate outside their local network.
 4. **DNS**: The Domain Name System (DNS) servers translate human-friendly domain names to IP addresses, facilitating internet browsing by allowing devices to find websites using domain names instead of IP addresses. 
 
+[Back to Top](#computer-network-deployment)
 #### <ins>Directions for Configuration</ins>
 
 1. **Accessing Network Settings**: Navigate to the Control Panel, find the Network and Sharing Center, and click on 'Change adapter settings'. Right-click on the network connection you wish to configure, and select 'Properties'.
@@ -142,7 +150,7 @@ The purpose of setting static network configurations in a network environment is
 *Figure 2: Configuring IP Address and Subnet Mask*
 
 ![Step 3 - Gateway and DNS Settings](path/to/your/image3.png)
-*Figure 3: Setting Default Gateway and DNS* <div style="text-align: right">[Back to Top](#computer-network-deployment) </div>
+*Figure 3: Setting Default Gateway and DNS* 
 
 ### 3. DNS
 
@@ -152,6 +160,7 @@ The Domain Name System (DNS) plays a crucial role in how users interact with the
 
 DNS simplifies the process of accessing internet resources by allowing users to use easy-to-remember domain names. This system is akin to a phonebook for the internet, converting domain names (like `www.example.com`) into IP addresses that computers use to identify each other on the network.
 
+[Back to Top](#computer-network-deployment)
 #### <ins>Setting up DNS</ins>
 
 Setting up a DNS server involves installing DNS server software on a server, configuring basic settings, and ensuring it responds to DNS queries.
@@ -166,6 +175,7 @@ Setting up a DNS server involves installing DNS server software on a server, con
 ![Basic DNS Configuration](path/to/your/image2.png)
 *Figure 2: Basic DNS Configuration*
 
+[Back to Top](#computer-network-deployment)
 #### <ins>How to Create Zones</ins>
 
 DNS zones are used to manage domain names and their corresponding IP addresses within a particular segment of the DNS namespace.
@@ -182,6 +192,7 @@ DNS zones are used to manage domain names and their corresponding IP addresses w
 ![Creating a DNS Zone](path/to/your/image3.png)
 *Figure 3: Creating a DNS Zone*
 
+[Back to Top](#computer-network-deployment)
 #### <ins>Forward vs Reverse Lookup Zones</ins>
 
 - **Forward Lookup Zones**: Translate domain names into IP addresses. This is the most common type of DNS query.
