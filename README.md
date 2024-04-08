@@ -4,9 +4,9 @@ The Network Deployment project, completed in the ITE 253 Network Management II c
   - [Initial Setup](#initial-setup)
     - [1. Fresh Install](#1-fresh-install)
       - [ Hardware Utilized ](#-hardware-utilized-)
-      - [ Benefits and Drawbacks of Using Windows Server ](#-benefits-and-drawbacks-of-using-windows-server-)
       - [ Steps to Create a Bootable USB ](#-steps-to-create-a-bootable-usb-)
       - [ Driver Downloads ](#-driver-downloads-)
+      - [ Benefits and Drawbacks of Using Windows Server ](#-benefits-and-drawbacks-of-using-windows-server-)
     - [2. Static Network Configuration](#2-static-network-configuration)
     - [3. DNS](#3-dns)
     - [4. Secondary Domain Controller](#4-secondary-domain-controller)
@@ -34,18 +34,6 @@ This section provides detailed guidelines for a fresh installation on a Dell Pow
 
 This server is designed for data centers needing an efficient and secure platform to handle demanding workloads. It offers a balance of performance, capacity, and manageability.
 
-#### <ins> Benefits and Drawbacks of Using Windows Server </ins>
-
-**Benefits:**
-- **Integrated Management Tools:** Windows Server provides powerful management tools such as Windows Admin Center and PowerShell, simplifying server administration.
-- **Security:** Enhanced security features like Windows Defender Advanced Threat Protection and encrypted virtual machines help protect against modern security threats.
-- **Hybrid Capabilities:** Seamless hybrid operations with Azure, including Azure Arc for managing Windows Server deployments across hybrid environments.
-
-**Drawbacks:**
-- **Cost:** Windows Server licensing can be expensive, especially for organizations with multiple servers.
-- **Resource Intensity:** It may require more resources (CPU, RAM) compared to some lightweight Linux distributions, potentially impacting server efficiency.
-- **Compatibility:** Certain applications, especially open-source ones, may have compatibility issues or may not be optimized for Windows Server environments.
-
 #### <ins> Steps to Create a Bootable USB </ins>
 
 1. **Download the ISO File:** Obtain the Windows Server 2022 ISO file from Microsoft. [Microsoft's Windows Server 2022 page](https://info.microsoft.com/ww-landing-windows-server-2022.html)
@@ -65,6 +53,18 @@ For optimal performance and compatibility, ensure you have the latest drivers fo
 
 Remember, a successful installation not only relies on following these steps carefully but also on understanding the specifics of your hardware and software environment. Always refer to the official documentation for the most accurate and up-to-date information.
 
+#### <ins> Benefits and Drawbacks of Using Windows Server </ins>
+
+**Benefits:**
+- **Integrated Management Tools:** Windows Server provides powerful management tools such as Windows Admin Center and PowerShell, simplifying server administration.
+- **Security:** Enhanced security features like Windows Defender Advanced Threat Protection and encrypted virtual machines help protect against modern security threats.
+- **Hybrid Capabilities:** Seamless hybrid operations with Azure, including Azure Arc for managing Windows Server deployments across hybrid environments.
+
+**Drawbacks:**
+- **Cost:** Windows Server licensing can be expensive, especially for organizations with multiple servers.
+- **Resource Intensity:** It may require more resources (CPU, RAM) compared to some lightweight Linux distributions, potentially impacting server efficiency.
+- **Compatibility:** Certain applications, especially open-source ones, may have compatibility issues or may not be optimized for Windows Server environments.
+- 
 ### 2. Static Network Configuration
 * Purpose of setting static configurations
 * IP Address, Subnet Mask, Default Gateway, DNS
