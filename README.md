@@ -44,7 +44,6 @@ This server is designed for data centers needing an efficient and secure platfor
 
 [Back to Top](#computer-network-deployment)
 #### <ins> Steps to Create a Bootable USB </ins>
-<img src="assets/rufus.png" width="400" style="float: right"> </img>
 
 1. **Download the ISO File:** Obtain the Windows Server 2022 ISO file from Microsoft. [Microsoft's Windows Server 2022 page](https://info.microsoft.com/ww-landing-windows-server-2022.html)
 2. **Prepare USB Drive:** Ensure the USB drive has at least 8GB of storage and is formatted to FAT32 (detailed below).
@@ -57,11 +56,9 @@ This server is designed for data centers needing an efficient and secure platfor
    - **Volume label:** Name your drive as desired.
    - **Click START and wait for the process to complete.**
 
+<img src="assets/rufus.png" width="400">
+
 _Figure 1: Using Rufus to prepare USB Drive_ 
-
-
-
-
 
 [Back to Top](#computer-network-deployment)
 #### <ins>Steps to Install Standard Evaluation (Desktop Experience)</ins>
