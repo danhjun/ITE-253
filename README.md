@@ -81,8 +81,8 @@ Installing the Standard Evaluation with Desktop Experience for Windows Server in
 
 8. **Set Up User Accounts and Settings**: After installation, follow the prompts to configure your server, including setting up a password for the Administrator account, network settings, and any additional preferences.
 
-<img src="assets/start.png" width="445" /> <img src="assets/desktop.png" width="445" /> 
-<img src="assets/custom.png" width="445" /> <img src="assets/final.png" width="445" />
+<img src="assets/start.png" width="400" /> <img src="assets/desktop.png" width="400" /> 
+<img src="assets/custom.png" width="400" /> <img src="assets/final.png" width="400" />
 
 _Figure 2: Completing the Installation Process_
 
