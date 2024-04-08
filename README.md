@@ -80,13 +80,9 @@ Installing the Standard Evaluation with Desktop Experience for Windows Server in
 7. **Wait for Installation**: The installation process will begin. This will take some time and your computer may restart several times.
 
 8. **Set Up User Accounts and Settings**: After installation, follow the prompts to configure your server, including setting up a password for the Administrator account, network settings, and any additional preferences.
-   
-<p float="left">
-  <img src="assets/start.png" width="450" />
-  <img src="assets/desktop.png" width="450" /> 
-  <img src="assets/custom.png" width="450" />
-  <img src="assets/final.png" width="450" />
-</p>
+
+<img src="assets/start.png" width="450" /> <img src="assets/desktop.png" width="450" /> 
+<img src="assets/custom.png" width="450" /> <img src="assets/final.png" width="450" />
 
 _Figure 2: Completing the Installation Process_
 
