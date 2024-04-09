@@ -103,6 +103,8 @@ For optimal performance and compatibility, ensure you have the latest drivers fo
 
 Remember, a successful installation not only relies on following these steps carefully but also on understanding the specifics of your hardware and software environment. Always refer to the official documentation for the most accurate and up-to-date information.
 
+[Back to Table of Contents](#computer-network-deployment)
+
 ---
 
 #### <ins> Benefits and Drawbacks of Using Windows Server </ins>
@@ -116,6 +118,8 @@ Remember, a successful installation not only relies on following these steps car
 - **Cost:** Windows Server licensing can be expensive, especially for organizations with multiple servers.
 - **Resource Intensity:** It may require more resources (CPU, RAM) compared to some lightweight Linux distributions, potentially impacting server efficiency.
 - **Compatibility:** Certain applications, especially open-source ones, may have compatibility issues or may not be optimized for Windows Server environments.
+
+[Back to Table of Contents](#computer-network-deployment)
 
 ---
 
