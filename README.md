@@ -24,6 +24,7 @@ The Network Deployment project, completed in the ITE 253 Network Management II c
     - [4. Secondary Domain Controller](#4-secondary-domain-controller)
   - [DHCP](#dhcp)
     - [1. Enabling DHCP](#1-enabling-dhcp)
+      - [Scope Table](#scope-table)
     - [2. Failover](#2-failover)
   - [Active Directory](#active-directory)
     - [1. Enabling Active Directory](#1-enabling-active-directory)
@@ -156,11 +157,7 @@ This section of the documentation provides a detailed breakdown of the network c
 | NY-DC2 | Net1 | 172.16.16.4 | 172.16.16.0 | 255.255.240.0 | 172.16.16.1 | 
 |  | Net2 | 172.16.16.5 | 172.16.16.0 | 255.255.240.0 | 172.16.16.1 | 
 
-| Use | Purpose/Location | Network | Range Start | Range End | Broadcast |
-| --- | --- | --- | --- | --- | --- | 
-| NY Office | Main Office | 172.16.16.0 | 172.16.16.1 | 172.16.31.254 | 172.16.31.255 |
-|  | Branch 1 | 172.16.32.0 | 172.16.32.1 | 172.16.47.254 | 172.16.47.255 |
-|  | Branch 2 | 172.16.48.0 | 172.16.48.1 | 172.16.63.254 | 172.16.63.255 |
+
 #### <ins>Directions for Configuration</ins>
 
 1. **Accessing Network Settings**: Navigate to the Control Panel, find the Network and Sharing Center, and click on 'Change adapter settings'. Right-click on the network connection you wish to configure, and select 'Properties'.
@@ -256,6 +253,12 @@ Please replace `path/to/your/image#.png` with the actual paths to your images. T
   
 ## DHCP
 ### 1. Enabling DHCP
+#### <ins>Scope Table</ins>
+| Use | Purpose/Location | Network | Range Start | Range End | Broadcast |
+| --- | --- | --- | --- | --- | --- | 
+| NY Office | Main Office | 172.16.16.0 | 172.16.16.1 | 172.16.31.254 | 172.16.31.255 |
+|  | Branch 1 | 172.16.32.0 | 172.16.32.1 | 172.16.47.254 | 172.16.47.255 |
+|  | Branch 2 | 172.16.48.0 | 172.16.48.1 | 172.16.63.254 | 172.16.63.255 |
 * Purpose of DHCP
 * Scopes
 * Exclusions
