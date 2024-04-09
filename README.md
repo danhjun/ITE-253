@@ -4,8 +4,6 @@ The Network Deployment project, completed in the ITE 253 Network Management II c
 ---
 ## Table of Contents
 
-
-- [Table of Contents](#table-of-contents)
 - [Fresh Install](#fresh-install)
     - [ Hardware Utilized ](#-hardware-utilized-)
     - [ Steps to Create a Bootable USB ](#-steps-to-create-a-bootable-usb-)
