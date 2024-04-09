@@ -14,6 +14,7 @@ The Network Deployment project, completed in the ITE 253 Network Management II c
       - [ Benefits and Drawbacks of Using Windows Server ](#-benefits-and-drawbacks-of-using-windows-server-)
     - [2. Static Network Configuration](#2-static-network-configuration)
       - [Setting Static IP Configuration](#setting-static-ip-configuration)
+      - [Configuration Table](#configuration-table)
       - [Directions for Configuration](#directions-for-configuration)
     - [3. DNS](#3-dns)
       - [Purpose of DNS](#purpose-of-dns)
@@ -142,6 +143,24 @@ The purpose of setting static network configurations in a network environment is
 
 ---
 
+#### <ins>Configuration Table</ins>
+This section of the documentation provides a detailed breakdown of the network configuration for our deployment. The table below outlines the necessary parameters for setting up each device within our network, including domain controllers and network interfaces.
+
+**Name**: Indicates the identifier of the domain controller being configured. Each domain controller has a unique name to distinguish its role and location within the network, such as NY-DC1 for the first domain controller in the "New York" office.
+
+**Interface**: Refers to the specific network interface on a device. Devices may have multiple interfaces (e.g., Net1, Net2), each configured for different network segments or purposes.
+| Name | Interface | IP Address | Network | Subnet Mask | Gateway Address |
+| --- | --- | --- | --- | --- | --- |
+| NY-DC1 | Net1 | 172.16.16.2 | 172.16.16.0 | 255.255.240.0 | 172.16.16.1 | 
+|  | Net2 | 172.16.16.3 | 172.16.16.0 | 255.255.240.0 | 172.16.16.1 | 
+| NY-DC2 | Net1 | 172.16.16.4 | 172.16.16.0 | 255.255.240.0 | 172.16.16.1 | 
+|  | Net2 | 172.16.16.5 | 172.16.16.0 | 255.255.240.0 | 172.16.16.1 | 
+
+| Use | Purpose/Location | Network | Range Start | Range End | Broadcast |
+| --- | --- | --- | --- | --- | --- | 
+| NY Office | Main Office | 172.16.16.0 | 172.16.16.1 | 172.16.31.254 | 172.16.31.255 |
+|  | Branch 1 | 172.16.32.0 | 172.16.32.1 | 172.16.47.254 | 172.16.47.255 |
+|  | Branch 2 | 172.16.48.0 | 172.16.48.1 | 172.16.63.254 | 172.16.63.255 |
 #### <ins>Directions for Configuration</ins>
 
 1. **Accessing Network Settings**: Navigate to the Control Panel, find the Network and Sharing Center, and click on 'Change adapter settings'. Right-click on the network connection you wish to configure, and select 'Properties'.
