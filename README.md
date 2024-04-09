@@ -2,39 +2,37 @@
 The Network Deployment project, completed in the ITE 253 Network Management II course, is a comprehensive network infrastructure implemented using a Dell PowerEdge R6515 Rack Server. The project spans from initial setup to configurations, including efficient IP management, DNS setup, enhancing network reliability with a secondary domain controller, and integrating Active Directory. This approach embodies a holistic strategy for creating a secure, scalable, efficient network environment.
 
 ---
-<h2>Table of Contents </h2>
+## Table of Contents
 
-- [Initial Setup](#initial-setup)
-  - [1. Fresh Install](#1-fresh-install)
+
+- [Table of Contents](#table-of-contents)
+- [Fresh Install](#fresh-install)
     - [ Hardware Utilized ](#-hardware-utilized-)
     - [ Steps to Create a Bootable USB ](#-steps-to-create-a-bootable-usb-)
     - [Steps to Install Standard Evaluation (Desktop Experience)](#steps-to-install-standard-evaluation-desktop-experience)
     - [ Driver Downloads ](#-driver-downloads-)
     - [ Benefits and Drawbacks of Using Windows Server ](#-benefits-and-drawbacks-of-using-windows-server-)
-  - [2. Static Network Configuration](#2-static-network-configuration)
+- [Static Network Configuration](#static-network-configuration)
     - [Setting Static IP Configuration](#setting-static-ip-configuration)
     - [Configuration Table](#configuration-table)
     - [Directions for Configuration](#directions-for-configuration)
-  - [3. DNS](#3-dns)
+- [DNS](#dns)
     - [Purpose of DNS](#purpose-of-dns)
     - [Setting up DNS](#setting-up-dns)
     - [How to Create Zones](#how-to-create-zones)
     - [Forward vs Reverse Lookup Zones](#forward-vs-reverse-lookup-zones)
-  - [4. Secondary Domain Controller](#4-secondary-domain-controller)
+- [Secondary Domain Controller](#secondary-domain-controller)
 - [DHCP](#dhcp)
-  - [1. Enabling DHCP](#1-enabling-dhcp)
     - [Scope Table](#scope-table)
-  - [2. Failover](#2-failover)
+    - [Failover](#failover)
 - [Active Directory](#active-directory)
-  - [1. Enabling Active Directory](#1-enabling-active-directory)
+  - [Enabling Active Directory](#enabling-active-directory)
 
 
 ---
-## Initial Setup
 
+## Fresh Install
 This section provides detailed guidelines for a fresh installation on a Dell PowerEdge R6515 Rack Server, highlighting hardware specifications, the benefits and drawbacks of using Windows Server, and a step-by-step guide to creating a bootable USB. We also include links for downloading the necessary files.
-
-### 1. Fresh Install
 
 #### <ins> Hardware Utilized </ins>
 
@@ -48,7 +46,7 @@ This section provides detailed guidelines for a fresh installation on a Dell Pow
 
 This server is designed for data centers needing an efficient and secure platform to handle demanding workloads. It offers a balance of performance, capacity, and manageability.
 
-[Back to Table of Contents](#computer-network-deployment)
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -69,7 +67,7 @@ This server is designed for data centers needing an efficient and secure platfor
 
 _Figure 1: Using Rufus to prepare USB Drive_ 
 
-[Back to Table of Contents](#computer-network-deployment)
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -98,7 +96,7 @@ Installing the Standard Evaluation with Desktop Experience for Windows Server in
 
 _Figure 2: Completing the Installation Process_
 
-[Back to Table of Contents](#computer-network-deployment)
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -108,7 +106,7 @@ For optimal performance and compatibility, ensure you have the latest drivers fo
 
 Remember, a successful installation not only relies on following these steps carefully but also on understanding the specifics of your hardware and software environment. Always refer to the official documentation for the most accurate and up-to-date information.
 
-[Back to Table of Contents](#computer-network-deployment)
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -124,11 +122,11 @@ Remember, a successful installation not only relies on following these steps car
 - **Resource Intensity:** It may require more resources (CPU, RAM) compared to some lightweight Linux distributions, potentially impacting server efficiency.
 - **Compatibility:** Certain applications, especially open-source ones, may have compatibility issues or may not be optimized for Windows Server environments.
 
-[Back to Table of Contents](#computer-network-deployment)
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
-### 2. Static Network Configuration
+## Static Network Configuration
 
 The purpose of setting static network configurations in a network environment is to ensure that important devices such as servers, printers, and network infrastructure devices have consistent IP addresses. This consistency is crucial for network reliability, security, and ease of management, preventing issues like IP conflicts and making devices easily identifiable by their fixed IP addresses.
 
@@ -139,7 +137,7 @@ The purpose of setting static network configurations in a network environment is
 3. **Default Gateway**: The IP address of the router or device that connects the local network to other networks, allowing devices to communicate outside their local network.
 4. **DNS**: The Domain Name System (DNS) servers translate human-friendly domain names to IP addresses, facilitating internet browsing by allowing devices to find websites using domain names instead of IP addresses. 
 
-[Back to Table of Contents](#computer-network-deployment)
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -178,11 +176,11 @@ This section of the documentation provides a detailed breakdown of the network c
 ![Step 3 - Gateway and DNS Settings](path/to/your/image3.png)
 *Figure 3: Setting Default Gateway and DNS* 
 
-[Back to Table of Contents](#computer-network-deployment)
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
-### 3. DNS
+## DNS
 
 The Domain Name System (DNS) plays a crucial role in how users interact with the internet, translating human-readable domain names into machine-readable IP addresses. This process allows users to access websites using familiar domain names instead of numeric IP addresses.
 
@@ -204,7 +202,7 @@ Setting up a DNS server involves installing DNS server software on a server, con
 ![Basic DNS Configuration](path/to/your/image2.png)
 *Figure 2: Basic DNS Configuration*
 
-[Back to Table of Contents](#computer-network-deployment)
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -224,7 +222,7 @@ DNS zones are used to manage domain names and their corresponding IP addresses w
 ![Creating a DNS Zone](path/to/your/image3.png)
 *Figure 3: Creating a DNS Zone*
 
-[Back to Table of Contents](#computer-network-deployment)
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -241,17 +239,16 @@ Creating both types of zones ensures that DNS can handle both forward and revers
 
 Please replace `path/to/your/image#.png` with the actual paths to your images. This expanded section aims to provide a clear understanding of DNS setup and management, including zone creation and the distinction between forward and reverse lookup zones.
 
-[Back to Table of Contents](#computer-network-deployment)
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
-### 4. Secondary Domain Controller
+## Secondary Domain Controller
 * Purpose of Secondary Domain Controller
 * How to set it up
 * DNS (Include directions for STANDALONE DNS)
   
 ## DHCP
-### 1. Enabling DHCP
 #### <ins>Scope Table</ins>
 | Use | Purpose/Location | Network | Range Start | Range End | Broadcast |
 | --- | --- | --- | --- | --- | --- | 
@@ -261,12 +258,13 @@ Please replace `path/to/your/image#.png` with the actual paths to your images. T
 * Purpose of DHCP
 * Scopes
 * Exclusions
-### 2. Failover
+
+#### Failover
 * Purpose of Failover
 * How to setup DHCP failover including pictures and directions
 
 ## Active Directory
-### 1. Enabling Active Directory
+### Enabling Active Directory
 * Purpose of Active Directory
 * Group Policy Objects (GPOs)
 * Organizational Units 
