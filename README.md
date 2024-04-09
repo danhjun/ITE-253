@@ -16,7 +16,6 @@ The Network Deployment project, completed in the ITE 253 Network Management II c
       - [Setting up DNS](#setting-up-dns)
       - [How to Create Zones](#how-to-create-zones)
       - [Forward vs Reverse Lookup Zones](#forward-vs-reverse-lookup-zones)
-    - [3. DNS](#3-dns-1)
     - [4. Secondary Domain Controller](#4-secondary-domain-controller)
   - [DHCP](#dhcp)
     - [1. Enabling DHCP](#1-enabling-dhcp)
@@ -24,6 +23,8 @@ The Network Deployment project, completed in the ITE 253 Network Management II c
   - [Active Directory](#active-directory)
     - [1. Enabling Active Directory](#1-enabling-active-directory)
 
+
+---
 ## Initial Setup
 
 This section provides detailed guidelines for a fresh installation on a Dell PowerEdge R6515 Rack Server, highlighting hardware specifications, the benefits and drawbacks of using Windows Server, and a step-by-step guide to creating a bootable USB. We also include links for downloading the necessary files.
@@ -42,7 +43,10 @@ This section provides detailed guidelines for a fresh installation on a Dell Pow
 
 This server is designed for data centers needing an efficient and secure platform to handle demanding workloads. It offers a balance of performance, capacity, and manageability.
 
-[Back to Top](#computer-network-deployment)
+[Back to Table of Contents](#computer-network-deployment)
+
+---
+
 #### <ins> Steps to Create a Bootable USB </ins>
 
 1. **Download the ISO File:** Obtain the Windows Server 2022 ISO file from Microsoft. [Microsoft's Windows Server 2022 page](https://info.microsoft.com/ww-landing-windows-server-2022.html)
@@ -60,7 +64,10 @@ This server is designed for data centers needing an efficient and secure platfor
 
 _Figure 1: Using Rufus to prepare USB Drive_ 
 
-[Back to Top](#computer-network-deployment)
+[Back to Table of Contents](#computer-network-deployment)
+
+---
+
 #### <ins>Steps to Install Standard Evaluation (Desktop Experience)</ins>
 
 Installing the Standard Evaluation with Desktop Experience for Windows Server involves a step-by-step process to ensure a smooth setup and configuration of a graphical user interface (GUI) environment. This version is ideal for those who prefer a graphical management interface over command-line tools.
@@ -86,12 +93,17 @@ Installing the Standard Evaluation with Desktop Experience for Windows Server in
 
 _Figure 2: Completing the Installation Process_
 
-[Back to Top](#computer-network-deployment)
+[Back to Table of Contents](#computer-network-deployment)
+
+---
+
 #### <ins> Driver Downloads </ins>
 
 For optimal performance and compatibility, ensure you have the latest drivers for your PowerEdge R6515 Rack Server. You can find and download the necessary drivers from Dell's official support page: [PowerEdge R6515 Drivers Download](https://www.dell.com/support/home/en-us/product-support/product/poweredge-r6515/drivers).
 
 Remember, a successful installation not only relies on following these steps carefully but also on understanding the specifics of your hardware and software environment. Always refer to the official documentation for the most accurate and up-to-date information.
+
+---
 
 #### <ins> Benefits and Drawbacks of Using Windows Server </ins>
 
@@ -105,12 +117,12 @@ Remember, a successful installation not only relies on following these steps car
 - **Resource Intensity:** It may require more resources (CPU, RAM) compared to some lightweight Linux distributions, potentially impacting server efficiency.
 - **Compatibility:** Certain applications, especially open-source ones, may have compatibility issues or may not be optimized for Windows Server environments.
 
+---
 
 ### 2. Static Network Configuration
 
 The purpose of setting static network configurations in a network environment is to ensure that important devices such as servers, printers, and network infrastructure devices have consistent IP addresses. This consistency is crucial for network reliability, security, and ease of management, preventing issues like IP conflicts and making devices easily identifiable by their fixed IP addresses.
 
-[Back to Top](#computer-network-deployment)
 #### <ins>Setting Static IP Configuration</ins>
 
 1. **IP Address**: This is the unique address assigned to each device on the network, allowing it to communicate with other devices. 
@@ -118,7 +130,10 @@ The purpose of setting static network configurations in a network environment is
 3. **Default Gateway**: The IP address of the router or device that connects the local network to other networks, allowing devices to communicate outside their local network.
 4. **DNS**: The Domain Name System (DNS) servers translate human-friendly domain names to IP addresses, facilitating internet browsing by allowing devices to find websites using domain names instead of IP addresses. 
 
-[Back to Top](#computer-network-deployment)
+[Back to Table of Contents](#computer-network-deployment)
+
+---
+
 #### <ins>Directions for Configuration</ins>
 
 1. **Accessing Network Settings**: Navigate to the Control Panel, find the Network and Sharing Center, and click on 'Change adapter settings'. Right-click on the network connection you wish to configure, and select 'Properties'.
@@ -140,6 +155,10 @@ The purpose of setting static network configurations in a network environment is
 ![Step 3 - Gateway and DNS Settings](path/to/your/image3.png)
 *Figure 3: Setting Default Gateway and DNS* 
 
+[Back to Table of Contents](#computer-network-deployment)
+
+---
+
 ### 3. DNS
 
 The Domain Name System (DNS) plays a crucial role in how users interact with the internet, translating human-readable domain names into machine-readable IP addresses. This process allows users to access websites using familiar domain names instead of numeric IP addresses.
@@ -148,7 +167,6 @@ The Domain Name System (DNS) plays a crucial role in how users interact with the
 
 DNS simplifies the process of accessing internet resources by allowing users to use easy-to-remember domain names. This system is akin to a phonebook for the internet, converting domain names (like `www.example.com`) into IP addresses that computers use to identify each other on the network.
 
-[Back to Top](#computer-network-deployment)
 #### <ins>Setting up DNS</ins>
 
 Setting up a DNS server involves installing DNS server software on a server, configuring basic settings, and ensuring it responds to DNS queries.
@@ -163,7 +181,10 @@ Setting up a DNS server involves installing DNS server software on a server, con
 ![Basic DNS Configuration](path/to/your/image2.png)
 *Figure 2: Basic DNS Configuration*
 
-[Back to Top](#computer-network-deployment)
+[Back to Table of Contents](#computer-network-deployment)
+
+---
+
 #### <ins>How to Create Zones</ins>
 
 DNS zones are used to manage domain names and their corresponding IP addresses within a particular segment of the DNS namespace.
@@ -180,7 +201,10 @@ DNS zones are used to manage domain names and their corresponding IP addresses w
 ![Creating a DNS Zone](path/to/your/image3.png)
 *Figure 3: Creating a DNS Zone*
 
-[Back to Top](#computer-network-deployment)
+[Back to Table of Contents](#computer-network-deployment)
+
+---
+
 #### <ins>Forward vs Reverse Lookup Zones</ins>
 
 - **Forward Lookup Zones**: Translate domain names into IP addresses. This is the most common type of DNS query.
@@ -194,11 +218,9 @@ Creating both types of zones ensures that DNS can handle both forward and revers
 
 Please replace `path/to/your/image#.png` with the actual paths to your images. This expanded section aims to provide a clear understanding of DNS setup and management, including zone creation and the distinction between forward and reverse lookup zones.
 
-### 3. DNS
-* Purpose of DNS
-* Setting up DNS
-* How to create zones, include pictures and directions
-* Forward vs reverse lookup Zones
+[Back to Table of Contents](#computer-network-deployment)
+
+---
 
 ### 4. Secondary Domain Controller
 * Purpose of Secondary Domain Controller
