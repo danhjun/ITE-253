@@ -1,33 +1,32 @@
-# :computer: Network Deployment 
+<h1>:computer: Network Deployment  </h1>
 The Network Deployment project, completed in the ITE 253 Network Management II course, is a comprehensive network infrastructure implemented using a Dell PowerEdge R6515 Rack Server. The project spans from initial setup to configurations, including efficient IP management, DNS setup, enhancing network reliability with a secondary domain controller, and integrating Active Directory. This approach embodies a holistic strategy for creating a secure, scalable, efficient network environment.
 
 ---
 <h2>Table of Contents </h2>
 
-- [:computer: Network Deployment](#computer-network-deployment)
-  - [Initial Setup](#initial-setup)
-    - [1. Fresh Install](#1-fresh-install)
-      - [ Hardware Utilized ](#-hardware-utilized-)
-      - [ Steps to Create a Bootable USB ](#-steps-to-create-a-bootable-usb-)
-      - [Steps to Install Standard Evaluation (Desktop Experience)](#steps-to-install-standard-evaluation-desktop-experience)
-      - [ Driver Downloads ](#-driver-downloads-)
-      - [ Benefits and Drawbacks of Using Windows Server ](#-benefits-and-drawbacks-of-using-windows-server-)
-    - [2. Static Network Configuration](#2-static-network-configuration)
-      - [Setting Static IP Configuration](#setting-static-ip-configuration)
-      - [Configuration Table](#configuration-table)
-      - [Directions for Configuration](#directions-for-configuration)
-    - [3. DNS](#3-dns)
-      - [Purpose of DNS](#purpose-of-dns)
-      - [Setting up DNS](#setting-up-dns)
-      - [How to Create Zones](#how-to-create-zones)
-      - [Forward vs Reverse Lookup Zones](#forward-vs-reverse-lookup-zones)
-    - [4. Secondary Domain Controller](#4-secondary-domain-controller)
-  - [DHCP](#dhcp)
-    - [1. Enabling DHCP](#1-enabling-dhcp)
-      - [Scope Table](#scope-table)
-    - [2. Failover](#2-failover)
-  - [Active Directory](#active-directory)
-    - [1. Enabling Active Directory](#1-enabling-active-directory)
+- [Initial Setup](#initial-setup)
+  - [1. Fresh Install](#1-fresh-install)
+    - [ Hardware Utilized ](#-hardware-utilized-)
+    - [ Steps to Create a Bootable USB ](#-steps-to-create-a-bootable-usb-)
+    - [Steps to Install Standard Evaluation (Desktop Experience)](#steps-to-install-standard-evaluation-desktop-experience)
+    - [ Driver Downloads ](#-driver-downloads-)
+    - [ Benefits and Drawbacks of Using Windows Server ](#-benefits-and-drawbacks-of-using-windows-server-)
+  - [2. Static Network Configuration](#2-static-network-configuration)
+    - [Setting Static IP Configuration](#setting-static-ip-configuration)
+    - [Configuration Table](#configuration-table)
+    - [Directions for Configuration](#directions-for-configuration)
+  - [3. DNS](#3-dns)
+    - [Purpose of DNS](#purpose-of-dns)
+    - [Setting up DNS](#setting-up-dns)
+    - [How to Create Zones](#how-to-create-zones)
+    - [Forward vs Reverse Lookup Zones](#forward-vs-reverse-lookup-zones)
+  - [4. Secondary Domain Controller](#4-secondary-domain-controller)
+- [DHCP](#dhcp)
+  - [1. Enabling DHCP](#1-enabling-dhcp)
+    - [Scope Table](#scope-table)
+  - [2. Failover](#2-failover)
+- [Active Directory](#active-directory)
+  - [1. Enabling Active Directory](#1-enabling-active-directory)
 
 
 ---
