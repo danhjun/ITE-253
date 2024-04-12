@@ -1,5 +1,5 @@
 <h1>:computer: Network Deployment  </h1>
-The Network Deployment project, completed in the ITE 253 Network Management II course, is a comprehensive network infrastructure implemented using a Dell PowerEdge R6515 Rack Server. The project spans from initial setup to configurations, including efficient IP management, DNS setup, enhancing network reliability with a secondary domain controller, and integrating Active Directory. This approach embodies a holistic strategy for creating a secure, scalable, efficient network environment.
+The Network Deployment project, completed in the ITE 253 Network Management II course, is a comprehensive network infrastructure implemented using a Dell PowerEdge R6515 Rack Server. The project spans from initial setup to configurations, including efficient IP management, DNS setup, enhancing network reliability with a secondary domain controller, DHCP, and integrating Active Directory. This approach embodies a holistic strategy for creating a secure, scalable, efficient network environment.
 
 ---
 ## Table of Contents
@@ -19,6 +19,8 @@ The Network Deployment project, completed in the ITE 253 Network Management II c
     - [Setting up DNS](#setting-up-dns)
     - [How to Create Zones](#how-to-create-zones)
     - [Forward vs Reverse Lookup Zones](#forward-vs-reverse-lookup-zones)
+    - [Start of Authority (SOA) and Name Server (NS) records](#start-of-authority-soa-and-name-server-ns-records)
+    - [Host (A) and Pointer (PTR) records](#host-a-and-pointer-ptr-records)
 - [Secondary Domain Controller](#secondary-domain-controller)
 - [DHCP](#dhcp)
     - [Scope Table](#scope-table)
@@ -165,14 +167,9 @@ This section of the documentation provides a detailed breakdown of the network c
    - In the same window, enter the Default Gateway address provided by your network administrator.
    - Below the Default Gateway, select 'Use the following DNS server addresses' and input the preferred and alternate DNS server addresses.
 
-![Step 1 - Access Network Settings](path/to/your/image1.png)
-*Figure 1: Accessing Network Settings*
+<img src="assets/dc1.png" width="400" /> <img src="assets/dc2.png" width="400" /> 
 
-![Step 2 - IP and Subnet Configuration](path/to/your/image2.png)
-*Figure 2: Configuring IP Address and Subnet Mask*
-
-![Step 3 - Gateway and DNS Settings](path/to/your/image3.png)
-*Figure 3: Setting Default Gateway and DNS* 
+_Figure 3: Configuring Static Addresses_
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -194,11 +191,9 @@ Setting up a DNS server involves installing DNS server software on a server, con
 
 2. **Basic Configuration**: Initially, configure your DNS server to answer queries for your domain. This includes specifying the primary domain for which the server will be authoritative.
 
-![DNS Server Installation](path/to/your/image1.png)
-*Figure 1: DNS Server Installation*
+<img src="assets/dns.png" width="500"/>
 
-![Basic DNS Configuration](path/to/your/image2.png)
-*Figure 2: Basic DNS Configuration*
+*Figure 4: DNS Server Installation*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -217,8 +212,9 @@ DNS zones are used to manage domain names and their corresponding IP addresses w
    - Choose to create a new zone, selecting between primary or secondary.
    - Enter the domain name for the zone and configure any additional settings such as zone file location or replication to other servers.
 
-![Creating a DNS Zone](path/to/your/image3.png)
-*Figure 3: Creating a DNS Zone*
+<img src="assets/zonetype.png" width="400"/> <img src="assets/zonename.png" width="400" /> 
+
+*Figure 5: Creating a DNS Zone*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -232,15 +228,32 @@ DNS zones are used to manage domain names and their corresponding IP addresses w
 
 Creating both types of zones ensures that DNS can handle both forward and reverse queries, providing comprehensive domain name resolution services.
 
-![Forward and Reverse Lookup Zones](path/to/your/image4.png)
-*Figure 4: Forward and Reverse Lookup Zones*
+<img src="assets/forward.png" width="400" /> <img src="assets/zoneconfirm.png" width="400"/> 
+<img src="assets/reversezone.png" width="400" /> <img src="assets/reverseaddress.png" width="400"/> 
 
-Please replace `path/to/your/image#.png` with the actual paths to your images. This expanded section aims to provide a clear understanding of DNS setup and management, including zone creation and the distinction between forward and reverse lookup zones.
+*Figure 6: Forward and Reverse Lookup Zones*
 
 [Back to Table of Contents](#table-of-contents)
 
 ---
 
+#### <ins>Start of Authority (SOA) and Name Server (NS) records</ins>
+
+*Figure 7: Forward and Reverse Lookup Zones*
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+#### <ins>Host (A) and Pointer (PTR) records</ins>
+
+<img src="assets/dc1host.png" width="400" /> <img src="assets/dc1pointer.png" width="400"/> 
+
+*Figure 8: Forward and Reverse Lookup Zones*
+
+[Back to Table of Contents](#table-of-contents)
+
+---
 ## Secondary Domain Controller
 * Purpose of Secondary Domain Controller
 * How to set it up
