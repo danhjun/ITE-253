@@ -25,7 +25,6 @@ The Network Deployment project, completed in the ITE 253 Network Management II c
   - [Introduction](#introduction)
   - [DHCP Scope Table](#dhcp-scope-table)
   - [Exclusions and Reservations](#exclusions-and-reservations)
-    - [Main Office Exclusions and Reservations](#main-office-exclusions-and-reservations)
   - [Setting Up DHCP Failover](#setting-up-dhcp-failover)
 - [Active Directory](#active-directory)
   - [Enabling Active Directory](#enabling-active-directory)
@@ -300,8 +299,6 @@ The DHCP scope table lists the IP ranges available for DHCP assignments in vario
 |           | Branch 2         | 172.16.48.0   | 172.16.48.1   | 172.16.63.254 | 172.16.63.255 |
 
 ### Exclusions and Reservations
-
-#### Main Office Exclusions and Reservations
 
 For the Main Office (`172.16.16.0/20`), specific IP addresses need to be reserved for critical servers and devices, and additional IPs should be excluded for future growth:
 
