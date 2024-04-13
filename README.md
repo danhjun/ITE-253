@@ -321,7 +321,7 @@ For the Main Office (`172.16.16.0/20`), specific IP addresses need to be reserve
 
 ### What is a Subnet Mask?
 
-A subnet mask is used to differentiate the network portion of an IP address from the host portion. In the case of a `/20` subnet mask:
+A subnet mask differentiates the network portion of an IP address from the host portion. In the case of a `/20` subnet mask:
 - The first 20 bits are designated for the network part.
 - The remaining 12 bits are designated for the host part.
   
