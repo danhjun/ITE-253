@@ -25,6 +25,9 @@ The Network Deployment project, completed in the ITE 253 Network Management II c
   - [Introduction](#introduction)
   - [DHCP Scope Table](#dhcp-scope-table)
   - [Exclusions and Reservations](#exclusions-and-reservations)
+  - [What is a Subnet Mask?](#what-is-a-subnet-mask)
+  - [IP Address Range](#ip-address-range)
+  - [Visual Representation of the IP Range](#visual-representation-of-the-ip-range)
   - [Setting Up DHCP Failover](#setting-up-dhcp-failover)
 - [Active Directory](#active-directory)
   - [Enabling Active Directory](#enabling-active-directory)
@@ -311,6 +314,46 @@ For the Main Office (`172.16.16.0/20`), specific IP addresses need to be reserve
   - **NY-DC2 Net1**: Reserve `172.16.16.4` for the server's Net1 interface.
   - **NY-DC2 Net2**: Reserve `172.16.16.5` for the server's Net2 interface.
   - **UPS NET**: Reserve `172.16.16.6` for the Uninterruptible Power Supply's network interface.
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+### What is a Subnet Mask?
+
+A subnet mask is used to differentiate the network portion of an IP address from the host portion. In the case of a `/20` subnet mask:
+- The first 20 bits are designated for the network part.
+- The remaining 12 bits are designated for the host part.
+  
+**Subnet Mask**: `255.255.240.0`
+
+**Binary Form**: `11111111.11111111.11110000.00000000`
+
+### IP Address Range
+
+The subnet `172.16.16.0/20` provides a specific range of IP addresses:
+
+1. **Network Address**: `172.16.16.0`
+   - This is the identifier for the subnet and is not assigned to any device.
+
+2. **Usable IP Range**:
+   - Starts at: `172.16.16.1`
+   - Ends at: `172.16.31.254`
+   - These addresses are available for devices within the network.
+
+3. **Broadcast Address**: `172.16.31.255`
+   - This address is used to send broadcast messages to all devices within the subnet.
+
+### Visual Representation of the IP Range
+
+- **Network Start**: `172.16.16.0` (Network identifier)
+- **First Usable IP**: `172.16.16.1` (First IP address available for devices)
+- **Last Usable IP**: `172.16.31.254` (Last IP address available for devices before the broadcast address)
+- **Broadcast IP**: `172.16.31.255` (Used for network-wide communications)
+
+[Back to Table of Contents](#table-of-contents)
+
+---
 
 ### Setting Up DHCP Failover
 
