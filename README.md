@@ -28,6 +28,7 @@ The Network Deployment project, completed in the ITE 253 Network Management II c
   - [What is a Subnet Mask?](#what-is-a-subnet-mask)
   - [IP Address Range](#ip-address-range)
   - [Visual Representation of the IP Range](#visual-representation-of-the-ip-range)
+  - [DHCP Relay](#dhcp-relay)
   - [Setting Up DHCP Failover](#setting-up-dhcp-failover)
 - [Active Directory](#active-directory)
   - [Enabling Active Directory](#enabling-active-directory)
@@ -301,6 +302,12 @@ The DHCP scope table lists the IP ranges available for DHCP assignments in vario
 |           | Branch 1         | 172.16.32.0   | 172.16.32.1   | 172.16.47.254 | 172.16.47.255 |
 |           | Branch 2         | 172.16.48.0   | 172.16.48.1   | 172.16.63.254 | 172.16.63.255 |
 
+<img src="assets/dhcpscope.png" width="450"/> <img src="assets/mainbranch.png" width="450"/> 
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
 ### Exclusions and Reservations
 
 For the Main Office (`172.16.16.0/20`), specific IP addresses need to be reserved for critical servers and devices, and additional IPs should be excluded for future growth:
@@ -314,6 +321,20 @@ For the Main Office (`172.16.16.0/20`), specific IP addresses need to be reserve
   - **NY-DC2 Net1**: Reserve `172.16.16.4` for the server's Net1 interface.
   - **NY-DC2 Net2**: Reserve `172.16.16.5` for the server's Net2 interface.
   - **UPS NET**: Reserve `172.16.16.6` for the Uninterruptible Power Supply's network interface.
+
+<img src="assets/exclusion.png" width="450"/> 
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+<img src="assets/dhcpinstall.png" width="350"/> <img src="assets/DHCPconfirm.png" width="500"/> 
+
+<img src="assets/dhcpdns.png" width="500"/> 
+
+<img src="assets/NAT.png" width="700"/>
+
+*Figure 8: Installing DHCP via Add Roles and Features Wizard*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -350,6 +371,12 @@ The subnet `172.16.16.0/20` provides a specific range of IP addresses:
 - **First Usable IP**: `172.16.16.1` (First IP address available for devices)
 - **Last Usable IP**: `172.16.31.254` (Last IP address available for devices before the broadcast address)
 - **Broadcast IP**: `172.16.31.255` (Used for network-wide communications)
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+### DHCP Relay
 
 [Back to Table of Contents](#table-of-contents)
 
