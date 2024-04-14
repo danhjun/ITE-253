@@ -328,11 +328,7 @@ For the Main Office (`172.16.16.0/20`), specific IP addresses need to be reserve
 
 ---
 
-<img src="assets/dhcpinstall.png" width="350"/> <img src="assets/DHCPconfirm.png" width="500"/> 
-
-<img src="assets/dhcpdns.png" width="500"/> 
-
-<img src="assets/NAT.png" width="700"/>
+<img src="assets/dhcpinstall.png" width="350"/> <img src="assets/dhcpdns.png" width="450"/> 
 
 *Figure 8: Installing DHCP via Add Roles and Features Wizard*
 
