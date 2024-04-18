@@ -425,6 +425,7 @@ Active Directory (AD) is a directory service developed by Microsoft that facilit
    - Choose to **Create a new forest** and type your root domain name (e.g., `ny.contoso.com`).
    - Follow the prompts to configure the Domain Controller options, DNS settings, and database, log, and SYSVOL paths.
    - Set a Directory Services Restore Mode (DSRM) password.
+   - -
 
 4. **Verify the Installation:**
    - Once the installation is complete, use the `dcdiag` command in the command prompt to verify the Active Directory installation.
