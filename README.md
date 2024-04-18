@@ -435,8 +435,8 @@ Active Directory (AD) is a directory service developed by Microsoft that facilit
    - Configure Group Policies for security settings and user environments.
    - Back up your AD configuration regularly to avoid data loss.
 
-<img src="assets/images/ADdeploy.png" width="450" height="200"/> <img src="assets/images/ADbios.png" width="450" height="200"/> 
-<img src="assets/images/ADdns.png" width="450" height="235"/> <img src="assets/images/ADdsrm.png" width="450"/>
+<img src="assets/images/ADdeploy.png" width="420" height="200"/> <img src="assets/images/ADbios.png" width="420" height="200"/> 
+<img src="assets/images/ADdns.png" width="420" height="235"/> <img src="assets/images/ADdsrm.png" width="420"/>
 
 *Figure 12: Active Directory configuration*
 
