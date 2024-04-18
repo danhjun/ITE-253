@@ -38,6 +38,7 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [What is Active Directory?](#what-is-active-directory)
   - [Initial Configuration](#initial-configuration)
   - [Joining NY-DC2 to the Domain ny.contoso.com](#joining-ny-dc2-to-the-domain-nycontosocom)
+  - [Why Install Active Directory First?](#why-install-active-directory-first)
   - [Enabling Active Directory](#enabling-active-directory)
 
 
@@ -483,6 +484,27 @@ After promoting NY-DC2 to a domain controller and ensuring it hosts the DNS role
 <img src="assets/images/ADdc2.png" width="300"/> 
 
 *Figure 13: Joining second domain controller NY-DC2*
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+### Why Install Active Directory First?
+
+**1. Dependency on DNS**
+   Active Directory heavily relies on DNS to function properly. During the AD installation and when promoting a server to a domain controller, DNS settings are configured automatically. This auto-configuration ensures that all necessary DNS records, such as service records (SRV) and other essentials, are accurately created and managed.
+
+**2. Simplification of DNS Configuration**
+   By installing Active Directory first, DNS zones and records required for AD are automatically set up. This automation reduces the risk of manual errors and ensures that the DNS is configured precisely as needed for Active Directory to operate smoothly.
+
+**3. Integration and Management**
+   Integrating DNS with Active Directory during the initial setup enables dynamic updates to DNS records by AD services. This integration allows for both DNS and AD to be managed from the same console, streamlining administrative tasks and enhancing the system's manageability.
+
+**4. Security and Permissions**
+   Active Directory-integrated DNS zones benefit from AD's security features, such as secure dynamic updates. This setup allows only machines with appropriate credentials to update DNS records, enhancing the security posture against unauthorized changes.
+
+**5. Role of DHCP in the Order of Installation**
+   DHCP does not depend directly on Active Directory or DNS in the same way they depend on each other. Therefore, DHCP can be configured after AD and DNS without complications. Additionally, DHCP servers can be set to dynamically update DNS records for clients, further integrating with the already established AD and DNS setup.
 
 [Back to Table of Contents](#table-of-contents)
 
