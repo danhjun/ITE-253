@@ -75,7 +75,7 @@ This server is designed for data centers needing an efficient and secure platfor
    - **Volume label:** Name your drive as desired.
    - **Click START and wait for the process to complete.**
 
-<img src="assets/rufus.png" width="400">
+<img src="assets/images/rufus.png" width="400">
 
 _Figure 2: Using Rufus to prepare USB Drive_ 
 
