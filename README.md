@@ -1,7 +1,7 @@
 <h1>:computer: Network Deployment  </h1>
 The Network Deployment project, completed in the ITE 253 Network Management II course, is a comprehensive network infrastructure implemented using a Dell PowerEdge R6515 Rack Server. The project spans from initial setup to configurations, including efficient IP management, DNS setup, enhancing network reliability with a secondary domain controller, DHCP, and integrating Active Directory. This approach embodies a holistic strategy for creating a secure, scalable, efficient network environment.
 
-<img src="assets/server.jpg" width="500">
+<img src="assets/images/server.jpg" width="500">
 
 _Figure 1: Server rack "Boston" with several integrated Dell PowerEdges_ 
 
@@ -103,8 +103,8 @@ Installing the Standard Evaluation with Desktop Experience for Windows Server in
 
 8. **Set Up User Accounts and Settings**: After installation, follow the prompts to configure your server, including setting up a password for the Administrator account, network settings, and any additional preferences.
 
-<img src="assets/start.png" width="400" /> <img src="assets/desktop.png" width="400" /> 
-<img src="assets/custom.png" width="400" /> <img src="assets/final.png" width="400" />
+<img src="assets/images/install_language.png" width="400" /> <img src="assets/images/desktop.png" width="400" /> 
+<img src="assets/images/install_custom.png" width="400" /> <img src="assets/images/install_username.png" width="400" />
 
 _Figure 3: Completing the Installation Process_
 
@@ -180,7 +180,7 @@ This section of the documentation provides a detailed breakdown of the network c
    - In the same window, enter the Default Gateway address provided by your network administrator.
    - Below the Default Gateway, select 'Use the following DNS server addresses' and input the preferred and alternate DNS server addresses.
 
-<img src="assets/dc1.png" width="400" />
+<img src="assets/images/dc1.png" width="400" />
 
 _Figure 4: Configuring Static Address for NY-DC1_
 
@@ -204,7 +204,7 @@ Setting up a DNS server involves installing DNS server software on a server, con
 
 2. **Basic Configuration**: Initially, configure your DNS server to answer queries for your domain. This includes specifying the primary domain for which the server will be authoritative.
 
-<img src="assets/dns.png" width="500"/>
+<img src="assets/images/dns_role.png" width="500"/>
 
 *Figure 5: DNS Server Installation*
 
@@ -225,7 +225,7 @@ DNS zones are used to manage domain names and their corresponding IP addresses w
    - Choose to create a new zone, selecting between primary or secondary.
    - Enter the domain name for the zone and configure any additional settings such as zone file location or replication to other servers.
 
-<img src="assets/zonetype.png" width="400"/> <img src="assets/zonename.png" width="400" /> 
+<img src="assets/images/zonetype.png" width="400"/> <img src="assets/images/zonename.png" width="400" /> 
 
 *Figure 6: Creating a DNS Zone*
 
@@ -241,8 +241,8 @@ DNS zones are used to manage domain names and their corresponding IP addresses w
 
 Creating both types of zones ensures that DNS can handle both forward and reverse queries, providing comprehensive domain name resolution services.
 
-<img src="assets/forward.png" width="400" /> <img src="assets/zoneconfirm.png" width="400"/> 
-<img src="assets/reversezone.png" width="400" /> <img src="assets/reverseaddress.png" width="400"/> 
+<img src="assets/images/dns_forward.png" width="400" /> <img src="assets/images/zoneconfirm.png" width="400"/> 
+<img src="assets/images/dns_reverse.png" width="400" /> <img src="assets/images/dns_reverse_ip.png" width="400"/> 
 
 *Figure 7: Forward and Reverse Lookup Zones*
 
@@ -286,7 +286,7 @@ Host (A) and Pointer (PTR) records play crucial roles in the DNS ecosystem, faci
 - **Usage:** Primarily used for logging or network troubleshooting purposes. They help verify IP addresses against hostnames to ensure they are not spoofed.
 - **Configuration Note:** PTR records are essential in scenarios where reverse DNS lookup is required, such as email server verification. Ensuring accurate PTR records can help reduce the likelihood of emails being marked as spam.
 
-<img src="assets/dc1host.png" width="350"/> <img src="assets/dc1pointer.png" width="320"/> 
+<img src="assets/images/dc1host.png" width="350"/> <img src="assets/images/dc1pointer.png" width="320"/> 
 
 *Figure 8: Host (A) and PTR records*
 
@@ -309,8 +309,8 @@ The DHCP scope table lists the IP ranges available for DHCP assignments in vario
 |           | Branch 1         | 172.16.32.0   | 172.16.32.1   | 172.16.47.254 | 172.16.47.255 |
 |           | Branch 2         | 172.16.48.0   | 172.16.48.1   | 172.16.63.254 | 172.16.63.255 |
 
-<img src="assets/dhcpscope.png" width="450"/> <img src="assets/mainbranch.png" width="450" height="325"/> 
-<img src="assets/dhcpdns.png" width="450"/> <img src="assets/router.png" width="450"/> 
+<img src="assets/images/dhcp_scope.png" width="450"/> <img src="assets/images/dhcp_mainbranch.png" width="450" height="325"/> 
+<img src="assets/images/dhcp_dns.png" width="450"/> <img src="assets/images/dhcp_router.png" width="450"/> 
 
 *Figure 9: DHCP Configurations for NY-DC1*
 
@@ -332,7 +332,7 @@ For the Main Office (`172.16.16.0/20`), specific IP addresses need to be reserve
   - **NY-DC2 Net2**: Reserve `172.16.16.5` for the server's Net2 interface.
   - **UPS NET**: Reserve `172.16.16.6` for the Uninterruptible Power Supply's network interface.
 
-<img src="assets/exclusion.png" width="450"/> 
+<img src="assets/images/exclusion.png" width="450"/> 
 
 *Figure 10: Setting DHCp exclusions for NY-DC1*
 
@@ -390,9 +390,9 @@ To ensure high availability, set up DHCP failover with the following steps:
 6. **Set Failover Parameters:** Define the relationship name, MCLT, and load balance settings.
 7. **Activate and Verify:** Finalize the setup and ensure both servers are synchronized and functioning properly.
 
-<img src="assets/partner.png" width="450"/>
+<img src="assets/images/partner.png" width="450"/>
 
-<img src="assets/standby.png" width="450"/>
+<img src="assets/images/standby.png" width="450"/>
 
 *Figure 11: DHCP failover configuration*
 
@@ -435,10 +435,10 @@ Active Directory (AD) is a directory service developed by Microsoft that facilit
    - Configure Group Policies for security settings and user environments.
    - Back up your AD configuration regularly to avoid data loss.
 
-<img src="assets/activestart.png" width="450" height="200"/>
-<img src="assets/activenet.png" width="450" height="200"/> 
-<img src="assets/activedns.png" width="450" height="235"/>
-<img src="assets/activeoptions.png" width="450"/>
+<img src="assets/images/ad_deploy.png" width="450" height="200"/>
+<img src="assets/images/ad_bios.png" width="450" height="200"/> 
+<img src="assets/images/ad_dns.png" width="450" height="235"/>
+<img src="assets/images/ad_dsrm.png" width="450"/>
 
 *Figure 12: Active Directory configuration*
 
@@ -478,9 +478,9 @@ Active Directory (AD) is a directory service developed by Microsoft that facilit
 
 After promoting NY-DC2 to a domain controller and ensuring it hosts the DNS role, configure both NY-DC1 and NY-DC2 to use each other as primary and secondary DNS servers, respectively, to ensure DNS redundancy and optimal network performance within your domain.
 
-<img src="assets/adcache.png" width="650"/>
+<img src="assets/images/ad_zones.png" width="650"/>
 
-<img src="assets/activesecond.png" width="300"/> 
+<img src="assets/images/ad_dc2.png" width="300"/> 
 
 *Figure 13: Joining second domain controller NY-DC2*
 
@@ -494,7 +494,7 @@ After promoting NY-DC2 to a domain controller and ensuring it hosts the DNS role
 * Organizational Units 
 * Include detail of how after joining to domain, the DNS gets changed to 127.0.0.1
 
-<img src="assets/domainadmins.png" width="600"/> <img src="assets/IT.png" width="300" height="300"/> 
+<img src="assets/images/ad_admins.png" width="600"/> <img src="assets/images/ad_IT.png" width="300" height="300"/> 
 
 *Figure 14: DHCP failover configuration*
 
