@@ -1,6 +1,11 @@
 <h1>:computer: Network Deployment  </h1>
 The Network Deployment project, completed in the ITE 253 Network Management II course, is a comprehensive network infrastructure implemented using a Dell PowerEdge R6515 Rack Server. The project spans from initial setup to configurations, including efficient IP management, DNS setup, enhancing network reliability with a secondary domain controller, DHCP, and integrating Active Directory. This approach embodies a holistic strategy for creating a secure, scalable, efficient network environment.
 
+<img src="assets/server.jpg" width="500">
+
+_Figure 1: Server rack "Boston" with several integrated Dell PowerEdges_ 
+
+
 ---
 ## Table of Contents
 
@@ -28,9 +33,11 @@ The Network Deployment project, completed in the ITE 253 Network Management II c
   - [What is a Subnet Mask?](#what-is-a-subnet-mask)
   - [IP Address Range](#ip-address-range)
   - [Visual Representation of the IP Range](#visual-representation-of-the-ip-range)
-  - [DHCP Relay](#dhcp-relay)
   - [Setting Up DHCP Failover](#setting-up-dhcp-failover)
 - [Active Directory](#active-directory)
+  - [What is Active Directory?](#what-is-active-directory)
+  - [Initial Configuration](#initial-configuration)
+  - [Joining NY-DC2 to the Domain ny.contoso.com](#joining-ny-dc2-to-the-domain-nycontosocom)
   - [Enabling Active Directory](#enabling-active-directory)
 
 
@@ -70,7 +77,7 @@ This server is designed for data centers needing an efficient and secure platfor
 
 <img src="assets/rufus.png" width="400">
 
-_Figure 1: Using Rufus to prepare USB Drive_ 
+_Figure 2: Using Rufus to prepare USB Drive_ 
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -99,7 +106,7 @@ Installing the Standard Evaluation with Desktop Experience for Windows Server in
 <img src="assets/start.png" width="400" /> <img src="assets/desktop.png" width="400" /> 
 <img src="assets/custom.png" width="400" /> <img src="assets/final.png" width="400" />
 
-_Figure 2: Completing the Installation Process_
+_Figure 3: Completing the Installation Process_
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -175,7 +182,7 @@ This section of the documentation provides a detailed breakdown of the network c
 
 <img src="assets/dc1.png" width="400" />
 
-_Figure 3: Configuring Static Addresses_
+_Figure 4: Configuring Static Address for NY-DC1_
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -199,7 +206,7 @@ Setting up a DNS server involves installing DNS server software on a server, con
 
 <img src="assets/dns.png" width="500"/>
 
-*Figure 4: DNS Server Installation*
+*Figure 5: DNS Server Installation*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -220,7 +227,7 @@ DNS zones are used to manage domain names and their corresponding IP addresses w
 
 <img src="assets/zonetype.png" width="400"/> <img src="assets/zonename.png" width="400" /> 
 
-*Figure 5: Creating a DNS Zone*
+*Figure 6: Creating a DNS Zone*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -237,7 +244,7 @@ Creating both types of zones ensures that DNS can handle both forward and revers
 <img src="assets/forward.png" width="400" /> <img src="assets/zoneconfirm.png" width="400"/> 
 <img src="assets/reversezone.png" width="400" /> <img src="assets/reverseaddress.png" width="400"/> 
 
-*Figure 6: Forward and Reverse Lookup Zones*
+*Figure 7: Forward and Reverse Lookup Zones*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -279,9 +286,9 @@ Host (A) and Pointer (PTR) records play crucial roles in the DNS ecosystem, faci
 - **Usage:** Primarily used for logging or network troubleshooting purposes. They help verify IP addresses against hostnames to ensure they are not spoofed.
 - **Configuration Note:** PTR records are essential in scenarios where reverse DNS lookup is required, such as email server verification. Ensuring accurate PTR records can help reduce the likelihood of emails being marked as spam.
 
-<img src="assets/dc1host.png" width="350"/> <img src="assets/dc1pointer.png" width="350"/> 
+<img src="assets/dc1host.png" width="350"/> <img src="assets/dc1pointer.png" width="320"/> 
 
-*Figure 7: Host (A) and PTR records*
+*Figure 8: Host (A) and PTR records*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -302,7 +309,10 @@ The DHCP scope table lists the IP ranges available for DHCP assignments in vario
 |           | Branch 1         | 172.16.32.0   | 172.16.32.1   | 172.16.47.254 | 172.16.47.255 |
 |           | Branch 2         | 172.16.48.0   | 172.16.48.1   | 172.16.63.254 | 172.16.63.255 |
 
-<img src="assets/dhcpscope.png" width="450"/> <img src="assets/mainbranch.png" width="450"/> 
+<img src="assets/dhcpscope.png" width="450"/> <img src="assets/mainbranch.png" width="450" height="325"/> 
+<img src="assets/dhcpdns.png" width="450"/> <img src="assets/router.png" width="450"/> 
+
+*Figure 9: DHCP Configurations for NY-DC1*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -324,13 +334,7 @@ For the Main Office (`172.16.16.0/20`), specific IP addresses need to be reserve
 
 <img src="assets/exclusion.png" width="450"/> 
 
-[Back to Table of Contents](#table-of-contents)
-
----
-
-<img src="assets/dhcpinstall.png" width="350"/> <img src="assets/dhcpdns.png" width="450"/> 
-
-*Figure 8: Installing DHCP via Add Roles and Features Wizard*
+*Figure 10: Setting DHCp exclusions for NY-DC1*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -372,12 +376,6 @@ The subnet `172.16.16.0/20` provides a specific range of IP addresses:
 
 ---
 
-### DHCP Relay
-
-[Back to Table of Contents](#table-of-contents)
-
----
-
 ### Setting Up DHCP Failover
 
 To ensure high availability, set up DHCP failover with the following steps:
@@ -392,16 +390,114 @@ To ensure high availability, set up DHCP failover with the following steps:
 6. **Set Failover Parameters:** Define the relationship name, MCLT, and load balance settings.
 7. **Activate and Verify:** Finalize the setup and ensure both servers are synchronized and functioning properly.
 
-*Figure 8: DHCP Configuration*
+<img src="assets/partner.png" width="450"/>
+
+<img src="assets/standby.png" width="450"/>
+
+*Figure 11: DHCP failover configuration*
 
 [Back to Table of Contents](#table-of-contents)
 
 ---
 
-
-
 ## Active Directory
+
+### What is Active Directory?
+
+Active Directory (AD) is a directory service developed by Microsoft that facilitates the management of network resources. It enables administrators to manage permissions and access to network resources, including computers, users, printers, and files within a domain. AD uses a structured data store as the basis for a logical, hierarchical organization of directory information. This store manages information about a network's users and their privileges, which helps in administering security.
+
+### Initial Configuration
+
+1. **Prepare the Server:**
+   - Ensure that the server named `NY-DC1` meets the hardware requirements for Windows Server.
+   - Install the latest version of Windows Server on `NY-DC1`.
+   - Configure a static IP address on the server to ensure consistent network communications.
+
+2. **Install the Active Directory Domain Services Role:**
+   - Open the 'Server Manager' dashboard.
+   - Navigate to **Manage** > **Add Roles and Features**.
+   - Proceed through the wizard until you reach the **Roles** section.
+   - Check **Active Directory Domain Services** and any additional features required for your deployment.
+   - Click **Next** and **Install** to begin the installation of the AD DS role.
+
+3. **Configure Active Directory:**
+   - After installation, launch the **AD DS Deployment Wizard** from the Server Manager.
+   - Choose to **Create a new forest** and type your root domain name (e.g., `ny.contoso.com`).
+   - Follow the prompts to configure the Domain Controller options, DNS settings, and database, log, and SYSVOL paths.
+   - Set a Directory Services Restore Mode (DSRM) password.
+
+4. **Verify the Installation:**
+   - Once the installation is complete, use the `dcdiag` command in the command prompt to verify the Active Directory installation.
+   - Run `nslookup` to ensure that DNS is configured properly for your domain controller.
+
+5. **Post-Configuration Tasks:**
+   - Create organizational units (OUs), users, and groups as per your organizational needs.
+   - Configure Group Policies for security settings and user environments.
+   - Back up your AD configuration regularly to avoid data loss.
+
+<img src="assets/activestart.png" width="450" height="200"/>
+<img src="assets/activenet.png" width="450" height="200"/> 
+<img src="assets/activedns.png" width="450" height="235"/>
+<img src="assets/activeoptions.png" width="450"/>
+
+*Figure 12: Active Directory configuration*
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+### Joining NY-DC2 to the Domain ny.contoso.com
+
+*Joining a second domain controller to an existing domain can enhance the reliability and availability of your network's Active Directory services. Here is how to add `NY-DC2` as a domain controller in the domain `ny.contoso.com`.*
+
+<ins> Before beginning the process ensure that: </ins>
+
+- The server `NY-DC2` is installed with Windows Server and configured with a static IP address.
+- The primary DNS server for `NY-DC2` is set to the IP address of `NY-DC1`. This setup is crucial as `NY-DC2` can only recognize the domain `ny.contoso.com` if it can properly resolve names through `NY-DC1`, the main DNS server already part of the domain.
+
+1. **Join `NY-DC2` to the Domain**:
+   - If not already done, join `NY-DC2` to `ny.contoso.com` as a member server via the "Computer Name/Domain Changes" in System Properties.
+   - Provide administrative domain credentials when prompted.
+
+2. **Install the Active Directory Domain Services Role**:
+   - Open **Server Manager** on `NY-DC2`.
+   - Click on **Add roles and features** and proceed through the wizard.
+   - Select the **Active Directory Domain Services** role, and install it.
+
+3. **Promote the Server to a Domain Controller**:
+   - After installing the role, click on the notification flag in Server Manager and select **Promote this server to a domain controller**.
+   - Choose **Add a domain controller to an existing domain**, enter the domain name (`ny.contoso.com`), and provide administrative credentials.
+   - Follow the wizard to configure the Domain Controller options, DNS settings, and additional options like the location of the AD DS database, log files, and SYSVOL folder.
+   - Complete the wizard to start the promotion process.
+
+4. **Verify Domain Controller Operation**:
+   - Check the operation of `NY-DC2` as a domain controller using tools like **Active Directory Sites and Services** and `repadmin` for replication health.
+
+5. **Configure DNS Redundancy**:
+   - After promoting `NY-DC2`, ensure it hosts the DNS role, and update DNS settings on both `NY-DC1` and `NY-DC2` to refer to each other, ensuring DNS redundancy and reliability.
+
+After promoting NY-DC2 to a domain controller and ensuring it hosts the DNS role, configure both NY-DC1 and NY-DC2 to use each other as primary and secondary DNS servers, respectively, to ensure DNS redundancy and optimal network performance within your domain.
+
+<img src="assets/adcache.png" width="650"/>
+
+<img src="assets/activesecond.png" width="300"/> 
+
+*Figure 13: Joining second domain controller NY-DC2*
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
 ### Enabling Active Directory
 * Purpose of Active Directory
 * Group Policy Objects (GPOs)
 * Organizational Units 
+* Include detail of how after joining to domain, the DNS gets changed to 127.0.0.1
+
+<img src="assets/domainadmins.png" width="600"/> <img src="assets/IT.png" width="300" height="300"/> 
+
+*Figure 14: DHCP failover configuration*
+
+[Back to Table of Contents](#table-of-contents)
+
+---
