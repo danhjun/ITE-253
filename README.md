@@ -34,6 +34,11 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [IP Address Range](#ip-address-range)
   - [Visual Representation of the IP Range](#visual-representation-of-the-ip-range)
   - [Setting Up DHCP Failover](#setting-up-dhcp-failover)
+- [Active Directory](#active-directory)
+  - [What is Active Directory?](#what-is-active-directory)
+  - [Initial Configuration](#initial-configuration)
+  - [Joining NY-DC2 to the Domain ny.contoso.com](#joining-ny-dc2-to-the-domain-nycontosocom)
+  - [Enabling Active Directory](#enabling-active-directory)
 
 
 ---
@@ -395,3 +400,104 @@ To ensure high availability, set up DHCP failover with the following steps:
 
 ---
 
+## Active Directory
+
+### What is Active Directory?
+
+Active Directory (AD) is a directory service developed by Microsoft that facilitates the management of network resources. It enables administrators to manage permissions and access to network resources, including computers, users, printers, and files within a domain. AD uses a structured data store as the basis for a logical, hierarchical organization of directory information. This store manages information about a network's users and their privileges, which helps in administering security.
+
+### Initial Configuration
+
+1. **Prepare the Server:**
+   - Ensure that the server named `NY-DC1` meets the hardware requirements for Windows Server.
+   - Install the latest version of Windows Server on `NY-DC1`.
+   - Configure a static IP address on the server to ensure consistent network communications.
+
+2. **Install the Active Directory Domain Services Role:**
+   - Open the 'Server Manager' dashboard.
+   - Navigate to **Manage** > **Add Roles and Features**.
+   - Proceed through the wizard until you reach the **Roles** section.
+   - Check **Active Directory Domain Services** and any additional features required for your deployment.
+   - Click **Next** and **Install** to begin the installation of the AD DS role.
+
+3. **Configure Active Directory:**
+   - After installation, launch the **AD DS Deployment Wizard** from the Server Manager.
+   - Choose to **Create a new forest** and type your root domain name (e.g., `ny.contoso.com`).
+   - Follow the prompts to configure the Domain Controller options, DNS settings, and database, log, and SYSVOL paths.
+   - Set a Directory Services Restore Mode (DSRM) password.
+
+4. **Verify the Installation:**
+   - Once the installation is complete, use the `dcdiag` command in the command prompt to verify the Active Directory installation.
+   - Run `nslookup` to ensure that DNS is configured properly for your domain controller.
+
+5. **Post-Configuration Tasks:**
+   - Create organizational units (OUs), users, and groups as per your organizational needs.
+   - Configure Group Policies for security settings and user environments.
+   - Back up your AD configuration regularly to avoid data loss.
+
+<img src="assets/images/ad_deploy.png" width="450" height="200"/>
+<img src="assets/images/ad_bios.png" width="450" height="200"/> 
+<img src="assets/images/ad_dns.png" width="450" height="235"/>
+<img src="assets/images/ad_dsrm.png" width="450"/>
+
+*Figure 12: Active Directory configuration*
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+### Joining NY-DC2 to the Domain ny.contoso.com
+
+*Joining a second domain controller to an existing domain can enhance the reliability and availability of your network's Active Directory services. Here is how to add `NY-DC2` as a domain controller in the domain `ny.contoso.com`.*
+
+<ins> Before beginning the process ensure that: </ins>
+
+- The server `NY-DC2` is installed with Windows Server and configured with a static IP address.
+- The primary DNS server for `NY-DC2` is set to the IP address of `NY-DC1`. This setup is crucial as `NY-DC2` can only recognize the domain `ny.contoso.com` if it can properly resolve names through `NY-DC1`, the main DNS server already part of the domain.
+
+1. **Join `NY-DC2` to the Domain**:
+   - If not already done, join `NY-DC2` to `ny.contoso.com` as a member server via the "Computer Name/Domain Changes" in System Properties.
+   - Provide administrative domain credentials when prompted.
+
+2. **Install the Active Directory Domain Services Role**:
+   - Open **Server Manager** on `NY-DC2`.
+   - Click on **Add roles and features** and proceed through the wizard.
+   - Select the **Active Directory Domain Services** role, and install it.
+
+3. **Promote the Server to a Domain Controller**:
+   - After installing the role, click on the notification flag in Server Manager and select **Promote this server to a domain controller**.
+   - Choose **Add a domain controller to an existing domain**, enter the domain name (`ny.contoso.com`), and provide administrative credentials.
+   - Follow the wizard to configure the Domain Controller options, DNS settings, and additional options like the location of the AD DS database, log files, and SYSVOL folder.
+   - Complete the wizard to start the promotion process.
+
+4. **Verify Domain Controller Operation**:
+   - Check the operation of `NY-DC2` as a domain controller using tools like **Active Directory Sites and Services** and `repadmin` for replication health.
+
+5. **Configure DNS Redundancy**:
+   - After promoting `NY-DC2`, ensure it hosts the DNS role, and update DNS settings on both `NY-DC1` and `NY-DC2` to refer to each other, ensuring DNS redundancy and reliability.
+
+After promoting NY-DC2 to a domain controller and ensuring it hosts the DNS role, configure both NY-DC1 and NY-DC2 to use each other as primary and secondary DNS servers, respectively, to ensure DNS redundancy and optimal network performance within your domain.
+
+<img src="assets/images/ad_zones.png" width="650"/>
+
+<img src="assets/images/ad_dc2.png" width="300"/> 
+
+*Figure 13: Joining second domain controller NY-DC2*
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+### Enabling Active Directory
+* Purpose of Active Directory
+* Group Policy Objects (GPOs)
+* Organizational Units 
+* Include detail of how after joining to domain, the DNS gets changed to 127.0.0.1
+
+<img src="assets/images/ad_admins.png" width="600"/> <img src="assets/images/ad_IT.png" width="300" height="300"/> 
+
+*Figure 14: DHCP failover configuration*
+
+[Back to Table of Contents](#table-of-contents)
+
+---
