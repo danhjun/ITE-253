@@ -3,7 +3,7 @@ The Network Deployment project, completed in the ITE 253 Network Management II c
 
 <img src="assets/images/server.jpg" width="500">
 
-_Figure 1: Server rack "Boston" with several integrated Dell PowerEdges_ 
+_Figure 1: Server rack with several integrated Dell PowerEdges_ 
 
 
 ---
