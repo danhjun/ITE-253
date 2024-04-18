@@ -456,6 +456,7 @@ Active Directory (AD) is a directory service developed by Microsoft that facilit
 1. **Join `NY-DC2` to the Domain**:
    - If not already done, join `NY-DC2` to `ny.contoso.com` as a member server via the "Computer Name/Domain Changes" in System Properties.
    - Provide administrative domain credentials when prompted.
+   - **LAB Credentials ( Username: administrator | Password: Pa55w.rd )**
 
 2. **Install the Active Directory Domain Services Role**:
    - Open **Server Manager** on `NY-DC2`.
@@ -463,6 +464,7 @@ Active Directory (AD) is a directory service developed by Microsoft that facilit
    - Select the **Active Directory Domain Services** role, and install it.
 
 3. **Promote the Server to a Domain Controller**:
+   - When logging in use **LAB Credentials (Username: CONTOSO\\administrator | Password: Pa55w.rd)**
    - After installing the role, click on the notification flag in Server Manager and select **Promote this server to a domain controller**.
    - Choose **Add a domain controller to an existing domain**, enter the domain name (`ny.contoso.com`), and provide administrative credentials.
    - Follow the wizard to configure the Domain Controller options, DNS settings, and additional options like the location of the AD DS database, log files, and SYSVOL folder.
