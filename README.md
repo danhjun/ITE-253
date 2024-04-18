@@ -435,10 +435,10 @@ Active Directory (AD) is a directory service developed by Microsoft that facilit
    - Configure Group Policies for security settings and user environments.
    - Back up your AD configuration regularly to avoid data loss.
 
-<img src="assets/images/ad_deploy.png" width="450" height="200"/>
-<img src="assets/images/ad_bios.png" width="450" height="200"/> 
-<img src="assets/images/ad_dns.png" width="450" height="235"/>
-<img src="assets/images/ad_dsrm.png" width="450"/>
+<img src="assets/images/ADdeploy.png" width="450" height="200"/>
+<img src="assets/images/ADbios.png" width="450" height="200"/> 
+<img src="assets/images/ADdns.png" width="450" height="235"/>
+<img src="assets/images/ADdsrm.png" width="450"/>
 
 *Figure 12: Active Directory configuration*
 
@@ -478,9 +478,9 @@ Active Directory (AD) is a directory service developed by Microsoft that facilit
 
 After promoting NY-DC2 to a domain controller and ensuring it hosts the DNS role, configure both NY-DC1 and NY-DC2 to use each other as primary and secondary DNS servers, respectively, to ensure DNS redundancy and optimal network performance within your domain.
 
-<img src="assets/images/ad_zones.png" width="650"/>
+<img src="assets/images/ADzones.png" width="650"/>
 
-<img src="assets/images/ad_dc2.png" width="300"/> 
+<img src="assets/images/ADdc2.png" width="300"/> 
 
 *Figure 13: Joining second domain controller NY-DC2*
 
@@ -494,7 +494,7 @@ After promoting NY-DC2 to a domain controller and ensuring it hosts the DNS role
 * Organizational Units 
 * Include detail of how after joining to domain, the DNS gets changed to 127.0.0.1
 
-<img src="assets/images/ad_admins.png" width="600"/> <img src="assets/images/ad_IT.png" width="300" height="300"/> 
+<img src="assets/images/ADadmins.png" width="600"/> <img src="assets/images/ADIT.png" width="300" height="300"/> 
 
 *Figure 14: DHCP failover configuration*
 
