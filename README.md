@@ -39,7 +39,8 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [Initial Configuration](#initial-configuration)
   - [Joining NY-DC2 to the Domain ny.contoso.com](#joining-ny-dc2-to-the-domain-nycontosocom)
   - [Why Install Active Directory First?](#why-install-active-directory-first)
-  - [Enabling Active Directory](#enabling-active-directory)
+  - [Active Directory Identity Features](#active-directory-identity-features)
+  - [Adding Users to Domain Admins in Active Directory](#adding-users-to-domain-admins-in-active-directory)
 
 
 ---
@@ -510,15 +511,78 @@ After promoting NY-DC2 to a domain controller and ensuring it hosts the DNS role
 
 ---
 
-### Enabling Active Directory
-* Purpose of Active Directory
-* Group Policy Objects (GPOs)
-* Organizational Units 
-* Include detail of how after joining to domain, the DNS gets changed to 127.0.0.1
+### Active Directory Identity Features
 
-<img src="assets/images/ADadmins.png" width="600"/> <img src="assets/images/ADIT.png" width="300" height="300"/> 
+**Organizational Units (OUs):**
+- **Definition:** Organizational Units are containers used within Active Directory to organize users, groups, computers, and other organizational units. They provide a way to establish hierarchy, delegate administrative rights, and apply policy settings.
+- **Usage:** OUs can be structured to mirror an organization’s functional or geographical layout, allowing for efficient management and policy application at different levels of the hierarchy.
 
-*Figure 14: DHCP failover configuration*
+**Security Groups:**
+- **Purpose:** Security groups in Active Directory are used to collect user accounts, computer accounts, and other groups into manageable units for security administration.
+- **Benefits:** Using security groups, administrators can assign permissions and rights to a group rather than to individual users, streamlining access management and ensuring consistent security policy across users and systems.
+
+**Domain Admin Privileges:**
+- **Role:** Domain Admins have elevated privileges that allow them to perform critical administrative tasks across the domain, such as setting security policies, managing user privileges, and configuring important network resources.
+- **Security Concerns:** Due to their extensive access, domain admin accounts should be used sparingly, protected with multi-factor authentication, and monitored for unusual activity to prevent security breaches.
+
+**Group Policy Objects (GPOs):**
+- **Functionality:** GPOs are used to define configurations for users and computers within the domain. They control policies across a wide range of areas such as security settings, software installation, and user environment settings.
+- **Implementation:** Administrators can create GPOs within the Group Policy Management Console (GPMC) and link them to OUs, domains, or sites, allowing for precise control over how policies are applied based on the structure of Active Directory.
+
+**DNS Configuration After Joining Domain:**
+- **Automatic Update:** After a server joins a domain, its DNS settings are often automatically updated to refer to the local address `127.0.0.1` as the primary DNS server. This change directs DNS queries to the DNS resolver running on the localhost, which is configured to forward queries to the domain’s DNS servers.
+- **Purpose:** This configuration helps ensure that DNS queries are resolved within the local network, improving query response time and reducing external DNS traffic.
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+### Adding Users to Domain Admins in Active Directory
+
+**Step 1: Create an Organizational Unit (OU)**
+1. **Open Active Directory Users and Computers:** This can be accessed from the Administrative Tools on your server.
+2. **Create the OU:**
+   - Right-click the domain (e.g., `ny.contoso.com`) in the tree view.
+   - Select `New` > `Organizational Unit`.
+   - Name the OU `IT` and click `OK`.
+
+**Step 2: Create a New User in the IT OU**
+1. **Navigate to the IT OU:**
+   - Right-click on the `IT` OU.
+   - Select `New` > `User`.
+2. **Enter User Details:**
+   - Provide the first name, last name, and user logon name.
+   - Click `Next`.
+   - Set a password for the user and choose password options (e.g., user must change password at next logon).
+   - Click `Next`, then `Finish` to create the user.
+
+**Step 3: Add the New User to the Domain Admins Group**
+1. **Find the Newly Created User:**
+   - In the `IT` OU, right-click the user you just created.
+   - Select `Add to a group…`.
+2. **Add to Domain Admins:**
+   - In the `Enter the object names to select` box, type `Domain Admins`.
+   - Click `Check Names` to verify the group name. Once the name is underlined, click `OK`.
+   - This action adds the user to the Domain Admins group, granting them administrative privileges across the domain.
+
+**Step 4: Verify Group Membership**
+1. **Check the User’s Properties:**
+   - Double-click on the user’s account.
+   - Go to the `Member Of` tab to see all groups the user belongs to, ensuring `Domain Admins` is listed.
+
+**Step 5: Group Policy and Security Considerations**
+- **Review Group Policy Settings:** Ensure that Group Policy settings related to Domain Admins are appropriate and secure.
+- **Security Best Practices:**
+  - Limit the number of users in the Domain Admins group as it grants broad administrative privileges.
+  - Regularly audit group membership and use role-based access control to minimize security risks.
+
+These steps streamline the process of managing user roles within an organization, allowing you to maintain tight control over administrative access and ensure compliance with security policies.
+
+<img src="assets/images/ADdomainadmins.png" width="450"/> 
+
+<img src="assets/images/ADOU.png" width="600"/> 
+
+*Figure 14: Reviewing "Domain Admins" membership*
 
 [Back to Table of Contents](#table-of-contents)
 
