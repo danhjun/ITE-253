@@ -39,8 +39,11 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [Initial Configuration](#initial-configuration)
   - [Joining NY-DC2 to the Domain ny.contoso.com](#joining-ny-dc2-to-the-domain-nycontosocom)
   - [Why Install Active Directory First?](#why-install-active-directory-first)
+  - [Installing Remote Server Administration Tools (RSAT) on Windows 10](#installing-remote-server-administration-tools-rsat-on-windows-10)
   - [Active Directory Identity Features](#active-directory-identity-features)
   - [Adding Users to Domain Admins in Active Directory](#adding-users-to-domain-admins-in-active-directory)
+  - [Adding Bulk Users to Organizational Units](#adding-bulk-users-to-organizational-units)
+  - [Creating a File Share for Bulk Users](#creating-a-file-share-for-bulk-users)
 
 
 ---
@@ -68,7 +71,7 @@ This server is designed for data centers needing an efficient and secure platfor
 
 1. **Download the ISO File:** Obtain the Windows Server 2022 ISO file from Microsoft. [Microsoft's Windows Server 2022 page](https://info.microsoft.com/ww-landing-windows-server-2022.html)
 2. **Prepare USB Drive:** Ensure the USB drive has at least 8GB of storage and is formatted to FAT32 (detailed below).
-3. **Use Rufus or a Similar Tool:** Download and run Rufus or another bootable USB creation tool. [Rufus .exe download](https://rufus.ie/en/)
+3. **Use Rufus or a Similar Tool:** Download and run Rufus or another bootable USB creation tool. [Rufus.exe download](https://rufus.ie/en/)
 4. **Configure Rufus:**
    - **Device:** Select your USB drive.
    - **Boot selection:** Click SELECT and browse to your downloaded ISO file.
@@ -511,6 +514,45 @@ After promoting NY-DC2 to a domain controller and ensuring it hosts the DNS role
 
 ---
 
+### Installing Remote Server Administration Tools (RSAT) on Windows 10
+
+Remote Server Administration Tools (RSAT) allow IT administrators to manage Windows Server from a remote computer running Windows 10. This guide covers the steps to download and install RSAT on this operating system.
+
+**Requirements:**
+- A PC running Windows 10
+- Internet access to download the RSAT installation package.
+- Administrative privileges on the computer.
+
+**Steps for Windows 10:**
+
+1. **Download RSAT:**
+   - Go to the [Microsoft Download Center](www.microsoft.com/en-us/download/details.aspx?id=45520).
+   - Select the version of RSAT that corresponds to your version of Windows 10 (updates aligned with Windows 10 build numbers).
+
+2. **Install RSAT:**
+   - Once downloaded, double-click the installation package and follow the on-screen instructions.
+   - After installation, no reboot is required.
+
+3. **Enable RSAT Features:**
+   - Go to `Settings` > `Apps` > `Optional features`.
+   - Scroll down to `Add a feature`.
+   - Select the RSAT tools you wish to install. For example, if you want to manage Active Directory, select `RSAT: Active Directory Domain Services and Lightweight Directory Services Tools`.
+   - Click `Install` and wait for the installation to complete.
+
+**Using RSAT:**
+- Once RSAT is installed, you can use various tools such as Active Directory Users and Computers, DNS, DHCP, etc., from your Windows 10 workstation.
+- You may need to enter administrative credentials from your domain to access some of these tools depending on your network settings.
+
+**Troubleshooting:**
+- If you encounter issues during installation, ensure your Windows is up to date and retry the steps.
+- Make sure you have administrative rights as these are required to install and manage RSAT components.
+
+This installation guide should help you set up and start using Remote Server Administration Tools effectively on your Windows 10 PC, facilitating efficient management of server roles and features remotely.
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
 ### Active Directory Identity Features
 
 **Organizational Units (OUs):**
@@ -583,6 +625,78 @@ These steps streamline the process of managing user roles within an organization
 <img src="assets/images/ADOU.png" width="600"/> 
 
 *Figure 14: Reviewing "Domain Admins" membership*
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+### Adding Bulk Users to Organizational Units
+
+This section provides a guide on how to bulk-add users to Active Directory in specific Organizational Units (OUs) like Accounting, Sales, HR, IT, Research, and Marketing. Each user will also receive access to a personal file drive, designated as `J:`, pointing to a file share structured as "users/username".
+
+**Requirements:**
+- PowerShell script execution enabled on your server.
+- Necessary permissions to add users and modify file shares.
+- A CSV file named `users.csv` containing the user data structured with columns: FirstName, LastName, OU, Username.
+
+```csv
+FirstName,LastName,OU,Username
+John,Doe,IT,JohnDoe
+Jane,Smith,HR,JaneSmith
+Alice,Johnson,Accounting,AliceJohnson
+Bob,Lee,Sales,BobLee
+Carol,Taylor,Research,CarolTaylor
+David,Brown,Marketing,DavidBrown
+```
+
+**Step 1: Prepare the PowerShell Script**
+
+**Create the PowerShell Script:**
+   Open Notepad or any text editor.
+   Copy and paste the following script, which creates users from a CSV file and assigns a drive mapping to their profile:
+
+   ```powershell
+   Import-Module ActiveDirectory
+   $users = Import-Csv -Path "C:\Path\To\Your\users.csv"
+
+   foreach ($user in $users) {
+         $userPrincipalName = $user.Username + "@ny.contoso.com"
+         $password = ConvertTo-SecureString "Pa55w.rd" -AsPlainText -Force
+         $path = "OU=" + $user.OU + ",DC=ny,DC=contoso, DC=com"
+
+      New-ADUser -Name $user.Username -GivenName $user.FirstName -Surname $user.LastName `
+               -UserPrincipalName $userPrincipalName -SamAccountName $user.Username `
+               -Path $path -AccountPassword $password -Enabled $true `
+               -ChangePasswordAtLogon $false
+      }
+```
+* Replace C:\Path\To\Your\users.csv with the actual path to your CSV file.
+* Modify "OU=... and domain details as per your AD structure and domain name.
+
+**Step 2: Execute the Powershell Script**
+
+1. Run PowerShell as Administrator:
+   * Right-click the PowerShell icon and select 'Run as administrator'.
+2. Navigate to the Script Location:
+   * Use cd to change directory to where your script is saved.
+3. Execute the Script:
+   * Type .\AddBulkUsers.ps1 (assuming your script is named AddBulkUsers.ps1).
+   * Press Enter to run the script. It will read the CSV file and create each user in Active Directory, assign them to the appropriate OU, and set up their file drive.
+  
+**Step 3: Verify Creation and File Share Access**
+
+1. Check Active Directory Users and Computers:
+   * Verify that the users have been added to the correct OUs.
+2. Check File Shares:
+   * Navigate to \\yourserver\users\ and ensure that a folder exists for each user, matching their username.
+  
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+### Creating a File Share for Bulk Users
+
+https://www.youtube.com/watch?v=Gm-jE_4E7Y0
 
 [Back to Table of Contents](#table-of-contents)
 
