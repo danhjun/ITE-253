@@ -42,6 +42,8 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [Installing Remote Server Administration Tools (RSAT) on Windows 10](#installing-remote-server-administration-tools-rsat-on-windows-10)
   - [Active Directory Identity Features](#active-directory-identity-features)
   - [Adding Users to Domain Admins in Active Directory](#adding-users-to-domain-admins-in-active-directory)
+  - [Creating a J: Drive File Share and Shrinking a Volume to Create a New Volume](#creating-a-j-drive-file-share-and-shrinking-a-volume-to-create-a-new-volume)
+    - [Completion](#completion)
   - [Adding Bulk Users to Organizational Units](#adding-bulk-users-to-organizational-units)
   - [Creating a File Share for Bulk Users](#creating-a-file-share-for-bulk-users)
   - [Automating Drive Mapping on User Login](#automating-drive-mapping-on-user-login)
@@ -632,6 +634,69 @@ These steps streamline the process of managing user roles within an organization
 
 ---
 
+### Creating a J: Drive File Share and Shrinking a Volume to Create a New Volume
+
+This guide walks you through the process of creating a shared J: drive and configuring a new volume by shrinking an existing volume using the Server Manager on Windows Server.
+
+**Part 1: Creating a J: Drive File Share**
+
+1. **Open Server Manager**: Start by opening the Server Manager dashboard.
+
+2. **Navigate to File and Storage Services**:
+   - Click on **File and Storage Services** in the left pane.
+
+3. **Access Shares Section**:
+   - Within the File and Storage Services, select **Shares**.
+
+4. **Create New Share**:
+   - Click on **TASKS**, and then select **New Share...**. A wizard will open to guide you through the setup.
+
+   ![Shares Overview](assets/images/shares.png)
+
+5. **Choose a Share Profile**:
+   - Follow the wizard steps, selecting the appropriate share profile that suits your needs.
+
+6. **Specify Share Name and Path**:
+   - Assign a name to your share (e.g., J Drive) and specify the local path where the share resides.
+
+7. **Configure Share Settings**:
+   - Set the desired permissions and configure other settings such as access permissions and quotas.
+
+   ![Share Settings](assets/images/sharessetting.png)
+
+8. **Review and Create the Share**:
+   - Review all settings, and click **Create** to finalize the share setup.
+
+**Part 2: Shrinking a Volume to Create a New Volume**
+
+1. **Open Disk Management**:
+   - From the Server Manager, click on **Tools** and select **Computer Management**. Navigate to **Disk Management** under the Storage section.
+
+2. **Select the Volume to Shrink**:
+   - Right-click the volume you want to shrink (make sure it has enough free space) and select **Shrink Volume**.
+
+3. **Specify the Amount to Shrink**:
+   - Enter the amount of space to shrink the volume by, which will determine the size of the new volume.
+
+4. **Create New Volume**:
+   - Right-click on the newly created unallocated space and select **New Simple Volume**. Follow the wizard to configure and format the new volume.
+
+5. **Assign Drive Letter**:
+   - During the setup, assign the letter J: to the new volume if it is intended to be the J: drive.
+
+6. **Format the Volume**:
+   - Choose a file system and perform a quick format if desired. Label the volume as necessary.
+
+![Shrink Settings](assets/images/shrink.png)
+#### Completion
+
+Once you have configured both the shared drive and the new volume, ensure all settings are correct and the systems are functioning as expected.
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+
 ### Adding Bulk Users to Organizational Units
 
 This section provides a guide on how to bulk-add users to Active Directory in specific Organizational Units (OUs) like Accounting, Sales, HR, IT, Research, and Marketing. Each user will also receive access to a personal file drive, designated as `J:`, pointing to a file share structured as "users/username".
@@ -639,16 +704,17 @@ This section provides a guide on how to bulk-add users to Active Directory in sp
 **Requirements:**
 - PowerShell script execution enabled on your server.
 - Necessary permissions to add users and modify file shares.
-- A CSV file named `users.csv` containing the user data structured with columns: FirstName, LastName, OU, Username.
-
+- A CSV file named `UserList.csv` containing the user data structured with columns: FirstName, LastName, OU, Username.
 ```csv
-FirstName,LastName,OU,Username
-John,Doe,IT,JohnDoe
-Jane,Smith,HR,JaneSmith
-Alice,Johnson,Accounting,AliceJohnson
-Bob,Lee,Sales,BobLee
-Carol,Taylor,Research,CarolTaylor
-David,Brown,Marketing,DavidBrown
+Brief glimpse into the UserList.csv
+
+FirstName, LastName, OU, Group, Password
+Lacie, English, Accounting, Accounting, Pa55w.rd
+Marci, Sloan, Sales, Sales, Pa55w.rd
+Joana, Applegate, HR, HR, Pa55w.rd
+Rosio, Bland, IT, IT, Pa55w.rd
+Janeth, Lowery, Research, Research, Pa55w.rd
+Eleanor, Hannon, Marketing, Marketing, Pa55w.rd
 ```
 
 **Step 1: Prepare the PowerShell Script**
@@ -663,20 +729,46 @@ Import-Module ActiveDirectory
 $users = Import-Csv -Path "C:\Path\To\Your\users.csv"
 
 foreach ($user in $users) {
-    # Create a username by concatenating FirstName and LastName
-    $username = $user.FirstName + $user.LastName
+    # Sanitize and create a username by concatenating FirstName and LastName
+    $username = ($user.FirstName.Trim() + $user.LastName.Trim()).Replace(" ", "")
+
+    # Ensure username is properly formed, adjust if necessary
+    # Error will occur if username is over 20 characters
+    if ($username.Length -gt 20) {
+        $username = $username.Substring(0, 20)  
+    }
+
     $userPrincipalName = $username + "@ny.contoso.com"
     $password = ConvertTo-SecureString $user.Password -AsPlainText -Force
     $path = "OU=" + $user.OU + ",DC=ny,DC=contoso,DC=com"
 
-    New-ADUser -Name $username -GivenName $user.FirstName -Surname $user.LastName `
-              -UserPrincipalName $userPrincipalName -SamAccountName $username `
-              -Path $path -AccountPassword $password -Enabled $true `
-              -ChangePasswordAtLogon $false
+    # Create the user account
+    Try {
+        New-ADUser -Name $username -GivenName $user.FirstName -Surname $user.LastName `
+                  -UserPrincipalName $userPrincipalName -SamAccountName $username `
+                  -Path $path -AccountPassword $password -Enabled $true `
+                  -ChangePasswordAtLogon $false
+    }
+    Catch {
+        Write-Error "Failed to create user: $_"
+        Continue
+    }
+
+    # Add a small delay or check if user exists before adding to group
+    Start-Sleep -Seconds 2  # Delay to allow AD to update
+    if ($user.Group) {
+        Try {
+            Add-ADGroupMember -Identity $user.Group -Members $username
+        }
+        Catch {
+            Write-Error "Failed to add user to group: $_"
+        }
+    }
 }
 
+
 ```
-* Replace C:\Path\To\Your\users.csv with the actual path to your CSV file.
+* Replace C:\Path\To\Your\UserList.csv with the actual path to your CSV file.
 * Modify "OU=... and domain details as per your AD structure and domain name.
 
 **Step 2: Execute the Powershell Script**
@@ -705,7 +797,7 @@ The PowerShell script below is designed to create individual user folders within
 
 ```powershell
 #createshares.ps1
-$RootPath = "J:\users"
+$RootPath = "J:\Shares\Users"
 
 # Get the list of users from specific OUs
 $OUs = @("OU=Accounting,DC=ny,DC=contoso,DC=com",
@@ -740,9 +832,6 @@ foreach ($OU in $OUs) {
     }
 }
 ```
-
-<img src="assets/images/location1.png" width="350"/>
-<img src="assets/images/location2.png" width="700"/>
 
 [Back to Table of Contents](#table-of-contents)
 
