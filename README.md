@@ -738,6 +738,9 @@ foreach ($OU in $OUs) {
 }
 ```
 
+<img src="assets/images/location1.png" width="350"/>
+<img src="assets/images/location2.png" width="700"/>
+
 [Back to Table of Contents](#table-of-contents)
 
 ---
