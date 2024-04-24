@@ -44,6 +44,8 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [Adding Users to Domain Admins in Active Directory](#adding-users-to-domain-admins-in-active-directory)
   - [Adding Bulk Users to Organizational Units](#adding-bulk-users-to-organizational-units)
   - [Creating a File Share for Bulk Users](#creating-a-file-share-for-bulk-users)
+  - [Automating Drive Mapping on User Login](#automating-drive-mapping-on-user-login)
+  - [Enabling and Configuring Disk Quotas](#enabling-and-configuring-disk-quotas)
 
 
 ---
@@ -656,6 +658,7 @@ David,Brown,Marketing,DavidBrown
    Copy and paste the following script, which creates users from a CSV file and assigns a drive mapping to their profile:
 
    ```powershell
+   #AddBulkUsers.ps1
    Import-Module ActiveDirectory
    $users = Import-Csv -Path "C:\Path\To\Your\users.csv"
 
@@ -683,20 +686,117 @@ David,Brown,Marketing,DavidBrown
    * Type .\AddBulkUsers.ps1 (assuming your script is named AddBulkUsers.ps1).
    * Press Enter to run the script. It will read the CSV file and create each user in Active Directory, assign them to the appropriate OU, and set up their file drive.
   
-**Step 3: Verify Creation and File Share Access**
-
-1. Check Active Directory Users and Computers:
-   * Verify that the users have been added to the correct OUs.
-2. Check File Shares:
-   * Navigate to \\yourserver\users\ and ensure that a folder exists for each user, matching their username.
-  
 [Back to Table of Contents](#table-of-contents)
 
 ---
 
 ### Creating a File Share for Bulk Users
 
-https://www.youtube.com/watch?v=Gm-jE_4E7Y0
+The PowerShell script below is designed to create individual user folders within specified organizational units (OUs) in Active Directory. It sets up a network share for each user and configures the necessary permissions.
+
+- **Root Path Setup**: The root path where user folders will be located is set to `J:\users`.
+- **OU Specification**: User details are pulled from several specified OUs like Accounting, HR, IT, etc.
+- **User Folder Creation**: Folders are created under the root path based on the user's `SamAccountName`.
+- **NTFS Permissions**: The script sets up NTFS permissions by disabling inheritance and removing existing permissions. It grants 'Modify' access to the individual user and 'Full Control' to the Administrators group.
+- **SMB Share**: Each user's folder is shared on the network, making it accessible via a hidden share (`Username$`).
+
+```powershell
+#createshares.ps1
+$RootPath = "J:\users"
+
+# Get the list of users from specific OUs
+$OUs = @("OU=Accounting,DC=ny,DC=contoso,DC=com",
+         "OU=HR,DC=ny,DC=contoso,DC=com",
+         "OU=IT,DC=ny,DC=contoso,DC=com",
+         "OU=Marketing,DC=ny,DC=contoso,DC=com",
+         "OU=Research,DC=ny,DC=contoso,DC=com",
+         "OU=Sales,DC=ny,DC=contoso,DC=com")
+
+# Iterate through each OU and create folders and shares for each user
+foreach ($OU in $OUs) {
+    $Users = Get-ADUser -Filter * -SearchBase $OU -Properties SamAccountName
+    foreach ($User in $Users) {
+        $UserPath = Join-Path -Path $RootPath -ChildPath $User.SamAccountName
+        if (-Not (Test-Path $UserPath)) {
+            New-Item -Path $UserPath -ItemType Directory
+        }
+
+        # Set NTFS permissions
+        $Acl = Get-Acl $UserPath
+        $Acl.SetAccessRuleProtection($true, $false)  # Enable ACL protection, do not keep inherited rules
+        $Acl.Access | ForEach-Object { $Acl.RemoveAccessRule($_) }  # Remove all existing access rules
+        $AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule($User.SamAccountName, "Modify", "ContainerInherit,ObjectInherit", "None", "Allow")
+        $AdminRule = New-Object System.Security.AccessControl.FileSystemAccessRule("Administrators", "FullControl", "ContainerInherit,ObjectInherit", "None", "Allow")
+        $Acl.AddAccessRule($AccessRule)
+        $Acl.AddAccessRule($AdminRule)
+        Set-Acl -Path $UserPath -AclObject $Acl
+
+        # Share the directory
+        $ShareName = $User.SamAccountName + "$"  # Creates a hidden share
+        New-SmbShare -Name $ShareName -Path $UserPath -FullAccess $User.SamAccountName
+    }
+}
+```
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+### Automating Drive Mapping on User Login
+
+1. Open Group Policy Management:
+   - On a server that is part of your domain, open the Group Policy Management Console (GPMC). This can usually be found in the Administrative Tools folder.
+
+2. Create a New Group Policy Object and Link to OU's (GPO):
+   - Press `Window key + R` to enter gpmc.msc
+   - Under Group Policy Management and under your domain `ny.contoso.com` right click on Group Policy Objects and select `new`
+   - Name the new GPO something descriptive like `User Drive Mapping`
+   - Drag and drop the `User Drive Mapping` GPO to OU's to **link** them together
+   - Link: `Accounting` `HR` `IT` `Marketing` `Research` `Sales`
+
+3. Edit the Group Policy Object:
+   - Right-click the newly created GPO and select "Edit".
+   - Navigate to User Configuration -> Preferences -> Windows Settings -> Drive Maps.
+   - Right-click on Drive Maps and choose New -> Mapped Drive.
+   - Configure the drive mapping:
+      - Action: Choose "Create".
+      - Location: Enter \\NY-DC1\users\%USERNAME%. This uses the environment variable %USERNAME% which the Group Policy engine processes for each user.
+      - Drive Letter: Select "J:".
+      - Reconnect: Check this option to make the mapping persistent.
+      - Label as: Optionally, provide a label for the drive, like "User Drive".
+      - Hide/Show this drive: Choose the desired option based on whether you want to hide or show the drive.
+      - Hide/Show all drives: You can choose to leave this as default.
+
+4. Refresh Group Policy on Client Computers:
+   - To make the changes take effect immediately, you can force a Group Policy update on the client computers by running `gpupdate /force` on each client machine, or simply wait for the next Group Policy refresh cycle.
+
+5. Verify the Drive Mapping:
+   - Have users log off and then log back on to their computers. The J drive should now map automatically based on the user's username.
+
+<img src="assets/images/mapping1.png" width="700"/>
+<img src="assets/images/mapping2.png" width="700"/>
+<img src="assets/images/sharefinal.png" width="350"/>
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+### Enabling and Configuring Disk Quotas
+
+**Step 1**: Access Quota Management
+- Navigate to the drive where user folders are hosted.
+- Right-click on the drive and select **Properties**.
+- Go to the **Quota** tab and click on **Show Quota Settings**.
+
+**Step 2**: Enable Quota Management
+- Check **Enable quota management** to activate the quota system on the drive.
+- Select **Deny disk space to users exceeding quota limit** to enforce quota limits.
+
+**Step 3**: Set Quota Limits
+- Choose **Limit disk space to** and enter `1 GB` (for example) for the quota limit per user.
+- Set a **Warning level** at `500 MB` (for example) to alert users as they approach their quota limit.
+
+<img src="assets/images/quota1.png" width="350" height="435"/> <img src="assets/images/quota2.png" width="350"/> 
 
 [Back to Table of Contents](#table-of-contents)
 
