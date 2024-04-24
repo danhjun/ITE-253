@@ -658,20 +658,23 @@ David,Brown,Marketing,DavidBrown
    Copy and paste the following script, which creates users from a CSV file and assigns a drive mapping to their profile:
 
    ```powershell
-   #AddBulkUsers.ps1
-   Import-Module ActiveDirectory
-   $users = Import-Csv -Path "C:\Path\To\Your\users.csv"
+# AddBulkUsers.ps1
+Import-Module ActiveDirectory
+$users = Import-Csv -Path "C:\Path\To\Your\users.csv"
 
-   foreach ($user in $users) {
-         $userPrincipalName = $user.Username + "@ny.contoso.com"
-         $password = ConvertTo-SecureString "Pa55w.rd" -AsPlainText -Force
-         $path = "OU=" + $user.OU + ",DC=ny,DC=contoso, DC=com"
+foreach ($user in $users) {
+    # Create a username by concatenating FirstName and LastName
+    $username = $user.FirstName + $user.LastName
+    $userPrincipalName = $username + "@ny.contoso.com"
+    $password = ConvertTo-SecureString $user.Password -AsPlainText -Force
+    $path = "OU=" + $user.OU + ",DC=ny,DC=contoso,DC=com"
 
-      New-ADUser -Name $user.Username -GivenName $user.FirstName -Surname $user.LastName `
-               -UserPrincipalName $userPrincipalName -SamAccountName $user.Username `
-               -Path $path -AccountPassword $password -Enabled $true `
-               -ChangePasswordAtLogon $false
-      }
+    New-ADUser -Name $username -GivenName $user.FirstName -Surname $user.LastName `
+              -UserPrincipalName $userPrincipalName -SamAccountName $username `
+              -Path $path -AccountPassword $password -Enabled $true `
+              -ChangePasswordAtLogon $false
+}
+
 ```
 * Replace C:\Path\To\Your\users.csv with the actual path to your CSV file.
 * Modify "OU=... and domain details as per your AD structure and domain name.
