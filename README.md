@@ -687,7 +687,7 @@ This guide walks you through the process of creating a shared J: drive and confi
    - Assign a name to your share (e.g., J Drive) and specify the local path where the share resides
 
 7. **Configure Share Settings**:
-   - Set the desired permissions and configure other settings such as access permissions and quotas
+   - Set the desired permissions and configure other settings such as access permissions
 
    ![Share Settings](assets/images/sharessetting.png)
 
