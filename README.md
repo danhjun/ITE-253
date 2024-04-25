@@ -886,7 +886,7 @@ foreach ($OU in $OUs) {
 
 ### Enabling and Configuring Disk Quotas
 
-**Step 1**: Access Quota Management
+**Step 1**: Access Quota Management on NY-DC1
 - Navigate to the drive where user folders are hosted
 - Right-click on the drive and select **Properties**
 - Go to the **Quota** tab and click on **Show Quota Settings**
