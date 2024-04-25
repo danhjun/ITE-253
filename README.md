@@ -42,7 +42,7 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [Installing Remote Server Administration Tools (RSAT) on Windows 10](#installing-remote-server-administration-tools-rsat-on-windows-10)
   - [Active Directory Identity Features](#active-directory-identity-features)
   - [Adding Users to Domain Admins in Active Directory](#adding-users-to-domain-admins-in-active-directory)
-  - [Creating a J: Drive File Share and Shrinking a Volume to Create a New Volume](#creating-a-j-drive-file-share-and-shrinking-a-volume-to-create-a-new-volume)
+  - [Creating a J: Drive File Share on NY-DC1](#creating-a-j-drive-file-share-on-ny-dc1)
   - [Adding Bulk Users to Organizational Units](#adding-bulk-users-to-organizational-units)
   - [Creating a File Share for Bulk Users](#creating-a-file-share-for-bulk-users)
   - [Automating Drive Mapping on User Login](#automating-drive-mapping-on-user-login)
@@ -625,7 +625,7 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
 
 ---
 
-### Creating a J: Drive File Share and Shrinking a Volume to Create a New Volume
+### Creating a J: Drive File Share on NY-DC1
 
 This guide walks you through the process of creating a shared J: drive and configuring a new volume on your server by shrinking an existing volume using the Server Manager on Windows Server.
 
