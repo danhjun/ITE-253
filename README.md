@@ -1,5 +1,5 @@
 <h1>:computer: Network Deployment  </h1>
-The Network Deployment project, completed in the ITE 253 Network Management II course, is a comprehensive network infrastructure implemented using a Dell PowerEdge R6515 Rack Server. The project spans from initial setup to configurations, including efficient IP management, DNS setup, enhancing network reliability with a secondary domain controller, DHCP, and integrating Active Directory. This approach embodies a holistic strategy for creating a secure, scalable, efficient network environment.
+The Network Deployment project, completed in the ITE 253 Network Management II course, is a comprehensive network infrastructure implemented using a Dell PowerEdge R6515 Rack Server. The project spans from initial setup to configurations, including <b> efficient IP management, DNS setup, enhancing network reliability with a secondary domain controller, DHCP, and integrating Active Directory </b>. This approach embodies a holistic strategy for creating a secure, scalable, efficient network environment.
 
 <img src="assets/images/server.jpg" width="500">
 
@@ -43,7 +43,6 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [Active Directory Identity Features](#active-directory-identity-features)
   - [Adding Users to Domain Admins in Active Directory](#adding-users-to-domain-admins-in-active-directory)
   - [Creating a J: Drive File Share and Shrinking a Volume to Create a New Volume](#creating-a-j-drive-file-share-and-shrinking-a-volume-to-create-a-new-volume)
-    - [Completion](#completion)
   - [Adding Bulk Users to Organizational Units](#adding-bulk-users-to-organizational-units)
   - [Creating a File Share for Bulk Users](#creating-a-file-share-for-bulk-users)
   - [Automating Drive Mapping on User Login](#automating-drive-mapping-on-user-login)
@@ -74,15 +73,15 @@ This server is designed for data centers needing an efficient and secure platfor
 ### <ins> Steps to Create a Bootable USB </ins>
 
 1. **Download the ISO File:** Obtain the Windows Server 2022 ISO file from Microsoft. [Microsoft's Windows Server 2022 page](https://info.microsoft.com/ww-landing-windows-server-2022.html)
-2. **Prepare USB Drive:** Ensure the USB drive has at least 8GB of storage and is formatted to FAT32 (detailed below).
+2. **Prepare USB Drive:** Ensure the USB drive has at least 8GB of storage and is formatted to FAT32 (detailed below)
 3. **Use Rufus or a Similar Tool:** Download and run Rufus or another bootable USB creation tool. [Rufus.exe download](https://rufus.ie/en/)
 4. **Configure Rufus:**
-   - **Device:** Select your USB drive.
-   - **Boot selection:** Click SELECT and browse to your downloaded ISO file.
-   - **Partition scheme:** Choose GPT for UEFI firmware.
-   - **File system:** Select NTFS.
-   - **Volume label:** Name your drive as desired.
-   - **Click START and wait for the process to complete.**
+   - **Device:** Select your USB drive
+   - **Boot selection:** Click SELECT and browse to your downloaded ISO file
+   - **Partition scheme:** Choose GPT for UEFI firmware
+   - **File system:** Select NTFS
+   - **Volume label:** Name your drive as desired
+   - **Click START and wait for the process to complete**
 
 <img src="assets/images/rufus.png" width="400">
 
@@ -182,12 +181,12 @@ This section of the documentation provides a detailed breakdown of the network c
 1. **Accessing Network Settings**: Navigate to the Control Panel, find the Network and Sharing Center, and click on 'Change adapter settings'. Right-click on the network connection you wish to configure, and select 'Properties'.
 
 2. **Configuring IP Address and Subnet Mask**:
-   - Within the Networking tab of the selected connection, scroll down to 'Internet Protocol Version 4 (TCP/IPv4)' and click on 'Properties'.
-   - Select 'Use the following IP address' and enter your chosen IP address and Subnet Mask. 
+   - Within the Networking tab of the selected connection, scroll down to 'Internet Protocol Version 4 (TCP/IPv4)' and click on 'Properties'
+   - Select 'Use the following IP address' and enter your chosen IP address and Subnet Mask
 
 3. **Setting Default Gateway and DNS**:
-   - In the same window, enter the Default Gateway address provided by your network administrator.
-   - Below the Default Gateway, select 'Use the following DNS server addresses' and input the preferred and alternate DNS server addresses.
+   - In the same window, enter the Default Gateway address provided by your network administrator
+   - Below the Default Gateway, select 'Use the following DNS server addresses' and input the preferred and alternate DNS server addresses
 
 <img src="assets/images/dc1.png" width="400" />
 
@@ -209,7 +208,7 @@ DNS simplifies the process of accessing internet resources by allowing users to 
 
 Setting up a DNS server involves installing DNS server software on a server, configuring basic settings, and ensuring it responds to DNS queries.
 
-1. **Installation**: In Server Manager, use the _Add Roles and Features Wizard_ to add the DNS role to your server.
+1. **Installation**: In Server Manager, use the _Add Roles and Features Wizard_ to add the DNS role to your server
 
 2. **Basic Configuration**: Initially, configure your DNS server to answer queries for your domain. This includes specifying the primary domain for which the server will be authoritative.
 
@@ -230,9 +229,9 @@ DNS zones are used to manage domain names and their corresponding IP addresses w
 2. **Secondary Zone**: Optionally, set up a secondary zone for redundancy. This zone will be a read-only copy of the primary zone data.
 
 3. **Directions**:
-   - Navigate to your DNS server's management interface.
-   - Choose to create a new zone, selecting between primary or secondary.
-   - Enter the domain name for the zone and configure any additional settings such as zone file location or replication to other servers.
+   - Navigate to your DNS server's management interface
+   - Choose to create a new zone, selecting between primary or secondary
+   - Enter the domain name for the zone and configure any additional settings such as zone file location or replication to other servers
 
 <img src="assets/images/zonetype.png" width="400"/> <img src="assets/images/zonename.png" width="400" /> 
 
@@ -265,13 +264,13 @@ The Start of Authority (SOA) and Name Server (NS) records are fundamental compon
 
 **SOA Record:**
 The Start of Authority (SOA) record is essential in any DNS zone. It defines the global parameters for the zone, including the primary DNS server responsible for the zone, the contact details for the domain administrator, the zone's serial number, and several timers relating to refreshing the zone:
-- **Primary DNS Server:** The server that holds the definitive versions of all records in the zone.
-- **Administrator Contact:** An email address (in a slightly altered format) for the zone's administrator.
-- **Serial Number:** A timestamp that changes whenever the zone file is updated.
-- **Refresh Time:** How often secondary DNS servers should refresh their copies of the zone.
-- **Retry Time:** How often the secondary should retry after a failed refresh.
-- **Expire Time:** How long the secondary should wait before discarding the zone data if it can’t reach the primary.
-- **Minimum TTL:** The minimum amount of time that records should be cached by other DNS servers.
+- **Primary DNS Server:** The server that holds the definitive versions of all records in the zone
+- **Administrator Contact:** An email address (in a slightly altered format) for the zone's administrator
+- **Serial Number:** A timestamp that changes whenever the zone file is updated
+- **Refresh Time:** How often secondary DNS servers should refresh their copies of the zone
+- **Retry Time:** How often the secondary should retry after a failed refresh
+- **Expire Time:** How long the secondary should wait before discarding the zone data if it can’t reach the primary
+- **Minimum TTL:** The minimum amount of time that records should be cached by other DNS servers
 
 **NS Records:**
 Name Server records identify the DNS servers responsible for maintaining a DNS zone. An NS record:
@@ -335,11 +334,11 @@ For the Main Office (`172.16.16.0/20`), specific IP addresses need to be reserve
   - Exclude IP addresses `172.16.16.1` to `172.16.16.16` from DHCP assignment. This range is reserved to prevent IP conflicts with essential network infrastructure and to allow for future static IP needs.
 
 - **Reservations:**
-  - **NY-DC1 Net1**: Reserve `172.16.16.2` for the server's Net1 interface.
-  - **NY-DC1 Net2**: Reserve `172.16.16.3` for the server's Net2 interface.
-  - **NY-DC2 Net1**: Reserve `172.16.16.4` for the server's Net1 interface.
-  - **NY-DC2 Net2**: Reserve `172.16.16.5` for the server's Net2 interface.
-  - **UPS NET**: Reserve `172.16.16.6` for the Uninterruptible Power Supply's network interface.
+  - **NY-DC1 Net1**: Reserve `172.16.16.2` for the server's Net1 interface
+  - **NY-DC1 Net2**: Reserve `172.16.16.3` for the server's Net2 interface
+  - **NY-DC2 Net1**: Reserve `172.16.16.4` for the server's Net1 interface
+  - **NY-DC2 Net2**: Reserve `172.16.16.5` for the server's Net2 interface
+  - **UPS NET**: Reserve `172.16.16.6` for the Uninterruptible Power Supply's network interface
 
 <img src="assets/images/exclusion.png" width="450"/> 
 
@@ -389,15 +388,15 @@ The subnet `172.16.16.0/20` provides a specific range of IP addresses:
 
 To ensure high availability, set up DHCP failover with the following steps:
 
-1. **Install DHCP Role:** Both `NY-DC1` and `NY-DC2` should have the DHCP role installed.
-2. **Configure Identical Scopes:** Ensure that both servers have matching DHCP scope settings, including the exclusions and reservations outlined above.
-3. **Enable Failover:** Select "Configure Failover" for the Main Office scope from the DHCP console.
-4. **Specify Partner Server:** Input the name or IP address of the partner DHCP server.
+1. **Install DHCP Role:** Both `NY-DC1` and `NY-DC2` should have the DHCP role installed
+2. **Configure Identical Scopes:** Ensure that both servers have matching DHCP scope settings, including the exclusions and reservations outlined above
+3. **Enable Failover:** Select "Configure Failover" for the Main Office scope from the DHCP console
+4. **Specify Partner Server:** Input the name or IP address of the partner DHCP server
 5. **Choose Failover Mode:**
-   - *Load Balance:* Distribute client requests evenly between the two servers.
-   - *Hot Standby:* One server acts as the primary while the other serves as a backup.
-6. **Set Failover Parameters:** Define the relationship name, MCLT, and load balance settings.
-7. **Activate and Verify:** Finalize the setup and ensure both servers are synchronized and functioning properly.
+   - *Load Balance:* Distribute client requests evenly between the two servers
+   - *Hot Standby:* One server acts as the primary while the other serves as a backup
+6. **Set Failover Parameters:** Define the relationship name, MCLT, and load balance settings
+7. **Activate and Verify:** Finalize the setup and ensure both servers are synchronized and functioning properly
 
 <img src="assets/images/partner.png" width="450"/>
 
@@ -418,31 +417,31 @@ Active Directory (AD) is a directory service developed by Microsoft that facilit
 ### Initial Configuration
 
 1. **Prepare the Server:**
-   - Ensure that the server named `NY-DC1` meets the hardware requirements for Windows Server.
-   - Install the latest version of Windows Server on `NY-DC1`.
-   - Configure a static IP address on the server to ensure consistent network communications.
+   - Ensure that the server named `NY-DC1` meets the hardware requirements for Windows Server
+   - Install the latest version of Windows Server on `NY-DC1`
+   - Configure a static IP address on the server to ensure consistent network communications
 
 2. **Install the Active Directory Domain Services Role:**
-   - Open the 'Server Manager' dashboard.
-   - Navigate to **Manage** > **Add Roles and Features**.
-   - Proceed through the wizard until you reach the **Roles** section.
-   - Check **Active Directory Domain Services** and any additional features required for your deployment.
-   - Click **Next** and **Install** to begin the installation of the AD DS role.
+   - Open the 'Server Manager' dashboard
+   - Navigate to **Manage** > **Add Roles and Features**
+   - Proceed through the wizard until you reach the **Roles** section
+   - Check **Active Directory Domain Services** and any additional features required for your deployment
+   - Click **Next** and **Install** to begin the installation of the AD DS role
 
 3. **Configure Active Directory:**
-   - After installation, launch the **AD DS Deployment Wizard** from the Server Manager.
-   - Choose to **Create a new forest** and type your root domain name (e.g., `ny.contoso.com`).
-   - Follow the prompts to configure the Domain Controller options, DNS settings, and database, log, and SYSVOL paths.
-   - Set a Directory Services Restore Mode (DSRM) password.
+   - After installation, launch the **AD DS Deployment Wizard** from the Server Manager
+   - Choose to **Create a new forest** and type your root domain name (e.g., `ny.contoso.com`)
+   - Follow the prompts to configure the Domain Controller options, DNS settings, and database, log, and SYSVOL paths
+   - Set a Directory Services Restore Mode (DSRM) password
 
 4. **Verify the Installation:**
-   - Once the installation is complete, use the `dcdiag` command in the command prompt to verify the Active Directory installation.
-   - Run `nslookup` to ensure that DNS is configured properly for your domain controller.
+   - Once the installation is complete, use the `dcdiag` command in the command prompt to verify the Active Directory installation
+   - Run `nslookup` to ensure that DNS is configured properly for your domain controller
 
 5. **Post-Configuration Tasks:**
-   - Create organizational units (OUs), users, and groups as per your organizational needs.
-   - Configure Group Policies for security settings and user environments.
-   - Back up your AD configuration regularly to avoid data loss.
+   - Create organizational units (OUs), users, and groups as per your organizational needs
+   - Configure Group Policies for security settings and user environments
+   - Back up your AD configuration regularly to avoid data loss
 
 <img src="assets/images/ADdeploy.png" width="410" height="235"/> <img src="assets/images/ADbios.png" width="410" height="235"/> 
 <img src="assets/images/ADdns.png" width="410" height="235"/> <img src="assets/images/ADdsrm.png" width="410" height="235"/>
@@ -455,37 +454,37 @@ Active Directory (AD) is a directory service developed by Microsoft that facilit
 
 ### Joining NY-DC2 to the Domain ny.contoso.com
 
-*Joining a second domain controller to an existing domain can enhance the reliability and availability of your network's Active Directory services. Here is how to add `NY-DC2` as a domain controller in the domain `ny.contoso.com`.*
+*Joining a second domain controller to an existing domain can enhance the reliability and availability of your network's Active Directory services. Here is how to add `NY-DC2` as a domain controller in the domain `ny.contoso.com`*
 
 <ins> Before beginning the process ensure that: </ins>
 
-- The server `NY-DC2` is installed with Windows Server and configured with a static IP address.
+- The server `NY-DC2` is installed with Windows Server and configured with a static IP address
 - The primary DNS server for `NY-DC2` is set to the IP address of `NY-DC1`. This setup is crucial as `NY-DC2` can only recognize the domain `ny.contoso.com` if it can properly resolve names through `NY-DC1`, the main DNS server already part of the domain.
 
 1. **Join `NY-DC2` to the Domain**:
-   - If not already done, join `NY-DC2` to `ny.contoso.com` as a member server via the "Computer Name/Domain Changes" in System Properties.
-   - Provide administrative domain credentials when prompted.
+   - If not already done, join `NY-DC2` to `ny.contoso.com` as a member server via the "Computer Name/Domain Changes" in System Properties
+   - Provide administrative domain credentials when prompted
    - **LAB Credentials ( Username: administrator | Password: Pa55w.rd )**
 
 2. **Install the Active Directory Domain Services Role**:
-   - Open **Server Manager** on `NY-DC2`.
-   - Click on **Add roles and features** and proceed through the wizard.
-   - Select the **Active Directory Domain Services** role, and install it.
+   - Open **Server Manager** on `NY-DC2`
+   - Click on **Add roles and features** and proceed through the wizard
+   - Select the **Active Directory Domain Services** role, and install it
 
 3. **Promote the Server to a Domain Controller**:
    - When logging in use **LAB Credentials (Username: CONTOSO\\administrator | Password: Pa55w.rd)**
-   - After installing the role, click on the notification flag in Server Manager and select **Promote this server to a domain controller**.
-   - Choose **Add a domain controller to an existing domain**, enter the domain name (`ny.contoso.com`), and provide administrative credentials.
-   - Follow the wizard to configure the Domain Controller options, DNS settings, and additional options like the location of the AD DS database, log files, and SYSVOL folder.
-   - Complete the wizard to start the promotion process.
+   - After installing the role, click on the notification flag in Server Manager and select **Promote this server to a domain controller**
+   - Choose **Add a domain controller to an existing domain**, enter the domain name (`ny.contoso.com`), and provide administrative credentials
+   - Follow the wizard to configure the Domain Controller options, DNS settings, and additional options like the location of the AD DS database, log files, and SYSVOL folder
+   - Complete the wizard to start the promotion process
 
 4. **Verify Domain Controller Operation**:
-   - Check the operation of `NY-DC2` as a domain controller using tools like **Active Directory Sites and Services** and `repadmin` for replication health.
+   - Check the operation of `NY-DC2` as a domain controller using tools like **Active Directory Sites and Services** and `repadmin` for replication health
 
 5. **Configure DNS Redundancy**:
-   - After promoting `NY-DC2`, ensure it hosts the DNS role, and update DNS settings on both `NY-DC1` and `NY-DC2` to refer to each other, ensuring DNS redundancy and reliability.
+   - After promoting `NY-DC2`, ensure it hosts the DNS role, and update DNS settings on both `NY-DC1` and `NY-DC2` to refer to each other, ensuring DNS redundancy and reliability
 
-After promoting NY-DC2 to a domain controller and ensuring it hosts the DNS role, configure both NY-DC1 and NY-DC2 to use each other as primary and secondary DNS servers, respectively, to ensure DNS redundancy and optimal network performance within your domain.
+*After promoting NY-DC2 to a domain controller and ensuring it hosts the DNS role, configure both NY-DC1 and NY-DC2 to use each other as primary and secondary DNS servers, respectively, to ensure DNS redundancy and optimal network performance within your domain.*
 
 <img src="assets/images/ADzones.png" width="650"/>
 
@@ -524,34 +523,26 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
 
 **Requirements:**
 - A PC running Windows 10
-- Internet access to download the RSAT installation package.
-- Administrative privileges on the computer.
+- Internet access to download the RSAT installation package
+- Administrative privileges on the computer
 
 **Steps for Windows 10:**
 
 1. **Download RSAT:**
-   - Go to the [Microsoft Download Center](www.microsoft.com/en-us/download/details.aspx?id=45520).
-   - Select the version of RSAT that corresponds to your version of Windows 10 (updates aligned with Windows 10 build numbers).
+   - Go to the [Microsoft Download Center](https://www.microsoft.com/en-us/download/details.aspx?id=45520)
+   - Select the version of RSAT that corresponds to your version of Windows 10 (updates aligned with Windows 10 build numbers)
 
 2. **Install RSAT:**
-   - Once downloaded, double-click the installation package and follow the on-screen instructions.
-   - After installation, no reboot is required.
-
-3. **Enable RSAT Features:**
-   - Go to `Settings` > `Apps` > `Optional features`.
-   - Scroll down to `Add a feature`.
-   - Select the RSAT tools you wish to install. For example, if you want to manage Active Directory, select `RSAT: Active Directory Domain Services and Lightweight Directory Services Tools`.
-   - Click `Install` and wait for the installation to complete.
+   - Once downloaded, double-click the installation package and follow the on-screen instructions
+   - After installation, no reboot is required
 
 **Using RSAT:**
-- Once RSAT is installed, you can use various tools such as Active Directory Users and Computers, DNS, DHCP, etc., from your Windows 10 workstation.
-- You may need to enter administrative credentials from your domain to access some of these tools depending on your network settings.
+- Once RSAT is installed, you can use various tools such as Active Directory Users and Computers, DNS, DHCP, etc., from your Windows 10 workstation
+- You may need to enter administrative credentials from your domain to access some of these tools depending on your network settings
 
 **Troubleshooting:**
-- If you encounter issues during installation, ensure your Windows is up to date and retry the steps.
-- Make sure you have administrative rights as these are required to install and manage RSAT components.
-
-This installation guide should help you set up and start using Remote Server Administration Tools effectively on your Windows 10 PC, facilitating efficient management of server roles and features remotely.
+- If you encounter issues during installation, ensure your Windows is up to date and retry the steps
+- Make sure you have administrative rights as these are required to install and manage RSAT components
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -586,43 +577,43 @@ This installation guide should help you set up and start using Remote Server Adm
 ### Adding Users to Domain Admins in Active Directory
 
 **Step 1: Create an Organizational Unit (OU)**
-1. **Open Active Directory Users and Computers:** This can be accessed from the Administrative Tools on your server.
+1. **Open Active Directory Users and Computers:** This can be accessed from the Administrative Tools on your server
 2. **Create the OU:**
-   - Right-click the domain (e.g., `ny.contoso.com`) in the tree view.
-   - Select `New` > `Organizational Unit`.
-   - Name the OU `IT` and click `OK`.
+   - Right-click the domain (e.g., `ny.contoso.com`) in the tree view
+   - Select `New` > `Organizational Unit`
+   - Name the OU `IT` and click `OK`
 
 **Step 2: Create a New User in the IT OU**
 1. **Navigate to the IT OU:**
-   - Right-click on the `IT` OU.
-   - Select `New` > `User`.
+   - Right-click on the `IT` OU
+   - Select `New` > `User`
 2. **Enter User Details:**
-   - Provide the first name, last name, and user logon name.
-   - Click `Next`.
-   - Set a password for the user and choose password options (e.g., user must change password at next logon).
-   - Click `Next`, then `Finish` to create the user.
+   - Provide the first name, last name, and user logon name
+   - Click `Next`
+   - Set a password for the user and choose password options (e.g., user must change password at next logon)
+   - Click `Next`, then `Finish` to create the user
 
 **Step 3: Add the New User to the Domain Admins Group**
 1. **Find the Newly Created User:**
-   - In the `IT` OU, right-click the user you just created.
-   - Select `Add to a group…`.
+   - In the `IT` OU, right-click the user you just created
+   - Select `Add to a group…`
 2. **Add to Domain Admins:**
-   - In the `Enter the object names to select` box, type `Domain Admins`.
-   - Click `Check Names` to verify the group name. Once the name is underlined, click `OK`.
-   - This action adds the user to the Domain Admins group, granting them administrative privileges across the domain.
+   - In the `Enter the object names to select` box, type `Domain Admins`
+   - Click `Check Names` to verify the group name. Once the name is underlined, click `OK`
+   - This action adds the user to the Domain Admins group, granting them administrative privileges across the domain
 
 **Step 4: Verify Group Membership**
 1. **Check the User’s Properties:**
-   - Double-click on the user’s account.
-   - Go to the `Member Of` tab to see all groups the user belongs to, ensuring `Domain Admins` is listed.
+   - Double-click on the user’s account
+   - Go to the `Member Of` tab to see all groups the user belongs to, ensuring `Domain Admins` is listed
 
 **Step 5: Group Policy and Security Considerations**
-- **Review Group Policy Settings:** Ensure that Group Policy settings related to Domain Admins are appropriate and secure.
+- **Review Group Policy Settings:** Ensure that Group Policy settings related to Domain Admins are appropriate and secure
 - **Security Best Practices:**
-  - Limit the number of users in the Domain Admins group as it grants broad administrative privileges.
-  - Regularly audit group membership and use role-based access control to minimize security risks.
+  - Limit the number of users in the Domain Admins group as it grants broad administrative privileges
+  - Regularly audit group membership and use role-based access control to minimize security risks
 
-These steps streamline the process of managing user roles within an organization, allowing you to maintain tight control over administrative access and ensure compliance with security policies.
+*These steps streamline the process of managing user roles within an organization, allowing you to maintain tight control over administrative access and ensure compliance with security policies*
 
 <img src="assets/images/ADdomainadmins.png" width="450"/> 
 
@@ -636,61 +627,63 @@ These steps streamline the process of managing user roles within an organization
 
 ### Creating a J: Drive File Share and Shrinking a Volume to Create a New Volume
 
-This guide walks you through the process of creating a shared J: drive and configuring a new volume by shrinking an existing volume using the Server Manager on Windows Server.
+This guide walks you through the process of creating a shared J: drive and configuring a new volume on your server by shrinking an existing volume using the Server Manager on Windows Server.
 
-**Part 1: Creating a J: Drive File Share**
-
-1. **Open Server Manager**: Start by opening the Server Manager dashboard.
-
-2. **Navigate to File and Storage Services**:
-   - Click on **File and Storage Services** in the left pane.
-
-3. **Access Shares Section**:
-   - Within the File and Storage Services, select **Shares**.
-
-4. **Create New Share**:
-   - Click on **TASKS**, and then select **New Share...**. A wizard will open to guide you through the setup.
-
-   ![Shares Overview](assets/images/shares.png)
-
-5. **Choose a Share Profile**:
-   - Follow the wizard steps, selecting the appropriate share profile that suits your needs.
-
-6. **Specify Share Name and Path**:
-   - Assign a name to your share (e.g., J Drive) and specify the local path where the share resides.
-
-7. **Configure Share Settings**:
-   - Set the desired permissions and configure other settings such as access permissions and quotas.
-
-   ![Share Settings](assets/images/sharessetting.png)
-
-8. **Review and Create the Share**:
-   - Review all settings, and click **Create** to finalize the share setup.
-
-**Part 2: Shrinking a Volume to Create a New Volume**
+**Part 1: Shrinking a Volume to Create a New Volume**
 
 1. **Open Disk Management**:
    - From the Server Manager, click on **Tools** and select **Computer Management**. Navigate to **Disk Management** under the Storage section.
 
 2. **Select the Volume to Shrink**:
-   - Right-click the volume you want to shrink (make sure it has enough free space) and select **Shrink Volume**.
+   - Right-click the volume you want to shrink (make sure it has enough free space) and select **Shrink Volume**
 
 3. **Specify the Amount to Shrink**:
-   - Enter the amount of space to shrink the volume by, which will determine the size of the new volume.
+   - Enter the amount of space to shrink the volume by, which will determine the size of the new volume
 
 4. **Create New Volume**:
    - Right-click on the newly created unallocated space and select **New Simple Volume**. Follow the wizard to configure and format the new volume.
 
 5. **Assign Drive Letter**:
-   - During the setup, assign the letter J: to the new volume if it is intended to be the J: drive.
+   - During the setup, assign the letter J: to the new volume if it is intended to be the J: drive
 
 6. **Format the Volume**:
    - Choose a file system and perform a quick format if desired. Label the volume as necessary.
 
 ![Shrink Settings](assets/images/shrink.png)
-#### Completion
+*Figure 15: Shrinking C: drive to allocate space for new J: drive*
 
-Once you have configured both the shared drive and the new volume, ensure all settings are correct and the systems are functioning as expected.
+**Part 2: Creating a J: Drive File Share**
+
+1. **Open Server Manager**: Start by opening the Server Manager dashboard
+
+2. **Navigate to File and Storage Services**:
+   - Click on **File and Storage Services** in the left pane
+
+3. **Access Shares Section**:
+   - Within the File and Storage Services, select **Shares**
+
+4. **Create New Share**:
+   - Click on **TASKS**, and then select **New Share...**. A wizard will open to guide you through the setup.
+
+   ![Shares Overview](assets/images/shares.png)
+   *Figure 16: Creating SMB Share and root folder*
+
+5. **Choose a Share Profile**:
+   - Follow the wizard steps, selecting the appropriate share profile that suits your needs
+
+6. **Specify Share Name and Path**:
+   - Assign a name to your share (e.g., J Drive) and specify the local path where the share resides
+
+7. **Configure Share Settings**:
+   - Set the desired permissions and configure other settings such as access permissions and quotas
+
+   ![Share Settings](assets/images/sharessetting.png)
+   *Figure 17: Configuration settings for the new share*
+
+8. **Review and Create the Share**:
+   - Review all settings, and click **Create** to finalize the share setup
+
+*Once you have configured both the shared drive and the new volume, ensure all settings are correct and the systems are functioning as expected*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -699,12 +692,13 @@ Once you have configured both the shared drive and the new volume, ensure all se
 
 ### Adding Bulk Users to Organizational Units
 
-This section provides a guide on how to bulk-add users to Active Directory in specific Organizational Units (OUs) like Accounting, Sales, HR, IT, Research, and Marketing. Each user will also receive access to a personal file drive, designated as `J:`, pointing to a file share structured as "users/username".
+This section provides a guide on how to bulk-add users to Active Directory in specific Organizational Units (OUs) like Accounting, Sales, HR, IT, Research, and Marketing. Each user will also receive access to a personal file drive, designated as `J:`, pointing to a file share structured as "Shares/Users/{Username}"
 
 **Requirements:**
-- PowerShell script execution enabled on your server.
-- Necessary permissions to add users and modify file shares.
-- A CSV file named `UserList.csv` containing the user data structured with columns: FirstName, LastName, OU, Username.
+- PowerShell script execution enabled on your server
+- Necessary permissions to add users and modify file shares
+- A CSV file named `UserList.csv` containing the user data structured with columns: FirstName, LastName, OU, Username
+  
 ```csv
 Brief glimpse into the UserList.csv
 
@@ -726,7 +720,7 @@ Eleanor, Hannon, Marketing, Marketing, Pa55w.rd
    ```powershell
 # AddBulkUsers.ps1
 Import-Module ActiveDirectory
-$users = Import-Csv -Path "C:\Path\To\Your\users.csv"
+$users = Import-Csv -Path "C:\Path\To\Your\UserList.csv"
 
 foreach ($user in $users) {
     # Sanitize and create a username by concatenating FirstName and LastName
@@ -768,17 +762,15 @@ foreach ($user in $users) {
 
 
 ```
-* Replace C:\Path\To\Your\UserList.csv with the actual path to your CSV file.
-* Modify "OU=... and domain details as per your AD structure and domain name.
 
 **Step 2: Execute the Powershell Script**
 
 1. Run PowerShell as Administrator:
-   * Right-click the PowerShell icon and select 'Run as administrator'.
+   * Right-click the PowerShell icon and select 'Run as administrator'
 2. Navigate to the Script Location:
-   * Use cd to change directory to where your script is saved.
+   * Use cd to change directory to where your script is saved
 3. Execute the Script:
-   * Type .\AddBulkUsers.ps1 (assuming your script is named AddBulkUsers.ps1).
+   * Type .\AddBulkUsers.ps1 (assuming your script is named AddBulkUsers.ps1)
    * Press Enter to run the script. It will read the CSV file and create each user in Active Directory, assign them to the appropriate OU, and set up their file drive.
   
 [Back to Table of Contents](#table-of-contents)
@@ -789,11 +781,11 @@ foreach ($user in $users) {
 
 The PowerShell script below is designed to create individual user folders within specified organizational units (OUs) in Active Directory. It sets up a network share for each user and configures the necessary permissions.
 
-- **Root Path Setup**: The root path where user folders will be located is set to `J:\users`.
+- **Root Path Setup**: The root path where user folders will be located is set to `J:\Shares\Users`
 - **OU Specification**: User details are pulled from several specified OUs like Accounting, HR, IT, etc.
-- **User Folder Creation**: Folders are created under the root path based on the user's `SamAccountName`.
+- **User Folder Creation**: Folders are created under the root path based on the user's `SamAccountName`
 - **NTFS Permissions**: The script sets up NTFS permissions by disabling inheritance and removing existing permissions. It grants 'Modify' access to the individual user and 'Full Control' to the Administrators group.
-- **SMB Share**: Each user's folder is shared on the network, making it accessible via a hidden share (`Username$`).
+- **SMB Share**: Each user's folder is shared on the network, making it accessible via a hidden share (`Username$`)
 
 ```powershell
 #createshares.ps1
@@ -850,27 +842,30 @@ foreach ($OU in $OUs) {
    - Link: `Accounting` `HR` `IT` `Marketing` `Research` `Sales`
 
 3. Edit the Group Policy Object:
-   - Right-click the newly created GPO and select "Edit".
-   - Navigate to User Configuration -> Preferences -> Windows Settings -> Drive Maps.
-   - Right-click on Drive Maps and choose New -> Mapped Drive.
+   - Right-click the newly created GPO and select "Edit"
+   - Navigate to User Configuration -> Preferences -> Windows Settings -> Drive Maps
+   - Right-click on Drive Maps and choose New -> Mapped Drive
    - Configure the drive mapping:
-      - Action: Choose "Create".
-      - Location: Enter \\NY-DC1\users\%USERNAME%. This uses the environment variable %USERNAME% which the Group Policy engine processes for each user.
-      - Drive Letter: Select "J:".
-      - Reconnect: Check this option to make the mapping persistent.
-      - Label as: Optionally, provide a label for the drive, like "User Drive".
-      - Hide/Show this drive: Choose the desired option based on whether you want to hide or show the drive.
-      - Hide/Show all drives: You can choose to leave this as default.
+      - **Action: Choose "Create"**
+      - Location: **Enter \\NY-DC1\users\\%USERNAME%** This uses the environment variable %USERNAME% which the Group Policy engine processes for each user
+      - Drive Letter: Select "J:"
+      - Reconnect: Check this option to make the mapping persistent
+      - Label as: Optionally, provide a label for the drive, like "User Drive"
+      - Hide/Show this drive: Choose the desired option based on whether you want to hide or show the drive
+      - Hide/Show all drives: You can choose to leave this as default
 
 4. Refresh Group Policy on Client Computers:
-   - To make the changes take effect immediately, you can force a Group Policy update on the client computers by running `gpupdate /force` on each client machine, or simply wait for the next Group Policy refresh cycle.
+   - To make the changes take effect immediately, you can force a Group Policy update on the client computers by running `gpupdate /force` on each client machine, or simply wait for the next Group Policy refresh cycle
 
 5. Verify the Drive Mapping:
    - Have users log off and then log back on to their computers. The J drive should now map automatically based on the user's username.
 
-<img src="assets/images/mapping1.png" width="700"/>
-<img src="assets/images/mapping2.png" width="700"/>
-<img src="assets/images/sharefinal.png" width="350"/>
+<img src="assets/images/group1.png" width="900"/>
+<img src="assets/images/group2.png" width="900"/>
+
+<img src="assets/images/user1.png" width="350"/>
+
+*Figure 19: Mapping User Drive Mapping GPO to OU's, make sure to refresh GPO's by running `gpupdate /force`*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -879,19 +874,21 @@ foreach ($OU in $OUs) {
 ### Enabling and Configuring Disk Quotas
 
 **Step 1**: Access Quota Management
-- Navigate to the drive where user folders are hosted.
-- Right-click on the drive and select **Properties**.
-- Go to the **Quota** tab and click on **Show Quota Settings**.
+- Navigate to the drive where user folders are hosted
+- Right-click on the drive and select **Properties**
+- Go to the **Quota** tab and click on **Show Quota Settings**
 
 **Step 2**: Enable Quota Management
-- Check **Enable quota management** to activate the quota system on the drive.
-- Select **Deny disk space to users exceeding quota limit** to enforce quota limits.
+- Check **Enable quota management** to activate the quota system on the drive
+- Select **Deny disk space to users exceeding quota limit** to enforce quota limits
 
 **Step 3**: Set Quota Limits
-- Choose **Limit disk space to** and enter `1 GB` (for example) for the quota limit per user.
-- Set a **Warning level** at `500 MB` (for example) to alert users as they approach their quota limit.
+- Choose **Limit disk space to** and enter `1 GB` (for example) for the quota limit per user
+- Set a **Warning level** at `500 MB` (for example) to alert users as they approach their quota limit
 
 <img src="assets/images/quota1.png" width="350" height="435"/> <img src="assets/images/quota2.png" width="350"/> 
+
+*Figure 20: Setting quota limits for each J: drive user*
 
 [Back to Table of Contents](#table-of-contents)
 
