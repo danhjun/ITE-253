@@ -627,7 +627,19 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
 
 ### Creating a J: Drive File Share on NY-DC1
 
-This guide walks you through the process of creating a shared J: drive and configuring a new volume on your server by shrinking an existing volume using the Server Manager on Windows Server.
+This guide walks you through the process of creating a shared J: drive and configuring a new volume on your server by shrinking an existing volume using the Server Manager on Windows Server. Creating a dedicated volume for your file share, instead of using the existing C: drive, offers several advantages that enhance performance, security, and manageability.
+
+**Why Create a Dedicated Volume?**
+
+1. **Performance Isolation**: Using a separate volume for shared files can help isolate disk activity from the operating system (OS) disk, which is typically the C: drive. This separation can prevent file sharing operations from affecting the performance of the server’s OS and vice versa.
+
+2. **Security**: A dedicated volume can be secured and managed with specific security policies tailored to the needs of the shared data, independent of the security settings of the OS volume. This approach allows more granular control over who can access the data.
+
+3. **Ease of Management**: With a dedicated volume, it is easier to manage backups, data recovery, and disk maintenance without interfering with the OS. For instance, the volume can be resized, defragmented, or scanned for errors independently of the system volume.
+
+4. **Improved Data Organization**: Separating shared data from system data helps in organizing and locating data more efficiently. This organization can be particularly beneficial for administrative tasks and compliance with data storage policies.
+
+5. **Enhanced Backup and Recovery**: Having a separate volume for shared data simplifies the backup process, as only the data volume can be targeted, which reduces the backup window and storage requirements. It also speeds up recovery in case of data loss, as the volume can be restored independently of the OS.
 
 **Part 1: Shrinking a Volume to Create a New Volume**
 
@@ -678,7 +690,7 @@ This guide walks you through the process of creating a shared J: drive and confi
    - Set the desired permissions and configure other settings such as access permissions and quotas
 
    ![Share Settings](assets/images/sharessetting.png)
-   
+
    *Figure 17: Configuration settings for the new share*
 
 8. **Review and Create the Share**:
