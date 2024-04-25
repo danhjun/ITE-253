@@ -878,7 +878,7 @@ foreach ($OU in $OUs) {
 
 <img src="assets/images/user1.png" width="350"/>
 
-*Figure 19: Mapping User Drive Mapping GPO to OU's, make sure to refresh GPO's by running `gpupdate /force`*
+*Figure 18: Mapping User Drive Mapping GPO to OU's, make sure to refresh GPO's by running `gpupdate /force`*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -893,7 +893,7 @@ foreach ($OU in $OUs) {
 
 <img src="assets/images/quota.png" width="350"/> 
 
-*Figure 20: Locating Quota tab after right clicking on Local Disk (J:) and selecting Properties*
+*Figure 19: Locating Quota tab after right clicking on Local Disk (J:) and selecting Properties*
 
 **Step 2**: Enable Quota Management
 - Check **Enable quota management** to activate the quota system on the drive
@@ -905,7 +905,7 @@ foreach ($OU in $OUs) {
 
 <img src="assets/images/quota2.png" width="350"/> 
 
-*Figure 21: Setting quota limits for each J: drive user*
+*Figure 20: Setting quota limits for each J: drive user*
 
 [Back to Table of Contents](#table-of-contents)
 
