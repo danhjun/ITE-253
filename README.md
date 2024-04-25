@@ -891,6 +891,10 @@ foreach ($OU in $OUs) {
 - Right-click on the drive and select **Properties**
 - Go to the **Quota** tab and click on **Show Quota Settings**
 
+<img src="assets/images/quota.png" width="350"/> 
+
+*Figure 20: Locating Quota tab after right clicking on Local Disk (J:) and selecting Properties*
+
 **Step 2**: Enable Quota Management
 - Check **Enable quota management** to activate the quota system on the drive
 - Select **Deny disk space to users exceeding quota limit** to enforce quota limits
@@ -899,9 +903,9 @@ foreach ($OU in $OUs) {
 - Choose **Limit disk space to** and enter `1 GB` (for example) for the quota limit per user
 - Set a **Warning level** at `500 MB` (for example) to alert users as they approach their quota limit
 
-<img src="assets/images/quota1.png" width="350" height="435"/> <img src="assets/images/quota2.png" width="350"/> 
+<img src="assets/images/quota2.png" width="350"/> 
 
-*Figure 20: Setting quota limits for each J: drive user*
+*Figure 21: Setting quota limits for each J: drive user*
 
 [Back to Table of Contents](#table-of-contents)
 
