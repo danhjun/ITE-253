@@ -678,6 +678,7 @@ This guide walks you through the process of creating a shared J: drive and confi
    - Set the desired permissions and configure other settings such as access permissions and quotas
 
    ![Share Settings](assets/images/sharessetting.png)
+   
    *Figure 17: Configuration settings for the new share*
 
 8. **Review and Create the Share**:
