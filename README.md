@@ -799,7 +799,7 @@ foreach ($user in $users) {
    * Use cd to change directory to where your script is saved
 3. Execute the Script:
    * Type .\YourScriptName (assuming your script is named YourScriptName.ps1)
-   * Press Enter to run the script. It will read the CSV file and create each user in Active Directory, assign them to the appropriate OU, and set up their file drive.
+   * Press Enter to run the script. It will read the CSV file and create each user in Active Directory, assign them to the appropriate OU and security group, and set up their file drive.
   
 [Back to Table of Contents](#table-of-contents)
 
