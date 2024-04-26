@@ -732,7 +732,7 @@ Eleanor, Hannon, Marketing, Marketing, Pa55w.rd
 
    ```powershell
 
-#Add Bulk Users to Organizational Units
+# Add Bulk Users to Organizational Units
 Import-Module ActiveDirectory
 $users = Import-Csv -Path "C:\Path\To\Your\UserList.csv"
 
@@ -750,6 +750,12 @@ foreach ($user in $users) {
     $password = ConvertTo-SecureString $user.Password -AsPlainText -Force
     $path = "OU=" + $user.OU + ",DC=ny,DC=contoso,DC=com"
 
+    # Check if the user already exists
+    if (Get-ADUser -Filter { SamAccountName -eq $username }) {
+        Write-Host "User $username already exists. Skipping creation."
+        continue
+    }
+
     # Create the user account
     Try {
         New-ADUser -Name $username -GivenName $user.FirstName -Surname $user.LastName `
@@ -762,6 +768,7 @@ foreach ($user in $users) {
         Continue
     }
 }
+
 ```
 ```powershell
 # Add Bulk Users to Security Groups
@@ -779,6 +786,13 @@ foreach ($user in $users) {
     if ($user.Group) {
         $group = Get-ADGroup -Filter "Name -eq '$($user.Group)'"
         if ($group) {
+            # Check if user is already a member of the group
+            if (Get-ADGroupMember -Identity $group -Recursive | Where-Object { $_.SamAccountName -eq $username }) {
+                Write-Host "User $username is already a member of group $($user.Group). Skipping."
+                continue
+            }
+
+            # If user is not already a member, add them to the group
             Try {
                 Add-ADGroupMember -Identity $group -Members $username
             }
@@ -791,8 +805,6 @@ foreach ($user in $users) {
         }
     }
 }
-
-
 
 ```
 
@@ -832,6 +844,17 @@ $OUs = @("OU=Accounting,DC=ny,DC=contoso,DC=com",
          "OU=Research,DC=ny,DC=contoso,DC=com",
          "OU=Sales,DC=ny,DC=contoso,DC=com")
 
+#createshares.ps1
+$RootPath = "J:\Shares\Users"
+
+# Get the list of users from specific OUs
+$OUs = @("OU=Accounting,DC=ny,DC=contoso,DC=com",
+         "OU=HR,DC=ny,DC=contoso,DC=com",
+         "OU=IT,DC=ny,DC=contoso,DC=com",
+         "OU=Marketing,DC=ny,DC=contoso,DC=com",
+         "OU=Research,DC=ny,DC=contoso,DC=com",
+         "OU=Sales,DC=ny,DC=contoso,DC=com")
+
 # Iterate through each OU and create folders and shares for each user
 foreach ($OU in $OUs) {
     $Users = Get-ADUser -Filter * -SearchBase $OU -Properties SamAccountName
@@ -853,9 +876,14 @@ foreach ($OU in $OUs) {
 
         # Share the directory
         $ShareName = $User.SamAccountName + "$"  # Creates a hidden share
-        New-SmbShare -Name $ShareName -Path $UserPath -FullAccess $User.SamAccountName
+        if (-Not (Get-SmbShare -Name $ShareName -ErrorAction SilentlyContinue)) {
+            New-SmbShare -Name $ShareName -Path $UserPath -FullAccess $User.SamAccountName
+        } else {
+            Write-Host "Share '$ShareName' already exists. Skipping creation."
+        }
     }
 }
+
 ```
 
 [Back to Table of Contents](#table-of-contents)
