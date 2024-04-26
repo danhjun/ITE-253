@@ -703,7 +703,7 @@ This guide walks you through the process of creating a shared J: drive and confi
 ---
 
 
-### Adding Bulk Users to Organizational Units
+### Adding Bulk Users to Organizational Units and Security Groups
 
 This section provides a guide on how to bulk-add users to Active Directory in specific Organizational Units (OUs) like Accounting, Sales, HR, IT, Research, and Marketing. Each user will also receive access to a personal file drive, designated as `J:`, pointing to a file share structured as "Shares/Users/{Username}"
 
