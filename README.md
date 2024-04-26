@@ -43,7 +43,7 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [Active Directory Identity Features](#active-directory-identity-features)
   - [Adding Users to Domain Admins in Active Directory](#adding-users-to-domain-admins-in-active-directory)
   - [Creating a J: Drive File Share on NY-DC1](#creating-a-j-drive-file-share-on-ny-dc1)
-  - [Adding Bulk Users to Organizational Units](#adding-bulk-users-to-organizational-units)
+  - [Adding Bulk Users to Organizational Units and Security Groups](#adding-bulk-users-to-organizational-units-and-security-groups)
   - [Creating a File Share for Bulk Users](#creating-a-file-share-for-bulk-users)
   - [Automating Drive Mapping on User Login](#automating-drive-mapping-on-user-login)
   - [Enabling and Configuring Disk Quotas](#enabling-and-configuring-disk-quotas)
