@@ -731,7 +731,8 @@ Eleanor, Hannon, Marketing, Marketing, Pa55w.rd
    Copy and paste the following script, which creates users from a CSV file and assigns a drive mapping to their profile:
 
    ```powershell
-# AddBulkUsers.ps1
+
+#Add Bulk Users
 Import-Module ActiveDirectory
 $users = Import-Csv -Path "C:\Path\To\Your\UserList.csv"
 
@@ -752,27 +753,37 @@ foreach ($user in $users) {
     # Create the user account
     Try {
         New-ADUser -Name $username -GivenName $user.FirstName -Surname $user.LastName `
-                  -UserPrincipalName $userPrincipalName -SamAccountName $username `
-                  -Path $path -AccountPassword $password -Enabled $true `
-                  -ChangePasswordAtLogon $false
+            -UserPrincipalName $userPrincipalName -SamAccountName $username `
+            -Path $path -AccountPassword $password -Enabled $true `
+            -ChangePasswordAtLogon $false
     }
     Catch {
         Write-Error "Failed to create user: $_"
         Continue
     }
+}
 
+#Add Bulk Users to Security Groups
+$users = Import-Csv -Path "C:\Path\To\Your\UserList.csv"
+
+foreach ($user in $users) {
     # Add a small delay or check if user exists before adding to group
     Start-Sleep -Seconds 2  # Delay to allow AD to update
     if ($user.Group) {
-        Try {
-            Add-ADGroupMember -Identity $user.Group -Members $username
+        $group = Get-ADGroup -Filter "Name -eq '$($user.Group)'"
+        if ($group) {
+            Try {
+                Add-ADGroupMember -Identity $group -Members $username
+            }
+            Catch {
+                Write-Error "Failed to add user to group: $_"
+            }
         }
-        Catch {
-            Write-Error "Failed to add user to group: $_"
+        else {
+            Write-Error "Group '$($user.Group)' not found."
         }
     }
 }
-
 
 ```
 
