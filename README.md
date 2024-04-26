@@ -768,6 +768,9 @@ foreach ($user in $users) {
 $users = Import-Csv -Path "C:\Path\To\Your\UserList.csv"
 
 foreach ($user in $users) {
+    # Sanitize and create a username by concatenating FirstName and LastName
+    $username = ($user.FirstName.Trim() + $user.LastName.Trim()).Replace(" ", "")
+
     if ($user.Group) {
         $group = Get-ADGroup -Filter "Name -eq '$($user.Group)'"
         if ($group) {
