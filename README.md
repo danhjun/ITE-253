@@ -1,5 +1,5 @@
 <h1>:computer: Network Deployment  </h1>
-The Network Deployment project, completed in the ITE 253 Network Management II course, is a comprehensive network infrastructure implemented using a Dell PowerEdge R6515 Rack Server. The project spans from initial setup to configurations, including <b> efficient IP management, DNS setup, enhancing network reliability with a secondary domain controller, DHCP, and integrating Active Directory </b>. This approach embodies a holistic strategy for creating a secure, scalable, efficient network environment.
+The Network Deployment project, completed in the ITE 253 Network Management II course, is a comprehensive network infrastructure implemented using a Dell PowerEdge R6515 Rack Server. The project spans from initial setup to configurations, including <b> efficient IP management, DNS setup, enhancing network reliability with a secondary domain controller, DHCP, and integrating Active Directory</b>. This approach embodies a holistic strategy for creating a secure, scalable, efficient network environment.
 
 <img src="assets/images/server.jpg" width="500">
 
