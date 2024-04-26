@@ -765,7 +765,7 @@ foreach ($user in $users) {
 ```
 ```powershell
 # Add Bulk Users to Security Groups
-$users = Import-Csv -Path "C:\Users\danjun\Desktop\TestUsers.csv"
+$users = Import-Csv -Path "C:\Path\To\Your\UserList.csv"
 
 foreach ($user in $users) {
     # Sanitize and create a username by concatenating FirstName and LastName
