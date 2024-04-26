@@ -768,8 +768,6 @@ foreach ($user in $users) {
 $users = Import-Csv -Path "C:\Path\To\Your\UserList.csv"
 
 foreach ($user in $users) {
-    # Add a small delay or check if user exists before adding to group
-    Start-Sleep -Seconds 2  # Delay to allow AD to update
     if ($user.Group) {
         $group = Get-ADGroup -Filter "Name -eq '$($user.Group)'"
         if ($group) {
