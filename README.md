@@ -770,6 +770,17 @@ foreach ($user in $users) {
 }
 
 ```
+**Step 2: Execute the Powershell Script**
+
+1. Run PowerShell as Administrator:
+   * Right-click the PowerShell icon and select 'Run as administrator'
+2. Navigate to the Script Location:
+   * Use cd to change directory to where your script is saved
+3. Execute the Script:
+   * Type .\YourScriptName (assuming your script is named YourScriptName.ps1)
+   * Press Enter to run the script. It will read the CSV file and create each user in Active Directory, assign them to the appropriate OU, and set up their file drive.
+4. Repeat steps to add users to security groups with the below script:
+
 ```powershell
 # Add Bulk Users to Security Groups
 $users = Import-Csv -Path "C:\Path\To\Your\UserList.csv"
@@ -807,16 +818,6 @@ foreach ($user in $users) {
 }
 
 ```
-
-**Step 2: Execute the Powershell Script**
-
-1. Run PowerShell as Administrator:
-   * Right-click the PowerShell icon and select 'Run as administrator'
-2. Navigate to the Script Location:
-   * Use cd to change directory to where your script is saved
-3. Execute the Script:
-   * Type .\YourScriptName (assuming your script is named YourScriptName.ps1)
-   * Press Enter to run the script. It will read the CSV file and create each user in Active Directory, assign them to the appropriate OU, and set up their file drive.
   
 [Back to Table of Contents](#table-of-contents)
 
