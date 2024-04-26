@@ -891,7 +891,7 @@ foreach ($OU in $OUs) {
    - Right-click on Drive Maps and choose New -> Mapped Drive
    - Configure the drive mapping:
       - **Action: Choose "Create"**
-      - Location: **Enter \\\NY-DC1\Users\\%USERNAME%** This uses the environment variable %USERNAME% which the Group Policy engine processes for each user
+      - Location: **\\\NY-DC1\Users\\%USERNAME%** This uses the environment variable %USERNAME% which the Group Policy engine processes for each user
       - Drive Letter: Select "J:"
       - Reconnect: Check this option to make the mapping persistent
       - Label as: Optionally, provide a label for the drive, like "User Drive"
