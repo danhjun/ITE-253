@@ -768,6 +768,7 @@ foreach ($user in $users) {
 $users = Import-Csv -Path "C:\Path\To\Your\UserList.csv"
 
 foreach ($user in $users) {
+    Start-Sleep -Seconds 2  # Delay to allow AD to update
     # Sanitize and create a username by concatenating FirstName and LastName
     $username = ($user.FirstName.Trim() + $user.LastName.Trim()).Replace(" ", "")
 
