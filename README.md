@@ -754,6 +754,7 @@ foreach ($user in $users) {
         Write-Host "User $username already exists. Skipping creation."
     } else {
         # Create the user account
+        # Adjust parameters as necessary such as -ChangePasswordAtLogon
         Try {
             New-ADUser -Name $username -GivenName $user.FirstName -Surname $user.LastName `
                 -UserPrincipalName $userPrincipalName -SamAccountName $username `
