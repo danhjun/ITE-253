@@ -730,9 +730,8 @@ Eleanor, Hannon, Marketing, Marketing, Pa55w.rd
    Open Notepad or any text editor.
    Copy and paste the following script, which creates users from a CSV file and assigns a drive mapping to their profile:
 
-   ```powershell
-
-# Add Bulk Users to Organizational Units
+```powershell
+# Combined Script for Adding Users and Assigning to Groups
 Import-Module ActiveDirectory
 $users = Import-Csv -Path "C:\Path\To\Your\UserList.csv"
 
@@ -741,9 +740,8 @@ foreach ($user in $users) {
     $username = ($user.FirstName.Trim() + $user.LastName.Trim()).Replace(" ", "")
 
     # Ensure username is properly formed, adjust if necessary
-    # Error will occur if username is over 20 characters
     if ($username.Length -gt 20) {
-        $username = $username.Substring(0, 20)  
+        $username = $username.Substring(0, 20)
     }
 
     $userPrincipalName = $username + "@ny.contoso.com"
@@ -753,22 +751,43 @@ foreach ($user in $users) {
     # Check if the user already exists
     if (Get-ADUser -Filter { SamAccountName -eq $username }) {
         Write-Host "User $username already exists. Skipping creation."
-        continue
+    } else {
+        # Create the user account
+        Try {
+            New-ADUser -Name $username -GivenName $user.FirstName -Surname $user.LastName `
+                -UserPrincipalName $userPrincipalName -SamAccountName $username `
+                -Path $path -AccountPassword $password -Enabled $true `
+                -ChangePasswordAtLogon $false
+            Write-Host "User $username created successfully."
+        }
+        Catch {
+            Write-Error "Failed to create user: $_"
+            Continue
+        }
     }
 
-    # Create the user account
-    Try {
-        New-ADUser -Name $username -GivenName $user.FirstName -Surname $user.LastName `
-            -UserPrincipalName $userPrincipalName -SamAccountName $username `
-            -Path $path -AccountPassword $password -Enabled $true `
-            -ChangePasswordAtLogon $false
-    }
-    Catch {
-        Write-Error "Failed to create user: $_"
-        Continue
+    # Process group membership if specified
+    if ($user.Group) {
+        $group = Get-ADGroup -Filter "Name -eq '$($user.Group)'"
+        if ($group) {
+            # Check if user is already a member of the group
+            if (Get-ADGroupMember -Identity $group -Recursive | Where-Object { $_.SamAccountName -eq $username }) {
+                Write-Host "User $username is already a member of group $($user.Group). Skipping."
+            } else {
+                # If user is not already a member, add them to the group
+                Try {
+                    Add-ADGroupMember -Identity $group -Members $username
+                    Write-Host "User $username added to group $($user.Group)."
+                }
+                Catch {
+                    Write-Error "Failed to add user to group: $_"
+                }
+            }
+        } else {
+            Write-Error "Group '$($user.Group)' not found."
+        }
     }
 }
-
 ```
 **Step 2: Execute the Powershell Script**
 
@@ -779,45 +798,6 @@ foreach ($user in $users) {
 3. Execute the Script:
    * Type .\YourScriptName (assuming your script is named YourScriptName.ps1)
    * Press Enter to run the script. It will read the CSV file and create each user in Active Directory, assign them to the appropriate OU, and set up their file drive.
-4. Repeat steps to add users to security groups with the below script:
-
-```powershell
-# Add Bulk Users to Security Groups
-$users = Import-Csv -Path "C:\Path\To\Your\UserList.csv"
-
-foreach ($user in $users) {
-    # Sanitize and create a username by concatenating FirstName and LastName
-    $username = ($user.FirstName.Trim() + $user.LastName.Trim()).Replace(" ", "")
-
-    # Ensure username is properly formed
-    if ($username.Length -gt 20) {
-        $username = $username.Substring(0, 20)
-    }
-
-    if ($user.Group) {
-        $group = Get-ADGroup -Filter "Name -eq '$($user.Group)'"
-        if ($group) {
-            # Check if user is already a member of the group
-            if (Get-ADGroupMember -Identity $group -Recursive | Where-Object { $_.SamAccountName -eq $username }) {
-                Write-Host "User $username is already a member of group $($user.Group). Skipping."
-                continue
-            }
-
-            # If user is not already a member, add them to the group
-            Try {
-                Add-ADGroupMember -Identity $group -Members $username
-            }
-            Catch {
-                Write-Error "Failed to add user to group: $_"
-            }
-        }
-        else {
-            Write-Error "Group '$($user.Group)' not found."
-        }
-    }
-}
-
-```
   
 [Back to Table of Contents](#table-of-contents)
 
