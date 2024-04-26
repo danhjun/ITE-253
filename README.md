@@ -740,6 +740,7 @@ foreach ($user in $users) {
     $username = ($user.FirstName.Trim() + $user.LastName.Trim()).Replace(" ", "")
 
     # Ensure username is properly formed, adjust if necessary
+    # An error will occur if the username is greater than 20 characters
     if ($username.Length -gt 20) {
         $username = $username.Substring(0, 20)
     }
