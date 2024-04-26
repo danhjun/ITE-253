@@ -764,13 +764,19 @@ foreach ($user in $users) {
 }
 ```
 ```powershell
-#Add Bulk Users to Security Groups
-$users = Import-Csv -Path "C:\Path\To\Your\UserList.csv"
+# Add Bulk Users to Security Groups
+$users = Import-Csv -Path "C:\Path\to\TestUsers.csv"
 
 foreach ($user in $users) {
     Start-Sleep -Seconds 2  # Delay to allow AD to update
+    
     # Sanitize and create a username by concatenating FirstName and LastName
     $username = ($user.FirstName.Trim() + $user.LastName.Trim()).Replace(" ", "")
+
+    # Ensure username is properly formed and does not exceed 20 characters
+    if ($username.Length -gt 20) {
+        $username = $username.Substring(0, 20)
+    }
 
     if ($user.Group) {
         $group = Get-ADGroup -Filter "Name -eq '$($user.Group)'"
@@ -787,6 +793,7 @@ foreach ($user in $users) {
         }
     }
 }
+
 
 ```
 
