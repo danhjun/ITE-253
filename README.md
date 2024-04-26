@@ -732,7 +732,7 @@ Eleanor, Hannon, Marketing, Marketing, Pa55w.rd
 
    ```powershell
 
-#Add Bulk Users
+#Add Bulk Users to Organizational Units
 Import-Module ActiveDirectory
 $users = Import-Csv -Path "C:\Path\To\Your\UserList.csv"
 
