@@ -715,13 +715,13 @@ This section provides a guide on how to bulk-add users to Active Directory in sp
 ```csv
 Brief glimpse into the UserList.csv
 
-FirstName, LastName, OU, Group, Password
-Lacie, English, Accounting, Accounting, Pa55w.rd
-Marci, Sloan, Sales, Sales, Pa55w.rd
-Joana, Applegate, HR, HR, Pa55w.rd
-Rosio, Bland, IT, IT, Pa55w.rd
-Janeth, Lowery, Research, Research, Pa55w.rd
-Eleanor, Hannon, Marketing, Marketing, Pa55w.rd
+FirstName, LastName,  OU,         Group,      Password
+Lacie,     English,   Accounting, Accounting, Pa55w.rd
+Marci,     Sloan,     Sales,      Sales,      Pa55w.rd
+Joana,     Applegate, HR,         HR,         Pa55w.rd
+Rosio,     Bland,     IT,         IT,         Pa55w.rd
+Janeth,    Lowery,    Research,   Research,   Pa55w.rd
+Eleanor,   Hannon,    Marketing,  Marketing,  Pa55w.rd
 ```
 
 **Step 1: Prepare the PowerShell Script**
