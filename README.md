@@ -879,7 +879,7 @@ foreach ($OU in $OUs) {
    - On a server that is part of your domain, open the Group Policy Management Console (GPMC). This can usually be found in the Administrative Tools folder.
 
 2. Create a New Group Policy Object and Link to OU's (GPO):
-   - Press `Window key + R` to enter gpmc.msc
+   - Press `Window key + R` and enter gpmc.msc
    - Under Group Policy Management and under your domain `ny.contoso.com` right click on Group Policy Objects and select `new`
    - Name the new GPO something descriptive like `User Drive Mapping`
    - Drag and drop the `User Drive Mapping` GPO to OU's to **link** them together
