@@ -737,7 +737,7 @@ $users = Import-Csv -Path "C:\Path\To\Your\UserList.csv"
 
 foreach ($user in $users) {
     # Sanitize and create a username by concatenating FirstName and LastName
-    $username = ($user.FirstName.Trim() + $user.LastName.Trim()).Replace(" ", "")
+    $username = ($user.FirstName.Trim() + $user.LastName.Trim()[0])
 
     # Ensure username is properly formed, adjust if necessary
     # An error will occur if the username is greater than 20 characters
