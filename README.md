@@ -41,7 +41,7 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [Why Install Active Directory First?](#why-install-active-directory-first)
   - [Installing Remote Server Administration Tools (RSAT) on Windows 10](#installing-remote-server-administration-tools-rsat-on-windows-10)
   - [Active Directory Identity Features](#active-directory-identity-features)
-  - [Adding Users to Domain Admins in Active Directory](#adding-users-to-domain-admins-in-active-directory)
+  - [Adding Security Group to Domain Admins in Active Directory](#adding-security-group-to-domain-admins-in-active-directory)
   - [Adding Bulk Users to Organizational Units and Security Groups](#adding-bulk-users-to-organizational-units-and-security-groups)
   - [Manually Setting Drive Mappings for Different OU's](#manually-setting-drive-mappings-for-different-ous)
   - [Creating a J: Drive File Share on NY-DC1](#creating-a-j-drive-file-share-on-ny-dc1)
@@ -576,7 +576,7 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
 
 ---
 
-### Adding Users to Domain Admins in Active Directory
+### Adding Security Group to Domain Admins in Active Directory
 
 **Step 1: Create an Organizational Unit (OU)**
 1. **Open Active Directory Users and Computers:** This can be accessed from the Administrative Tools on your server
@@ -585,19 +585,19 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
    - Select `New` > `Organizational Unit`
    - Name the OU `IT` and click `OK`
 
-**Step 2: Create a New User in the IT OU**
+**Step 2: Create a New Secuity Group in the IT OU**
 1. **Navigate to the IT OU:**
    - Right-click on the `IT` OU
-   - Select `New` > `User`
-2. **Enter User Details:**
-   - Provide the first name, last name, and user logon name
-   - Click `Next`
-   - Set a password for the user and choose password options (e.g., user must change password at next logon)
-   - Click `Next`, then `Finish` to create the user
+   - Select `New` > `Group`
+2. **Enter Group Details:**
+   - Provide the Group name: `IT`
+   - Group scope: `Global`
+   - Goup Type: `Security`
+   - Click `Ok`
 
-**Step 3: Add the New User to the Domain Admins Group**
+**Step 3: Add the New Security Group to the Domain Admins Group**
 1. **Find the Newly Created User:**
-   - In the `IT` OU, right-click the user you just created
+   - In the `IT` OU, right-click the Secuity Group you just created
    - Select `Add to a group…`
 2. **Add to Domain Admins:**
    - In the `Enter the object names to select` box, type `Domain Admins`
@@ -605,9 +605,46 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
    - This action adds the user to the Domain Admins group, granting them administrative privileges across the domain
 
 **Step 4: Verify Group Membership**
-1. **Check the User’s Properties:**
-   - Double-click on the user’s account
+1. **Check the Group’s Properties:**
+   - Right-click on the IT Security Group
    - Go to the `Member Of` tab to see all groups the user belongs to, ensuring `Domain Admins` is listed
+
+<img src="assets/images/adou1.png" width="450"/> 
+
+*Figure __ Double checking IT Security Group is part of Domain Admins*
+
+**Step 4: Create a New User in the IT OU and Add the User to the IT Security Group**
+
+1. **Navigate to the IT OU:**
+   - Right-click on the IT OU
+   - Select New > User
+  
+2. **Enter User Details:**
+   - Provide the first name, last name, and user logon name
+      Click Next
+   - Set a password for the user and choose password options (e.g., user must change password at next logon)
+   - Click Next, then Finish to create the user
+
+3. **Add the New User to the Domain Admins Group**
+
+   - Find the Newly Created User:
+        In the IT OU, right-click the user you just created
+        Select Add to a group…
+   - Add to `IT` Security Group:
+        In the Enter the object names to select box, type `IT`
+   - Click Check Names to verify the group name. Once the name is underlined, click OK
+   - This action adds the user to the `IT` group, granting them administrative privileges across the domain since the `IT` Group is part of `Domain Admins`
+
+4. **Verify Group Membership**
+
+   - Check the User’s Properties:
+      Double-click on the user’s account
+   - Go to the Member Of tab to see all groups the user belongs to, ensuring `IT` is listed
+
+
+<img src="assets/images/ITSEC.png" width="450"/> 
+
+
 
 **Step 5: Group Policy and Security Considerations**
 - **Review Group Policy Settings:** Ensure that Group Policy settings related to Domain Admins are appropriate and secure
@@ -617,9 +654,7 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
 
 *These steps streamline the process of managing user roles within an organization, allowing you to maintain tight control over administrative access and ensure compliance with security policies*
 
-<img src="assets/images/ADdomainadmins.png" width="450"/> 
 
-<img src="assets/images/ADOU.png" width="600"/> 
 
 *Figure 14: Reviewing "Domain Admins" membership*
 
@@ -769,7 +804,7 @@ foreach ($user in $users) {
 
 *Figure 15: Shrinking C: drive to allocate space for new drive*
 
-<img src="assets/images/partgroups.png" width="1100"/>
+<img src="assets/images/partgroups.png" width="1300"/>
 
 <img src="assets/images/newshare.png" width="410"/> <img src="assets/images/sharepath.png" width="410"/>
 
