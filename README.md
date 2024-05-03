@@ -771,9 +771,9 @@ foreach ($user in $users) {
 
 <img src="assets/images/partgroups.png" width="1100"/>
 
-<img src="assets/images/newshare.png" width="450"/> <img src="assets/images/sharepath.png" width="450"/>
+<img src="assets/images/newshare.png" width="410"/> <img src="assets/images/sharepath.png" width="410"/>
 
-<img src="assets/images/accounting.png" width="450"/> <img src="assets/images/enable.png" width="450"/>
+<img src="assets/images/accounting.png" width="410"/> <img src="assets/images/enable.png" width="410"/>
 
 
 <img src="assets/images/inheritance.png" width="1100"/>
