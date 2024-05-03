@@ -882,6 +882,7 @@ foreach ($OU in $OUs) {
 <img src="assets/images/accounting.png" width="450"/> <img src="assets/images/enable.png" width="450"/>
 
 <img src="assets/images/inheritance.png" width="1100"/>
+<img src="assets/images/accountingpermissions.png" width="1100"/>
 
 
 
