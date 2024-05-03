@@ -45,6 +45,7 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [Creating a J: Drive File Share on NY-DC1](#creating-a-j-drive-file-share-on-ny-dc1)
   - [Adding Bulk Users to Organizational Units and Security Groups](#adding-bulk-users-to-organizational-units-and-security-groups)
   - [Creating a File Share for Bulk Users](#creating-a-file-share-for-bulk-users)
+  - [Manually Setting Drive Mappings for Different OU's](#manually-setting-drive-mappings-for-different-ous)
   - [Automating Drive Mapping on User Login](#automating-drive-mapping-on-user-login)
   - [Enabling and Configuring Disk Quotas](#enabling-and-configuring-disk-quotas)
 
@@ -868,6 +869,22 @@ foreach ($OU in $OUs) {
 }
 
 ```
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+### Manually Setting Drive Mappings for Different OU's
+
+<img src="assets/images/partgroups.png" width="1100"/>
+
+<img src="assets/images/newshare.png" width="450"/> <img src="assets/images/sharepath.png" width="450"/>
+<img src="assets/images/accounting.png" width="450"/> <img src="assets/images/enable.png" width="450"/>
+
+<img src="assets/images/inheritance.png" width="1100"/>
+
+
+
 
 [Back to Table of Contents](#table-of-contents)
 
