@@ -41,7 +41,7 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [Why Install Active Directory First?](#why-install-active-directory-first)
   - [Installing Remote Server Administration Tools (RSAT) on Windows 10](#installing-remote-server-administration-tools-rsat-on-windows-10)
   - [Active Directory Identity Features](#active-directory-identity-features)
-  - [Adding Security Group to Domain Admins in Active Directory](#adding-security-group-to-domain-admins-in-active-directory)
+  - [Granting Security Group Administrative Privileges](#granting-security-group-administrative-privileges)
   - [Adding Bulk Users to Organizational Units and Security Groups](#adding-bulk-users-to-organizational-units-and-security-groups)
   - [Manually Setting Drive Mappings for Different OU's](#manually-setting-drive-mappings-for-different-ous)
   - [Creating a J: Drive File Share on NY-DC1](#creating-a-j-drive-file-share-on-ny-dc1)
@@ -576,7 +576,7 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
 
 ---
 
-### Adding Security Group to Domain Admins in Active Directory
+### Granting Security Group Administrative Privileges
 
 **Step 1: Create an Organizational Unit (OU)**
 1. **Open Active Directory Users and Computers:** This can be accessed from the Administrative Tools on your server
