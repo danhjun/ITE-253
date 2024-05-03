@@ -42,11 +42,12 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [Installing Remote Server Administration Tools (RSAT) on Windows 10](#installing-remote-server-administration-tools-rsat-on-windows-10)
   - [Active Directory Identity Features](#active-directory-identity-features)
   - [Adding Users to Domain Admins in Active Directory](#adding-users-to-domain-admins-in-active-directory)
-  - [Creating a J: Drive File Share on NY-DC1](#creating-a-j-drive-file-share-on-ny-dc1)
   - [Adding Bulk Users to Organizational Units and Security Groups](#adding-bulk-users-to-organizational-units-and-security-groups)
-  - [Creating a File Share for Bulk Users](#creating-a-file-share-for-bulk-users)
   - [Manually Setting Drive Mappings for Different OU's](#manually-setting-drive-mappings-for-different-ous)
+  - [Creating a J: Drive File Share on NY-DC1](#creating-a-j-drive-file-share-on-ny-dc1)
+  - [Creating a File Share for Bulk Users](#creating-a-file-share-for-bulk-users)
   - [Automating Drive Mapping on User Login](#automating-drive-mapping-on-user-login)
+  - [Misc Errors](#misc-errors)
   - [Enabling and Configuring Disk Quotas](#enabling-and-configuring-disk-quotas)
 
 
@@ -626,84 +627,6 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
 
 ---
 
-### Creating a J: Drive File Share on NY-DC1
-
-This guide walks you through the process of creating a shared J: drive and configuring a new volume on your server by shrinking an existing volume using the Server Manager on Windows Server. Creating a dedicated volume for your file share, instead of using the existing C: drive, offers several advantages that enhance performance, security, and manageability.
-
-**Why Create a Dedicated Volume?**
-
-1. **Performance Isolation**: Using a separate volume for shared files can help isolate disk activity from the operating system (OS) disk, which is typically the C: drive. This separation can prevent file sharing operations from affecting the performance of the server’s OS and vice versa.
-
-2. **Security**: A dedicated volume can be secured and managed with specific security policies tailored to the needs of the shared data, independent of the security settings of the OS volume. This approach allows more granular control over who can access the data.
-
-3. **Ease of Management**: With a dedicated volume, it is easier to manage backups, data recovery, and disk maintenance without interfering with the OS. For instance, the volume can be resized, defragmented, or scanned for errors independently of the system volume.
-
-4. **Improved Data Organization**: Separating shared data from system data helps in organizing and locating data more efficiently. This organization can be particularly beneficial for administrative tasks and compliance with data storage policies.
-
-5. **Enhanced Backup and Recovery**: Having a separate volume for shared data simplifies the backup process, as only the data volume can be targeted, which reduces the backup window and storage requirements. It also speeds up recovery in case of data loss, as the volume can be restored independently of the OS.
-
-**Part 1: Shrinking a Volume to Create a New Volume**
-
-1. **Open Disk Management**:
-   - From the Server Manager, click on **Tools** and select **Computer Management**. Navigate to **Disk Management** under the Storage section.
-
-2. **Select the Volume to Shrink**:
-   - Right-click the volume you want to shrink (make sure it has enough free space) and select **Shrink Volume**
-
-3. **Specify the Amount to Shrink**:
-   - Enter the amount of space to shrink the volume by, which will determine the size of the new volume
-
-4. **Create New Volume**:
-   - Right-click on the newly created unallocated space and select **New Simple Volume**. Follow the wizard to configure and format the new volume.
-
-5. **Assign Drive Letter**:
-   - During the setup, assign the letter J: to the new volume if it is intended to be the J: drive
-
-6. **Format the Volume**:
-   - Choose a file system and perform a quick format if desired. Label the volume as necessary.
-
-![Shrink Settings](assets/images/shrink.png)
-*Figure 15: Shrinking C: drive to allocate space for new J: drive*
-
-**Part 2: Creating a J: Drive File Share**
-
-1. **Open Server Manager**: Start by opening the Server Manager dashboard
-
-2. **Navigate to File and Storage Services**:
-   - Click on **File and Storage Services** in the left pane
-
-3. **Access Shares Section**:
-   - Within the File and Storage Services, select **Shares**
-
-4. **Create New Share**:
-   - Click on **TASKS**, and then select **New Share...**. A wizard will open to guide you through the setup.
-
-   ![Shares Overview](assets/images/shares.png)
-   *Figure 16: Creating SMB Share and root folder*
-
-5. **Choose a Share Profile**:
-   - Follow the wizard steps, selecting the appropriate share profile that suits your needs
-
-6. **Specify Share Name and Path**:
-   - Assign a name to your share ``Users`` and specify the local path where the share resides: ``J:\Shares\Users``
-
-7. **Configure Share Settings**:
-   - Set the desired permissions and configure other settings such as access permissions
-
-   ![Share Settings](assets/images/sharessetting.png)
-
-   *Figure 17: Configuration settings for the new share*
-
-8. **Review and Create the Share**:
-   - Review all settings, and click **Create** to finalize the share setup
-
-*Once you have configured both the shared drive and the new volume, ensure all settings are correct and the systems are functioning as expected*
-
-[Back to Table of Contents](#table-of-contents)
-
----
-
-
 ### Adding Bulk Users to Organizational Units and Security Groups
 
 This section provides a guide on how to bulk-add users to Active Directory in specific Organizational Units (OUs) like Accounting, Sales, HR, IT, Research, and Marketing. Each user will also receive access to a personal file drive, designated as `J:`, pointing to a file share structured as "Shares/Users/{Username}"
@@ -734,10 +657,12 @@ Eleanor,   Hannon,    Marketing,  Marketing,  Pa55w.rd
 ```powershell
 # Combined Script for Adding Users and Assigning to Groups
 Import-Module ActiveDirectory
+
+# TEST WITH A SMALLER .CSV FILE BEFORE USING MAIN UserList.csv !!!
 $users = Import-Csv -Path "C:\Path\To\Your\UserList.csv"
 
 foreach ($user in $users) {
-    # Sanitize and create a username by concatenating FirstName and LastName
+    # Sanitize and create a username by concatenating FirstName and FIRST LETTER of LastName
     $username = ($user.FirstName.Trim() + $user.LastName.Trim()[0])
 
     # Ensure username is properly formed, adjust if necessary
@@ -802,6 +727,141 @@ foreach ($user in $users) {
    * Type .\YourScriptName (assuming your script is named YourScriptName.ps1)
    * Press Enter to run the script. It will read the CSV file and create each user in Active Directory, assign them to the appropriate OU and security group.
   
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+### Manually Setting Drive Mappings for Different OU's
+
+**Why Create Dedicated Volumes?**
+
+1. **Performance Isolation**: Using a separate volume for shared files can help isolate disk activity from the operating system (OS) disk, which is typically the C: drive. This separation can prevent file sharing operations from affecting the performance of the server’s OS and vice versa.
+
+2. **Security**: A dedicated volume can be secured and managed with specific security policies tailored to the needs of the shared data, independent of the security settings of the OS volume. This approach allows more granular control over who can access the data.
+
+3. **Ease of Management**: With a dedicated volume, it is easier to manage backups, data recovery, and disk maintenance without interfering with the OS. For instance, the volume can be resized, defragmented, or scanned for errors independently of the system volume.
+
+4. **Improved Data Organization**: Separating shared data from system data helps in organizing and locating data more efficiently. This organization can be particularly beneficial for administrative tasks and compliance with data storage policies.
+
+5. **Enhanced Backup and Recovery**: Having a separate volume for shared data simplifies the backup process, as only the data volume can be targeted, which reduces the backup window and storage requirements. It also speeds up recovery in case of data loss, as the volume can be restored independently of the OS.
+
+**Part 1: Shrinking a Volume to Create a New Volume**
+
+1. **Open Disk Management**:
+   - From the Server Manager, click on **Tools** and select **Computer Management**. Navigate to **Disk Management** under the Storage section.
+
+2. **Select the Volume to Shrink**:
+   - Right-click the volume you want to shrink (make sure it has enough free space) and select **Shrink Volume**
+
+3. **Specify the Amount to Shrink**:
+   - Enter the amount of space to shrink the volume by, which will determine the size of the new volume
+
+4. **Create New Volume**:
+   - Right-click on the newly created unallocated space and select **New Simple Volume**. Follow the wizard to configure and format the new volume.
+
+5. **Assign Drive Letter**:
+   - During the setup, assign the letter A: to the new volume if it is intended to be the A: drive (for Accounting)
+
+6. **Format the Volume**:
+   - Choose a file system and perform a quick format if desired. Label the volume as necessary.
+
+![Shrink Settings](assets/images/shrink.png)
+
+*Figure 15: Shrinking C: drive to allocate space for new drive*
+
+<img src="assets/images/partgroups.png" width="1100"/>
+
+<img src="assets/images/newshare.png" width="450"/> <img src="assets/images/sharepath.png" width="450"/>
+
+<img src="assets/images/accounting.png" width="450"/> <img src="assets/images/enable.png" width="450"/>
+
+
+<img src="assets/images/inheritance.png" width="1100"/>
+<img src="assets/images/accountingpermissions.png" width="700"/>
+<img src="assets/images/permedit.png" width="1100"/>
+
+
+
+<img src="assets/images/accountinggpo.png" width="450"/>
+
+
+
+<img src="assets/images/accshare.png" width="450"/>
+
+
+
+<img src="assets/images/accountingedit.png" width="450"/>
+
+<img src="assets/images/mapped.png" height="340" width="600"/>
+<img src="assets/images/location.png" width="300"/>
+
+<img src="assets/images/userfinish.png" width="700"/>
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+### Creating a J: Drive File Share on NY-DC1
+
+This guide walks you through the process of creating a shared J: drive and configuring a new volume on your server by shrinking an existing volume using the Server Manager on Windows Server. 
+
+**Part 1: Shrinking a Volume to Create a New Volume**
+
+1. **Open Disk Management**:
+   - From the Server Manager, click on **Tools** and select **Computer Management**. Navigate to **Disk Management** under the Storage section.
+
+2. **Select the Volume to Shrink**:
+   - Right-click the volume you want to shrink (make sure it has enough free space) and select **Shrink Volume**
+
+3. **Specify the Amount to Shrink**:
+   - Enter the amount of space to shrink the volume by, which will determine the size of the new volume
+
+4. **Create New Volume**:
+   - Right-click on the newly created unallocated space and select **New Simple Volume**. Follow the wizard to configure and format the new volume.
+
+5. **Assign Drive Letter**:
+   - During the setup, assign the letter J: to the new volume
+
+6. **Format the Volume**:
+   - Choose a file system and perform a quick format if desired. Label the volume as necessary.
+
+![Shrink Settings](assets/images/shrink.png)
+*Figure 15: Shrinking C: drive to allocate space for new J: drive*
+
+**Part 2: Creating a J: Drive File Share**
+
+1. **Open Server Manager**: Start by opening the Server Manager dashboard
+
+2. **Navigate to File and Storage Services**:
+   - Click on **File and Storage Services** in the left pane
+
+3. **Access Shares Section**:
+   - Within the File and Storage Services, select **Shares**
+
+4. **Create New Share**:
+   - Click on **TASKS**, and then select **New Share...**. A wizard will open to guide you through the setup.
+
+   ![Shares Overview](assets/images/shares.png)
+   *Figure 16: Creating SMB Share and root folder*
+
+5. **Choose a Share Profile**:
+   - Follow the wizard steps, selecting the appropriate share profile that suits your needs
+
+6. **Specify Share Name and Path**:
+   - Assign a name to your share ``Users`` and specify the local path where the share resides: ``J:\Shares\Users``
+
+7. **Configure Share Settings**:
+   - Set the desired permissions and configure other settings such as access permissions
+
+   ![Share Settings](assets/images/sharessetting.png)
+
+   *Figure 17: Configuration settings for the new share*
+
+8. **Review and Create the Share**:
+   - Review all settings, and click **Create** to finalize the share setup
+
+*Once you have configured both the shared drive and the new volume, ensure all settings are correct and the systems are functioning as expected*
+
 [Back to Table of Contents](#table-of-contents)
 
 ---
@@ -874,23 +934,6 @@ foreach ($OU in $OUs) {
 
 ---
 
-### Manually Setting Drive Mappings for Different OU's
-
-<img src="assets/images/partgroups.png" width="1100"/>
-
-<img src="assets/images/newshare.png" width="450"/> <img src="assets/images/sharepath.png" width="450"/>
-<img src="assets/images/accounting.png" width="450"/> <img src="assets/images/enable.png" width="450"/>
-
-<img src="assets/images/inheritance.png" width="1100"/>
-<img src="assets/images/accountingpermissions.png" width="1100"/>
-
-
-
-
-[Back to Table of Contents](#table-of-contents)
-
----
-
 ### Automating Drive Mapping on User Login
 
 1. Open Group Policy Management:
@@ -913,8 +956,8 @@ foreach ($OU in $OUs) {
       - Drive Letter: Select "J:"
       - Reconnect: Check this option to make the mapping persistent
       - Label as: Optionally, provide a label for the drive, like "User Drive"
-      - Hide/Show this drive: Choose the desired option based on whether you want to hide or show the drive
-      - Hide/Show all drives: You can choose to leave this as default
+      - Hide/Show this drive: Choose the desired option based on whether you want to hide or show the drive (Can leave as default)
+      - Hide/Show all drives: You can choose to leave this as default (Can leave as default)
 
 4. Refresh Group Policy on Client Computers:
    - To make the changes take effect immediately, you can force a Group Policy update on the client computers by running `gpupdate /force` on each client machine, or simply wait for the next Group Policy refresh cycle
@@ -925,13 +968,24 @@ foreach ($OU in $OUs) {
 <img src="assets/images/group1.png" width="900"/>
 <img src="assets/images/group2.png" width="900"/>
 
-<img src="assets/images/user1.png" width="350"/>
+
 
 *Figure 18: Mapping User Drive Mapping GPO to OU's, make sure to refresh GPO's by running `gpupdate /force`*
 
 [Back to Table of Contents](#table-of-contents)
 
 ---
+
+### Misc Errors
+
+```powershell
+repadmin /syncall /AePd
+```
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
 
 ### Enabling and Configuring Disk Quotas
 
