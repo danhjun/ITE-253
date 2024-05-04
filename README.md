@@ -813,7 +813,7 @@ foreach ($user in $users) {
 
 <img src="assets/images/inheritance.png" width="1100"/>
 <img src="assets/images/accountingpermissions.png" width="700"/>
-<img src="assets/images/permedit.png" width="1100"/>
+<img src="assets/images/permedit.png" width="1300"/>
 
 
 
