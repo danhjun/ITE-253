@@ -47,8 +47,8 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [Creating a J: Drive File Share on NY-DC1](#creating-a-j-drive-file-share-on-ny-dc1)
   - [Creating a File Share for Bulk Users](#creating-a-file-share-for-bulk-users)
   - [Automating Drive Mapping on User Login](#automating-drive-mapping-on-user-login)
-  - [Misc Errors](#misc-errors)
   - [Enabling and Configuring Disk Quotas](#enabling-and-configuring-disk-quotas)
+  - [Misc Errors](#misc-errors)
 
 
 ---
@@ -886,7 +886,7 @@ This guide walks you through the process of creating a shared J: drive and confi
    - Assign a name to your share ``Users`` and specify the local path where the share resides: ``J:\Shares\Users``
 
 7. **Configure Share Settings**:
-   - Set the desired permissions and configure other settings such as access permissions
+   - Set the desired permissions and configure other settings such as access permissions (Can leave default permissions for this `Users` share)
 
    ![Share Settings](assets/images/sharessetting.png)
 
@@ -1002,7 +1002,7 @@ foreach ($OU in $OUs) {
 
 <img src="assets/images/group1.png" width="900"/>
 <img src="assets/images/group2.png" width="900"/>
-
+<img src="assets/images/agustin.png" width="900"/>
 
 
 *Figure 18: Mapping User Drive Mapping GPO to OU's, make sure to refresh GPO's by running `gpupdate /force`*
@@ -1010,17 +1010,6 @@ foreach ($OU in $OUs) {
 [Back to Table of Contents](#table-of-contents)
 
 ---
-
-### Misc Errors
-
-```powershell
-repadmin /syncall /AePd
-```
-
-[Back to Table of Contents](#table-of-contents)
-
----
-
 
 ### Enabling and Configuring Disk Quotas
 
@@ -1044,6 +1033,16 @@ repadmin /syncall /AePd
 <img src="assets/images/quota2.png" width="350"/> 
 
 *Figure 20: Setting quota limits for each J: drive user*
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+### Misc Errors
+
+```powershell
+repadmin /syncall /AePd
+```
 
 [Back to Table of Contents](#table-of-contents)
 
