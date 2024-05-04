@@ -1002,7 +1002,7 @@ foreach ($OU in $OUs) {
 
 <img src="assets/images/group1.png" width="900"/>
 <img src="assets/images/group2.png" width="900"/>
-<img src="assets/images/agustin.png" width="900"/>
+<img src="assets/images/Agustin.png" width="900"/>
 
 
 *Figure 18: Mapping User Drive Mapping GPO to OU's, make sure to refresh GPO's by running `gpupdate /force`*
