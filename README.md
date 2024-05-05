@@ -612,7 +612,7 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
 
 <img src="assets/images/adou1.png" width="450"/> 
 
-*Figure __ Double checking IT Security Group is part of Domain Admins*
+*Figure 14 Double checking IT Security Group is part of Domain Admins*
 
 **Step 4: Create a New User in the IT OU and Add the User to the IT Security Group**
 
@@ -643,6 +643,8 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
    - Go to the Member Of tab to see all groups the user belongs to, ensuring `IT` is listed
 
 <img src="assets/images/ITSEC.png" width="450"/> 
+
+*Figure 15 Double checking User is part of IT Security Group*
 
 **Step 5: Group Policy and Security Considerations**
 - **Review Group Policy Settings:** Ensure that Group Policy settings related to Domain Admins are appropriate and secure
@@ -798,11 +800,11 @@ foreach ($user in $users) {
 
 ![Shrink Settings](assets/images/shrink.png)
 
-*Figure 15: Shrinking C: drive to allocate space for new drive*
+*Figure 16: Shrinking C: drive to allocate space for new drive*
 
 ![All Drives](assets/images/partitions.png)
 
-*Figure 15: Dedicated volumes for each Department*
+*Figure 17: Dedicated volumes for each Department*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -836,11 +838,15 @@ foreach ($user in $users) {
  <img src="assets/images/newshare.png" width="410"/> <img src="assets/images/sharepath.png" width="410"/>
  <img src="assets/images/accounting.png" width="410"/> <img src="assets/images/enable.png" width="410"/>
 
+*Figure 18 Going through New Share Wizard for Accounting Share*
+
 **Step 6: Customize Permissions**
 1. Click on "Customize permissions" to open the Advanced Security Settings.
 2. In the "Permissions" tab, click "Disable inheritance" and choose "Remove all inherited permissions from this object".
   
 <img src="assets/images/inheritance.png" width="1100"/>
+
+*Figure 19 Customizing permissions to only include necessary restrictions*
 
 3. Remove all existing permissions except for the administrators group.
 4. Click "Add" to add new permissions.
@@ -849,10 +855,14 @@ foreach ($user in $users) {
 
 <img src="assets/images/accountingpermissions.png" width="700"/>
 
+*Figure 20 Adding Accounting OU to access rights for Accounting Share*
+
 7. In the "Permission Entry" window, select `Modify` `Read & Execute` `List folder contents` `Read` `Write` under the Basic permissions section.
 8. Click "Apply" and "OK" to apply the changes.
 
 <img src="assets/images/permedit.png" width="1300"/>
+
+*Figure 21 Configuring specific file permissions*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -871,20 +881,28 @@ foreach ($user in $users) {
 
 <img src="assets/images/accountinggpo.png" width="450"/>
 
-3. Name the new GPO as "Accounting Share Mapping" and click OK.
+*Figure 22 Select first option: Create a GPO in this domain, and Link it here...*
+
+1. Name the new GPO as "Accounting Share Mapping" and click OK.
 
 <img src="assets/images/accshare.png" width="450"/>
+
+*Figure 22 Naming Share*
 
 **Step 3: Edit the GPO**
 1. Right-click on the newly created "Accounting Share Mapping" GPO and select "Edit".
 
 <img src="assets/images/accountingedit.png" width="450"/>
 
+*Figure 23 Select first option: Edit...*
+
 **Step 4: Configure Drive Mapping**
 1. In the Group Policy Management Editor, navigate to "User Configuration" > "Preferences" > "Windows Settings" > "Drive Maps".
 2. Right-click on "Drive Maps" and select "New" > "Mapped Drive".
 
 <img src="assets/images/mapped.png" height="340" width="600"/>
+
+*Figure 24 Navigate to Mapped Drive option*
 
 3. In the "General" tab:
     - Action: Create
@@ -896,12 +914,16 @@ foreach ($user in $users) {
 
 <img src="assets/images/location.png" width="400"/>
 
+*Figure 25 Make sure you select the `Create` Action in this configuration window*
+
 **Step 5: Verify**
 1. Log in with an account belonging to the Accounting OU.
 2. Open File Explorer and verify that the mapped drive "A:" is present, showing the path \\NY-DC1\Accounting Share.
 3. Access the drive to ensure it's properly mapped and accessible.
 
 <img src="assets/images/userfinish.png" width="700"/>
+
+*Figure 26 Verifying Accounting Share is workign correctly on an Accounting user account*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -1013,7 +1035,7 @@ foreach ($OU in $OUs) {
 <img src="assets/images/Agustin.png" width="900"/>
 
 
-*Figure 18: Mapping User Drive Mapping GPO to OU's, make sure to refresh GPO's by running `gpupdate /force`*
+*Figure 27: Mapping User Drive Mapping GPO to OU's, make sure to refresh GPO's by running `gpupdate /force`*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -1028,7 +1050,7 @@ foreach ($OU in $OUs) {
 
 <img src="assets/images/quota.png" width="350"/> 
 
-*Figure 19: Locating Quota tab after right clicking on Local Disk (J:) and selecting Properties*
+*Figure 28: Locating Quota tab after right clicking on Local Disk (J:) and selecting Properties*
 
 **Step 2**: Enable Quota Management
 - Check **Enable quota management** to activate the quota system on the drive
@@ -1040,7 +1062,7 @@ foreach ($OU in $OUs) {
 
 <img src="assets/images/quota2.png" width="350"/> 
 
-*Figure 20: Setting quota limits for each J: drive user*
+*Figure 29: Setting quota limits for each J: drive user*
 
 [Back to Table of Contents](#table-of-contents)
 
