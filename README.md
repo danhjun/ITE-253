@@ -862,7 +862,7 @@ foreach ($user in $users) {
 
 <img src="assets/images/permedit.png"/>
 
-*Figure 21 Configuring specific file permissions*
+*Figure 21 Configuring Basic permissions for file access*
 
 [Back to Table of Contents](#table-of-contents)
 
