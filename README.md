@@ -797,9 +797,12 @@ foreach ($user in $users) {
    - Choose a file system and perform a quick format if desired. Label the volume as necessary.
 
 ![Shrink Settings](assets/images/shrink.png)
-![All Drives](assets/images/partgroups.png)
 
 *Figure 15: Shrinking C: drive to allocate space for new drive*
+
+![All Drives](assets/images/partitions.png)
+
+*Figure 15: Dedicated volumes for each Department*
 
 [Back to Table of Contents](#table-of-contents)
 
