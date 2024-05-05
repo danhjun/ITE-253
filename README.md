@@ -38,7 +38,7 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [What is Active Directory?](#what-is-active-directory)
   - [Initial Configuration](#initial-configuration)
   - [Joining NY-DC2 to the Domain ny.contoso.com](#joining-ny-dc2-to-the-domain-nycontosocom)
-  - [Why Install Active Directory First?](#why-install-active-directory-first)
+  - [Why Install Active Directory First? (Before Installing DNS/DHCP)](#why-install-active-directory-first-before-installing-dnsdhcp)
   - [Installing Remote Server Administration Tools (RSAT) on Windows 10](#installing-remote-server-administration-tools-rsat-on-windows-10)
   - [Active Directory Identity Features](#active-directory-identity-features)
   - [Granting Security Group Administrative Privileges](#granting-security-group-administrative-privileges)
@@ -499,7 +499,7 @@ Active Directory (AD) is a directory service developed by Microsoft that facilit
 
 ---
 
-### Why Install Active Directory First?
+### Why Install Active Directory First? (Before Installing DNS/DHCP)
 
 **1. Dependency on DNS**
    Active Directory heavily relies on DNS to function properly. During the AD installation and when promoting a server to a domain controller, DNS settings are configured automatically. This auto-configuration ensures that all necessary DNS records, such as service records (SRV) and other essentials, are accurately created and managed.
