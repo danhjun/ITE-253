@@ -891,7 +891,7 @@ foreach ($user in $users) {
     - Leave the default options for "Hide/Show this drive".
 4. Click OK to save the settings.
 
-<img src="assets/images/mapped.png" height="340" width="510"/>
+<img src="assets/images/mapped.png" height="340" width="500"/>
 <img src="assets/images/location.png" width="300"/>
 
 **Step 5: Verify**
