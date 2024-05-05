@@ -883,6 +883,9 @@ foreach ($user in $users) {
 **Step 4: Configure Drive Mapping**
 1. In the Group Policy Management Editor, navigate to "User Configuration" > "Preferences" > "Windows Settings" > "Drive Maps".
 2. Right-click on "Drive Maps" and select "New" > "Mapped Drive".
+
+<img src="assets/images/mapped.png" height="340" width="600"/>
+
 3. In the "General" tab:
     - Action: Create
     - Location: \\NY-DC1\Accounting Share
@@ -891,8 +894,7 @@ foreach ($user in $users) {
     - Leave the default options for "Hide/Show this drive".
 4. Click OK to save the settings.
 
-<img src="assets/images/mapped.png" height="340" width="500"/>
-<img src="assets/images/location.png" width="300"/>
+<img src="assets/images/location.png" width="400"/>
 
 **Step 5: Verify**
 1. Log in with an account belonging to the Accounting OU.
