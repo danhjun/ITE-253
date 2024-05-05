@@ -860,7 +860,7 @@ foreach ($user in $users) {
 7. In the "Permission Entry" window, select `Modify` `Read & Execute` `List folder contents` `Read` `Write` under the Basic permissions section.
 8. Click "Apply" and "OK" to apply the changes.
 
-<img src="assets/images/permedit.png" width="1300"/>
+<img src="assets/images/permedit.png"/>
 
 *Figure 21 Configuring specific file permissions*
 
