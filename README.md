@@ -887,14 +887,14 @@ foreach ($user in $users) {
 
 <img src="assets/images/accshare.png" width="450"/>
 
-*Figure 22 Naming Share*
+*Figure 23 Naming Share*
 
 **Step 3: Edit the GPO**
 1. Right-click on the newly created "Accounting Share Mapping" GPO and select "Edit".
 
 <img src="assets/images/accountingedit.png" width="450"/>
 
-*Figure 23 Select first option: Edit...*
+*Figure 24 Select first option: Edit...*
 
 **Step 4: Configure Drive Mapping**
 1. In the Group Policy Management Editor, navigate to "User Configuration" > "Preferences" > "Windows Settings" > "Drive Maps".
@@ -902,7 +902,7 @@ foreach ($user in $users) {
 
 <img src="assets/images/mapped.png" height="340" width="600"/>
 
-*Figure 24 Navigate to Mapped Drive option*
+*Figure 25 Navigate to Mapped Drive option*
 
 3. In the "General" tab:
     - Action: Create
@@ -914,7 +914,7 @@ foreach ($user in $users) {
 
 <img src="assets/images/location.png" width="400"/>
 
-*Figure 25 Make sure you select the `Create` Action in this configuration window*
+*Figure 26 Make sure you select the `Create` Action in this configuration window*
 
 **Step 5: Verify**
 1. Log in with an account belonging to the Accounting OU.
@@ -923,7 +923,7 @@ foreach ($user in $users) {
 
 <img src="assets/images/userfinish.png" width="700"/>
 
-*Figure 26 Verifying Accounting Share is workign correctly on an Accounting user account*
+*Figure 27 Verifying Accounting Share is workign correctly on an Accounting user account*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -1035,7 +1035,7 @@ foreach ($OU in $OUs) {
 <img src="assets/images/Agustin.png" width="900"/>
 
 
-*Figure 27: Mapping User Drive Mapping GPO to OU's, make sure to refresh GPO's by running `gpupdate /force`*
+*Figure 28: Mapping User Drive Mapping GPO to OU's, make sure to refresh GPO's by running `gpupdate /force`*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -1050,7 +1050,7 @@ foreach ($OU in $OUs) {
 
 <img src="assets/images/quota.png" width="350"/> 
 
-*Figure 28: Locating Quota tab after right clicking on Local Disk (J:) and selecting Properties*
+*Figure 29: Locating Quota tab after right clicking on Local Disk (J:) and selecting Properties*
 
 **Step 2**: Enable Quota Management
 - Check **Enable quota management** to activate the quota system on the drive
@@ -1062,7 +1062,7 @@ foreach ($OU in $OUs) {
 
 <img src="assets/images/quota2.png" width="350"/> 
 
-*Figure 29: Setting quota limits for each J: drive user*
+*Figure 30: Setting quota limits for each J: drive user*
 
 [Back to Table of Contents](#table-of-contents)
 
