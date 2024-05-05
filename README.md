@@ -612,7 +612,7 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
 
 <img src="assets/images/adou1.png" width="450"/> 
 
-*Figure 14 Double checking IT Security Group is part of Domain Admins*
+*Figure 14: Double checking IT Security Group is part of Domain Admins*
 
 **Step 4: Create a New User in the IT OU and Add the User to the IT Security Group**
 
@@ -644,7 +644,7 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
 
 <img src="assets/images/ITSEC.png" width="450"/> 
 
-*Figure 15 Double checking User is part of IT Security Group*
+*Figure 15: Double checking User is part of IT Security Group*
 
 **Step 5: Group Policy and Security Considerations**
 - **Review Group Policy Settings:** Ensure that Group Policy settings related to Domain Admins are appropriate and secure
@@ -836,7 +836,7 @@ foreach ($user in $users) {
  <img src="assets/images/newshare.png" width="410"/> <img src="assets/images/sharepath.png" width="410"/>
  <img src="assets/images/accounting.png" width="410"/> <img src="assets/images/enable.png" width="410"/>
 
-*Figure 18 Going through New Share Wizard for Accounting Share*
+*Figure 18: Going through New Share Wizard for Accounting Share*
 
 **Step 6: Customize Permissions**
 1. Click on "Customize permissions" to open the Advanced Security Settings.
@@ -844,7 +844,7 @@ foreach ($user in $users) {
   
 <img src="assets/images/inheritance.png" width="1100"/>
 
-*Figure 19 Customizing permissions to only include necessary restrictions*
+*Figure 19: Customizing permissions to only include necessary restrictions*
 
 3. Remove all existing permissions except for the administrators group.
 4. Click "Add" to add new permissions.
@@ -853,14 +853,14 @@ foreach ($user in $users) {
 
 <img src="assets/images/accountingpermissions.png" width="700"/>
 
-*Figure 20 Adding Accounting OU to access rights for Accounting Share*
+*Figure 20: Adding Accounting OU to access rights for Accounting Share*
 
 7. In the "Permission Entry" window, select `Modify` `Read & Execute` `List folder contents` `Read` `Write` under the Basic permissions section.
 8. Click "Apply" and "OK" to apply the changes.
 
 <img src="assets/images/permedit.png"/>
 
-*Figure 21 Configuring Basic permissions for file access*
+*Figure 21: Configuring Basic permissions for file access*
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -879,20 +879,20 @@ foreach ($user in $users) {
 
 <img src="assets/images/accountinggpo.png" width="450"/>
 
-*Figure 22 Select first option: Create a GPO in this domain, and Link it here...*
+*Figure 22: Select first option: Create a GPO in this domain, and Link it here...*
 
 1. Name the new GPO as "Accounting Share Mapping" and click OK.
 
 <img src="assets/images/accshare.png" width="450"/>
 
-*Figure 23 Naming Share*
+*Figure 23: Naming Share*
 
 **Step 3: Edit the GPO**
 1. Right-click on the newly created "Accounting Share Mapping" GPO and select "Edit".
 
 <img src="assets/images/accountingedit.png" width="450"/>
 
-*Figure 24 Select first option: Edit...*
+*Figure 24: Select first option: Edit...*
 
 **Step 4: Configure Drive Mapping**
 1. In the Group Policy Management Editor, navigate to "User Configuration" > "Preferences" > "Windows Settings" > "Drive Maps".
@@ -900,7 +900,7 @@ foreach ($user in $users) {
 
 <img src="assets/images/mapped.png" height="340" width="600"/>
 
-*Figure 25 Navigate to Mapped Drive option*
+*Figure 25: Navigate to Mapped Drive option*
 
 3. In the "General" tab:
     - Action: Create
@@ -912,7 +912,7 @@ foreach ($user in $users) {
 
 <img src="assets/images/location.png" width="400"/>
 
-*Figure 26 Make sure you select the `Create` Action in this configuration window*
+*Figure 26: Make sure you select the `Create` Action in this configuration window*
 
 **Step 5: Verify**
 1. Log in with an account belonging to the Accounting OU.
@@ -921,7 +921,7 @@ foreach ($user in $users) {
 
 <img src="assets/images/userfinish.png" width="700"/>
 
-*Figure 27 Verifying Accounting Share is workign correctly on an Accounting user account*
+*Figure 27: Verifying Accounting Share is workign correctly on an Accounting user account*
 
 [Back to Table of Contents](#table-of-contents)
 
