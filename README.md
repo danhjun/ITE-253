@@ -654,8 +654,6 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
 
 *These steps streamline the process of managing user roles within an organization, allowing you to maintain tight control over administrative access and ensure compliance with security policies*
 
-*Figure 14: Reviewing "Domain Admins" membership*
-
 [Back to Table of Contents](#table-of-contents)
 
 ---
