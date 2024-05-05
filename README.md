@@ -43,8 +43,9 @@ _Figure 1: Server rack with several integrated Dell PowerEdges_
   - [Active Directory Identity Features](#active-directory-identity-features)
   - [Granting Security Group Administrative Privileges](#granting-security-group-administrative-privileges)
   - [Adding Bulk Users to Organizational Units and Security Groups](#adding-bulk-users-to-organizational-units-and-security-groups)
-  - [Manually Setting Drive Mappings for Different OU's](#manually-setting-drive-mappings-for-different-ous)
-  - [Creating a J: Drive File Share on NY-DC1](#creating-a-j-drive-file-share-on-ny-dc1)
+  - [Creating A Dedicated Volume for Each Department](#creating-a-dedicated-volume-for-each-department)
+  - [Creating a File Share for the Accounting Department](#creating-a-file-share-for-the-accounting-department)
+  - [Setting Drive Mappings for Different OU's](#setting-drive-mappings-for-different-ous)
   - [Creating a File Share for Bulk Users](#creating-a-file-share-for-bulk-users)
   - [Automating Drive Mapping on User Login](#automating-drive-mapping-on-user-login)
   - [Enabling and Configuring Disk Quotas](#enabling-and-configuring-disk-quotas)
@@ -625,7 +626,7 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
    - Set a password for the user and choose password options (e.g., user must change password at next logon)
    - Click Next, then Finish to create the user
 
-3. **Add the New User to the Domain Admins Group**
+3. **Add the New User to the Security Group**
 
    - Find the Newly Created User:
         In the IT OU, right-click the user you just created
@@ -633,7 +634,7 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
    - Add to `IT` Security Group:
         In the Enter the object names to select box, type `IT`
    - Click Check Names to verify the group name. Once the name is underlined, click OK
-   - This action adds the user to the `IT` group, granting them administrative privileges across the domain since the `IT` Group is part of `Domain Admins`
+   - This action adds the user to the `IT` group, granting them administrative privileges across the domain since the `IT` Security Group is part of `Domain Admins`
 
 4. **Verify Group Membership**
 
@@ -641,10 +642,7 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
       Double-click on the user’s account
    - Go to the Member Of tab to see all groups the user belongs to, ensuring `IT` is listed
 
-
 <img src="assets/images/ITSEC.png" width="450"/> 
-
-
 
 **Step 5: Group Policy and Security Considerations**
 - **Review Group Policy Settings:** Ensure that Group Policy settings related to Domain Admins are appropriate and secure
@@ -654,8 +652,6 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
 
 *These steps streamline the process of managing user roles within an organization, allowing you to maintain tight control over administrative access and ensure compliance with security policies*
 
-
-
 *Figure 14: Reviewing "Domain Admins" membership*
 
 [Back to Table of Contents](#table-of-contents)
@@ -664,7 +660,7 @@ Remote Server Administration Tools (RSAT) allow IT administrators to manage Wind
 
 ### Adding Bulk Users to Organizational Units and Security Groups
 
-This section provides a guide on how to bulk-add users to Active Directory in specific Organizational Units (OUs) like Accounting, Sales, HR, IT, Research, and Marketing. Each user will also receive access to a personal file drive, designated as `J:`, pointing to a file share structured as "Shares/Users/{Username}"
+This section provides a guide on how to bulk-add users to Active Directory in specific Organizational Units (OUs) like Accounting, Sales, HR, IT, Research, and Marketing. 
 
 **Requirements:**
 - PowerShell script execution enabled on your server
@@ -766,7 +762,7 @@ foreach ($user in $users) {
 
 ---
 
-### Manually Setting Drive Mappings for Different OU's
+### Creating A Dedicated Volume for Each Department
 
 **Why Create Dedicated Volumes?**
 
@@ -795,40 +791,110 @@ foreach ($user in $users) {
    - Right-click on the newly created unallocated space and select **New Simple Volume**. Follow the wizard to configure and format the new volume.
 
 5. **Assign Drive Letter**:
-   - During the setup, assign the letter A: to the new volume if it is intended to be the A: drive (for Accounting)
+   - During the setup, assign the letter `A:` to the new volume if it is intended to be the `A:` drive (for Accounting)
 
 6. **Format the Volume**:
    - Choose a file system and perform a quick format if desired. Label the volume as necessary.
 
 ![Shrink Settings](assets/images/shrink.png)
+![All Drives](assets/images/partgroups.png)
 
 *Figure 15: Shrinking C: drive to allocate space for new drive*
 
-<img src="assets/images/partgroups.png" width="1300"/>
+[Back to Table of Contents](#table-of-contents)
 
-<img src="assets/images/newshare.png" width="410"/> <img src="assets/images/sharepath.png" width="410"/>
+---
 
-<img src="assets/images/accounting.png" width="410"/> <img src="assets/images/enable.png" width="410"/>
+### Creating a File Share for the Accounting Department
 
+**Step 1: Accessing the New Share Wizard**
+1. Open Server Manager.
+2. Navigate to "File and Storage Services" in the left-hand pane.
+3. Click on "Shares".
+4. In the "Shares" pane, locate and click on the "Tasks" dropdown menu at the top-right corner.
+5. Select "New Share" from the dropdown menu.
 
+**Step 2: Selecting File Share Profile**
+1. In the "Select Profile" window, choose "SMB Share - Quick".
+2. Click "Next" to proceed.
+  
+**Step 3: Share Location**
+1. Select the `A:` drive as the location for the new File Share.
+2. Click "Next" to proceed.
+
+**Step 4: Share Name**
+1. Enter "Accounting Share" as the name for the new File Share.
+2. Click "Next" to proceed.
+  
+**Step 5: Advanced Settings**
+1. Check the box for "Enable access-based enumeration".
+2. Click "Next" to proceed.
+
+ <img src="assets/images/newshare.png" width="410"/> <img src="assets/images/sharepath.png" width="410"/>
+ <img src="assets/images/accounting.png" width="410"/> <img src="assets/images/enable.png" width="410"/>
+
+**Step 6: Customize Permissions**
+1. Click on "Customize permissions" to open the Advanced Security Settings.
+2. In the "Permissions" tab, click "Disable inheritance" and choose "Remove all inherited permissions from this object".
+  
 <img src="assets/images/inheritance.png" width="1100"/>
+
+3. Remove all existing permissions except for the administrators group.
+4. Click "Add" to add new permissions.
+5. Type the name of the Accounting OU in the "Select Users or Groups" window.
+6. Click "Check Names" and then "OK".
+
 <img src="assets/images/accountingpermissions.png" width="700"/>
+
+7. In the "Permission Entry" window, select `Modify` `Read & Execute` `List folder contents` `Read` `Write` under the Basic permissions section.
+8. Click "Apply" and "OK" to apply the changes.
+
 <img src="assets/images/permedit.png" width="1300"/>
 
+[Back to Table of Contents](#table-of-contents)
 
+---
+
+### Setting Drive Mappings for Different OU's
+
+**Step 1: Access Group Policy Management**
+1. Press `Win + R` to open the Run dialog.
+2. Type `gpmc.msc` and press Enter.
+3. Group Policy Management Console will open.
+
+**Step 2: Create a New Group Policy Object (GPO)**
+1. In Group Policy Management Console, navigate to the desired domain.
+2. Right-click on the domain name and select "Create a GPO in this domain, and Link it here...".
 
 <img src="assets/images/accountinggpo.png" width="450"/>
 
-
+3. Name the new GPO as "Accounting Share Mapping" and click OK.
 
 <img src="assets/images/accshare.png" width="450"/>
 
-
+**Step 3: Edit the GPO**
+1. Right-click on the newly created "Accounting Share Mapping" GPO and select "Edit".
 
 <img src="assets/images/accountingedit.png" width="450"/>
 
+**Step 4: Configure Drive Mapping**
+1. In the Group Policy Management Editor, navigate to "User Configuration" > "Preferences" > "Windows Settings" > "Drive Maps".
+2. Right-click on "Drive Maps" and select "New" > "Mapped Drive".
+3. In the "General" tab:
+    - Action: Create
+    - Location: \\NY-DC1\Accounting Share
+    - Select "Reconnect" to ensure the drive reconnects at logon.
+    - Drive letter: A: (or any desired drive letter)
+    - Leave the default options for "Hide/Show this drive".
+4. Click OK to save the settings.
+
 <img src="assets/images/mapped.png" height="340" width="600"/>
 <img src="assets/images/location.png" width="300"/>
+
+**Step 5: Verify**
+1. Log in with an account belonging to the Accounting OU.
+2. Open File Explorer and verify that the mapped drive "A:" is present, showing the path \\NY-DC1\Accounting Share.
+3. Access the drive to ensure it's properly mapped and accessible.
 
 <img src="assets/images/userfinish.png" width="700"/>
 
@@ -836,72 +902,9 @@ foreach ($user in $users) {
 
 ---
 
-### Creating a J: Drive File Share on NY-DC1
-
-This guide walks you through the process of creating a shared J: drive and configuring a new volume on your server by shrinking an existing volume using the Server Manager on Windows Server. 
-
-**Part 1: Shrinking a Volume to Create a New Volume**
-
-1. **Open Disk Management**:
-   - From the Server Manager, click on **Tools** and select **Computer Management**. Navigate to **Disk Management** under the Storage section.
-
-2. **Select the Volume to Shrink**:
-   - Right-click the volume you want to shrink (make sure it has enough free space) and select **Shrink Volume**
-
-3. **Specify the Amount to Shrink**:
-   - Enter the amount of space to shrink the volume by, which will determine the size of the new volume
-
-4. **Create New Volume**:
-   - Right-click on the newly created unallocated space and select **New Simple Volume**. Follow the wizard to configure and format the new volume.
-
-5. **Assign Drive Letter**:
-   - During the setup, assign the letter J: to the new volume
-
-6. **Format the Volume**:
-   - Choose a file system and perform a quick format if desired. Label the volume as necessary.
-
-![Shrink Settings](assets/images/shrink.png)
-*Figure 15: Shrinking C: drive to allocate space for new J: drive*
-
-**Part 2: Creating a J: Drive File Share**
-
-1. **Open Server Manager**: Start by opening the Server Manager dashboard
-
-2. **Navigate to File and Storage Services**:
-   - Click on **File and Storage Services** in the left pane
-
-3. **Access Shares Section**:
-   - Within the File and Storage Services, select **Shares**
-
-4. **Create New Share**:
-   - Click on **TASKS**, and then select **New Share...**. A wizard will open to guide you through the setup.
-
-   ![Shares Overview](assets/images/shares.png)
-   *Figure 16: Creating SMB Share and root folder*
-
-5. **Choose a Share Profile**:
-   - Follow the wizard steps, selecting the appropriate share profile that suits your needs
-
-6. **Specify Share Name and Path**:
-   - Assign a name to your share ``Users`` and specify the local path where the share resides: ``J:\Shares\Users``
-
-7. **Configure Share Settings**:
-   - Set the desired permissions and configure other settings such as access permissions (Can leave default permissions for this `Users` share)
-
-   ![Share Settings](assets/images/sharessetting.png)
-
-   *Figure 17: Configuration settings for the new share*
-
-8. **Review and Create the Share**:
-   - Review all settings, and click **Create** to finalize the share setup
-
-*Once you have configured both the shared drive and the new volume, ensure all settings are correct and the systems are functioning as expected*
-
-[Back to Table of Contents](#table-of-contents)
-
----
-
 ### Creating a File Share for Bulk Users
+
+_Make sure you have created a dedicated `J:` volume on your server and have created a File Share `Users` before proceeding with this section!_
 
 The PowerShell script below is designed to create individual user folders within specified organizational units (OUs) in Active Directory. It sets up a network share for each user and configures the necessary permissions.
 
